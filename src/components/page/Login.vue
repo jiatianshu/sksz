@@ -37,6 +37,8 @@
                 },
             };
         },
+        created() {
+        },
         methods: {
             submitForm() {
                 this.$refs.login.validate(valid => {
@@ -44,8 +46,8 @@
                         const user = {
                             username: this.param.username,
                             password: this.param.password,
-                            scope:"server",
-                            "grant_type":"password",
+                            scope: "server",
+                            "grant_type": "password",
                         }
                         this.$store
                             .dispatch('Login', user)

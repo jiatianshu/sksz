@@ -76,6 +76,7 @@
 
 </template>
 <script>
+    import { sysdistrictMenu } from "@/api/zhyq";
     export default {
         data() {
             return {
@@ -102,10 +103,31 @@
             }
 
 
+        },
+        created() {
+            this.getBreadcrumb()
+        },
+        methods: {
+            getBreadcrumb() {
+                //获取城市
+                var data = {
+                    name: "经济技术开发区", //名称
+                    parentId: 10001, //父级ID
+                    level: 3, //级别
+                    sort: 15 //排序
+                }
+                sysdistrictMenu(data).then((res) => {
+                    console.log(res, "sss")
+                })
+
+
+            },
         }
+
+
     }
 </script>
-<style scoped >
+<style scoped>
     .contant_class {
         display: flex;
         margin: 2vh 0 0 0;
@@ -139,7 +161,8 @@
         background-image: url('../../assets/img/image/ic_card_police.png');
         background-size: 100% 100%;
     }
-    .name_cl{
+
+    .name_cl {
         font-size: 1.8vh;
     }
 
