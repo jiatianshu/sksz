@@ -112,17 +112,17 @@ export default {
                 },
                 {
                     icon: 'el-icon-rank',
-                    index: '/DataCenter',
+                    index: '/data-center',
                     title: '数据中心',
                     subs: [
                         {
                             icon: 'el-icon-lx-people',
-                            index: '/data-center/personData',
+                            index: '/personData',
                             title: '人员数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: '/data-center/carData',
+                            index: '/carData',
                             title: '车辆数据'
                         },
                         {

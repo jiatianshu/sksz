@@ -33,46 +33,40 @@ export default new Router({
                     meta: { title: '视频管理' }
                 },
                 {
-                    path: '/data-center',
-                    meta: { title: '数据中心' },
-                    children:[
-                        {
-                            path: '/data-center/personData',
-                            name:"personData",
-                            component: () => import( '@/pages/dataCenter/personData.vue'),
-                            meta: { title: '人员数据' }
-                        },
-                        {
-                            path: '/data-center/carData',
-                            name:"carData",
-                            component: () => import( '@/pages/dataCenter/carData.vue'),
-                            meta: { title: '车辆数据' }
-                        },
-                        {
-                            path: '/data-center/houseData',
-                            name:"houseData",
-                            component: () => import( '@/pages/dataCenter/houseData.vue'),
-                            meta: { title: '房屋数据' }
-                        },
-                        {
-                            path: '/data-center/parkData',
-                            name:"parkData",
-                            component: () => import( '@/pages/dataCenter/parkData.vue'),
-                            meta: { title: '园区数据' }
-                        },
-                        {
-                            path: '/data-center/workData',
-                            name:"workData",
-                            component: () => import( '@/pages/dataCenter/workData.vue'),
-                            meta: { title: '单位数据' }
-                        },
-                        {
-                            path: '/data-center/equipmentData',
-                            name:"equipmentData",
-                            component: () => import( '@/pages/dataCenter/equipmentData.vue'),
-                            meta: { title: '设备数据' }
-                        },
-                    ]
+                    path: '/personData',
+                    name:"personData",
+                    component: () => import( '@/pages/dataCenter/personData.vue'),
+                    meta: { title: '人员数据' }
+                },
+                {
+                    path: '/carData',
+                    name:"carData",
+                    component: () => import( '@/pages/dataCenter/carData.vue'),
+                    meta: { title: '车辆数据' }
+                },
+                {
+                    path: '/data-center/houseData',
+                    name:"houseData",
+                    component: () => import( '@/pages/dataCenter/houseData.vue'),
+                    meta: { title: '房屋数据' }
+                },
+                {
+                    path: '/data-center/parkData',
+                    name:"parkData",
+                    component: () => import( '@/pages/dataCenter/parkData.vue'),
+                    meta: { title: '园区数据' }
+                },
+                {
+                    path: '/data-center/workData',
+                    name:"workData",
+                    component: () => import( '@/pages/dataCenter/workData.vue'),
+                    meta: { title: '单位数据' }
+                },
+                {
+                    path: '/data-center/equipmentData',
+                    name:"equipmentData",
+                    component: () => import( '@/pages/dataCenter/equipmentData.vue'),
+                    meta: { title: '设备数据' }
                 },
                 {
                     path: '/warningCenter',
@@ -121,9 +115,6 @@ export default new Router({
                 },
             ]
         },
-      
-     
-     
         {
             path: '/login',
             component: () => import(/* webpackChunkName: "login" */ '@/pages/Login.vue'),
@@ -134,9 +125,9 @@ export default new Router({
             component: () => import(/* webpackChunkName: "404" */ '@/pages/404.vue'),
             meta: { title: '404' }
         },
-        // {
-        //     path: '*',
-        //     redirect: '/404'
-        // }
+        {
+            path: '*',
+            redirect: '/404'
+        }
     ]
 });

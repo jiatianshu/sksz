@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        车辆数据
+        车辆数据xxxxxx
     </div>
 
 </template>
