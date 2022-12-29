@@ -1,0 +1,19 @@
+.el-select {
+    width: 160px !important;
+    height: 42px;
+    background: #1E1F25;
+    border: 1px solid rgba(60, 66, 84, 1);
+
+    .el-input {
+       padding-left: 14px;
+       margin-top:-8px;
+        input {
+            
+            text-align: left!important;
+            font-size: 16px !important;
+            color: #FFFFFF;
+            font-weight: 600 !important;
+        }
+
+    }
+}
