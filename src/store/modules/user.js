@@ -35,8 +35,8 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo).then(res => {
           // setToken(res.token, rememberMe)
-          commit('SET_TOKEN', res.access_token);
-          commit('SET_USER', {
+          this.commit('SET_TOKEN', res.access_token);
+          this.commit('SET_USER', {
             userId: res.user_id,
             clientId: res.client_id,
             userName: res.username,
