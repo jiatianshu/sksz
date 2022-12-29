@@ -17,6 +17,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     //获取用户token
+    console.log(vuex.getters.token,"vuex.getters.token")
     let userToken=vuex.getters.token;
     config.headers['Authorization'] = userToken || "Basic dGVzdDp0ZXN0" // 让每个请求携带自定义token 请根据实际情况自行修改
     if (config.contentType) {
