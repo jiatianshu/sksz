@@ -11,7 +11,9 @@
                             <!-- title -->
                             <el-submenu :index="item.index" :key="item.index">
                                 <template slot="title">
-                                    <i :class="item.icon"></i>
+                                    <!-- <i :class="item.icon"></i> -->
+                                    <!-- <img src="../../assets/img/icon/ic_bell.png" alt="" srcset=""> -->
+                                    <img :src="item.icon" alt="" srcset="" class="img_icon">
                                     <span slot="title">{{ item.title }}</span>
                                 </template>
                                 <!-- 子路由 -->
@@ -20,7 +22,8 @@
                                         class="liclass">
                                         <template slot="title">
 
-                                            <i :class="subItem.icon"></i>
+                                            <!-- <i :class="subItem.icon"></i> -->
+                                            <img :src="subItem.icon" alt="" srcset="" class="img_icon">
                                             {{ subItem.title }}</template>
 
                                         <!-- 第三层路由 -->
@@ -46,7 +49,8 @@
                         </template>
                         <template v-else>
                             <el-menu-item :index="item.index" :key="item.index">
-                                <i :class="item.icon"></i>
+                                <!-- <i :class="item.icon"></i> -->
+                                <img :src="item.icon" alt="" srcset="" class="img_icon">
                                 <span slot="title">{{ item.title }}</span>
                             </el-menu-item>
                         </template>
@@ -73,19 +77,19 @@ export default {
             collapse: false,
             items: [
                 {
-                    icon: 'el-icon-lx-home',
+                    icon: require('./../../assets/img/icon/ic_perception2x.png'),
                     index: '/dashboard',
                     title: '全域感知',
                     subs: [
                         {
-                            icon: 'el-icon-lx-homefill',
+                            icon: require('./../../assets/img/icon/ic_perception2x.png'),
                             index: '/dashboard',
                             title: '数字城市'
                         },
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-copy',
+                    icon: require('./../../assets/img/icon/ic_perception2x.png'),
                     index: '/zhyq',
                     title: '智慧中心',
                     subs: [
@@ -98,7 +102,7 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-record',
+                    icon: require('./../../assets/img/icon/ic_perception2x.png'),
                     index: '/spgl',
                     title: '视频中心',
                     subs: [
@@ -272,5 +276,9 @@ export default {
     padding: 0 21px;
     cursor: pointer;
     line-height: 70px; */
+}
+.img_icon{
+    width: 4vh;
+    margin: 0 2vh 0;
 }
 </style>
