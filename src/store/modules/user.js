@@ -1,10 +1,16 @@
 import { login, getInfo, logout } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+// import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
-    token: getToken(),
-    user: {},
+    token: "",
+    user: {
+      userId: null,//用户id
+      clientId: null,//客户端ID
+      userName: null,//用户名
+      license: null,//许可
+      refreshToken: null,//刷新token
+    },
     roles: [],
     // 第一次加载菜单时用到
     loadMenus: false
@@ -14,6 +20,7 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
+
     SET_USER: (state, user) => {
       state.user = user
     },
@@ -25,12 +32,17 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      
-      // const rememberMe = userInfo.rememberMe
       return new Promise((resolve, reject) => {
         login(userInfo).then(res => {
           // setToken(res.token, rememberMe)
-          commit('SET_TOKEN', res.access_token)
+          commit('SET_TOKEN', res.access_token);
+          commit('SET_USER', {
+            userId: res.user_id,
+            clientId: res.client_id,
+            userName: res.username,
+            license: res.license,
+            refreshToken: res.refresh_token,
+          });
           // 设置用户信息
           setUserInfo(res.user, commit)
           resolve()

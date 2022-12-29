@@ -23,14 +23,14 @@
                 <div class="tit_box">
                     <div class="tit_img">
                         <div class="lf_box_tit">
-                            <img class="lf_img" src="../../assets/img/pic/pic01.jpg" alt="" srcset="">
+                            <img class="lf_img" src="../assets/img/pic/pic01.jpg" alt="" srcset="">
                             <div class="add_cl">中街</div>
                         </div>
                         <div class="rgt_imgbox">
-                            <img class="rht_img" src="../../assets/img/pic/pic02.jpg" alt="" srcset="">
-                            <img class="rht_img" src="../../assets/img/pic/pic02.jpg" alt="" srcset="">
-                            <img class="rht_img" src="../../assets/img/pic/pic02.jpg" alt="" srcset="">
-                            <img class="rht_img" src="../../assets/img/pic/pic02.jpg" alt="" srcset="">
+                            <img class="rht_img" src="../assets/img/pic/pic02.jpg" alt="" srcset="">
+                            <img class="rht_img" src="../assets/img/pic/pic02.jpg" alt="" srcset="">
+                            <img class="rht_img" src="../assets/img/pic/pic02.jpg" alt="" srcset="">
+                            <img class="rht_img" src="../assets/img/pic/pic02.jpg" alt="" srcset="">
                         </div>
                     </div>
                     <div class="tit_rght">
@@ -136,7 +136,7 @@
         text-align: center;
         width: 16vh;
         height: 16vh;
-        background-image: url('../../assets/img/image/ic_card_police.png');
+        background-image: url('../assets/img/image/ic_card_police.png');
         background-size: 100% 100%;
     }
     .name_cl{
@@ -147,7 +147,7 @@
         text-align: center;
         width: 16vh;
         height: 16vh;
-        background-image: url('../../assets/img/image/ic_card_policestation.png');
+        background-image: url('../assets/img/image/ic_card_policestation.png');
         background-size: 100% 100%;
     }
 
@@ -155,7 +155,7 @@
         text-align: center;
         width: 16vh;
         height: 16vh;
-        background-image: url('../../assets/img/image/ic_card_security area.png');
+        background-image: url('../assets/img/image/ic_card_security area.png');
         background-size: 100% 100%;
     }
 

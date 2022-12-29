@@ -74,24 +74,24 @@ export default {
             items: [
                 {
                     icon: 'el-icon-lx-home',
-                    index: 'dashboard',
+                    index: '/dashboard',
                     title: '全域感知',
                     subs: [
                         {
                             icon: 'el-icon-lx-homefill',
-                            index: 'dashboard',
+                            index: '/dashboard',
                             title: '数字城市'
                         },
                     ]
                 },
                 {
                     icon: 'el-icon-lx-copy',
-                    index: 'zhyq',
+                    index: '/zhyq',
                     title: '智慧中心',
                     subs: [
                         {
                             icon: 'el-icon-lx-locationfill',
-                            index: 'zhyq',
+                            index: '/zhyq',
                             title: '智慧园区'
                         },
 
@@ -99,12 +99,12 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-record',
-                    index: 'spgl',
+                    index: '/spgl',
                     title: '视频中心',
                     subs: [
                         {
                             icon: 'el-icon-lx-recordfill',
-                            index: 'spgl',
+                            index: '/spgl',
                             title: '视频管理'
                         },
 
@@ -112,37 +112,37 @@ export default {
                 },
                 {
                     icon: 'el-icon-rank',
-                    index: 'DataCenter',
+                    index: '/DataCenter',
                     title: '数据中心',
                     subs: [
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'personData',
+                            index: '/data-center/personData',
                             title: '人员数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'carData',
+                            index: '/data-center/carData',
                             title: '车辆数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'houseData',
+                            index: '/data-center/houseData',
                             title: '房屋数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'parkData',
+                            index: '/data-center/parkData',
                             title: '园区数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'workData',
+                            index: '/data-center/workData',
                             title: '单位数据'
                         },
                         {
                             icon: 'el-icon-lx-people',
-                            index: 'equipmentData',
+                            index: '/data-center/equipmentData',
                             title: '设备数据'
                         },
 
@@ -155,7 +155,7 @@ export default {
                     subs: [
                         {
                             icon: 'el-icon-lx-recordfill',
-                            index: 'warningCenter',
+                            index: '/warningCenter',
                             title: '预警中心'
                         },
 
@@ -168,7 +168,7 @@ export default {
                     subs: [
                         {
                             icon: 'el-icon-lx-recordfill',
-                            index: 'sharingData',
+                            index: '/sharingData',
                             title: '数据共享'
                         },
 
@@ -181,7 +181,7 @@ export default {
                     subs: [
                         {
                             icon: 'el-icon-lx-cascades',
-                            index: 'policeServices',
+                            index: '/policeServices',
                             title: '警务服务'
                         },
 
@@ -189,123 +189,9 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'centerServices',
+                    index: '/centerServices',
                     title: '服务中心',
-                    // subs: [
-                    //     {
-                    //         icon: 'el-icon-lx-cascades',
-                    //         index: 'policeServices',
-                    //         title: '警务服务'
-                    //     },
-
-                    // ]
                 },
-
-
-                // {
-                //     icon: 'el-icon-lx-home',
-                //     index: 'dashboard',
-                //     title: '系统首页',
-                //     subs: [
-                //         {
-                //             index: 'form',
-                //             title: '基本表单'
-                //         },
-                //         {
-                //             index: '3-2',
-                //             title: '三级菜单',
-
-                //         }]
-                // },
-                // {
-                //     icon: 'el-icon-lx-cascades',
-                //     index: 'table',
-                //     title: '基础表格'
-                // },
-                // {
-                //     icon: 'el-icon-lx-copy',
-                //     index: 'tabs',
-                //     title: 'tab选项卡'
-                // },
-                // {
-                //     icon: 'el-icon-lx-calendar',
-                //     index: '3',
-                //     title: '表单相关',
-                //     subs: [
-                //         {
-                //             index: 'form',
-                //             title: '基本表单'
-                //         },
-                //         {
-                //             index: '3-2',
-                //             title: '三级菜单',
-                //             subs: [
-                //                 {
-                //                     index: 'editor',
-                //                     title: '富文本编辑器'
-                //                 },
-                //                 {
-                //                     index: 'markdown',
-                //                     title: 'markdown编辑器'
-                //                 }
-                //             ]
-                //         },
-                //         {
-                //             index: 'upload',
-                //             title: '文件上传'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-lx-emoji',
-                //     index: 'icon',
-                //     title: '自定义图标'
-                // },
-                // {
-                //     icon: 'el-icon-pie-chart',
-                //     index: 'charts',
-                //     title: 'schart图表'
-                // },
-                // {
-                //     icon: 'el-icon-rank',
-                //     index: '6',
-                //     title: '拖拽组件',
-                //     subs: [
-                //         {
-                //             index: 'drag',
-                //             title: '拖拽列表'
-                //         },
-                //         {
-                //             index: 'dialog',
-                //             title: '拖拽弹框'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-lx-global',
-                //     index: 'i18n',
-                //     title: '国际化功能'
-                // },
-                // {
-                //     icon: 'el-icon-lx-warn',
-                //     index: '7',
-                //     title: '错误处理',
-                //     subs: [
-                //         {
-                //             index: 'permission',
-                //             title: '权限测试'
-                //         },
-                //         {
-                //             index: '404',
-                //             title: '404页面'
-                //         }
-                //     ]
-                // },
-                // {
-                //     icon: 'el-icon-lx-redpacket_fill',
-                //     index: '/donate',
-                //     title: '支持作者'
-                // }
             ]
         };
     },

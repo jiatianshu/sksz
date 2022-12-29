@@ -3,10 +3,11 @@ import axios from 'axios'
 import router from '@/router/index'
 import { Notification } from 'element-ui'
 import store from '../store'
-import { getToken } from '@/utils/auth'
+// import { getToken } from '@/utils/auth'
 import Config from '@/settings'
 import Cookies from 'js-cookie'
 import qs from 'qs';
+import vuex from '../store/index';
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_SERVER_URL, // api 的 base_url
@@ -15,7 +16,9 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    config.headers['Authorization'] = getToken() || "Basic dGVzdDp0ZXN0" // 让每个请求携带自定义token 请根据实际情况自行修改
+    //获取用户token
+    let userToken=vuex.getters.token;
+    config.headers['Authorization'] = userToken || "Basic dGVzdDp0ZXN0" // 让每个请求携带自定义token 请根据实际情况自行修改
     if (config.contentType) {
       config.data = qs.stringify(config.data);
       config.headers['Content-Type'] = config.contentType
