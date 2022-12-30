@@ -21,7 +21,6 @@ const user = {
       state.token = 'bearer ' +sessionStorage.getItem("token")
       // state.token = token
     },
-
     SET_USER: (state, user) => {
       state.user = user
     },
@@ -37,8 +36,10 @@ const user = {
         login(userInfo).then(res => {
           // setToken(res.token, rememberMe)
           sessionStorage.setItem('token',res.access_token)
-          this.commit('SET_TOKEN', res.access_token);
-          this.commit('SET_USER', {
+          
+          
+         this.commit('SET_TOKEN', res.access_token);
+         this.commit('SET_USER', {
             userId: res.user_id,
             clientId: res.client_id,
             userName: res.username,
