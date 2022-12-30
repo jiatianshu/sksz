@@ -25,6 +25,7 @@
 
 <script>
     export default {
+        name:"login",
         data: function () {
             return {
                 param: {
@@ -50,25 +51,9 @@
                         this.$store
                             .dispatch('Login', user)
                             .then(() => {
-                                // var arr = []
-                                // this.user.roles.map((item) => {
-                                //     arr.push(item.name)
-                                // })
-                                // // if( arr == "自来水客服"){
-                                // this.loading = false
-                                // this.$router.push({ path: this.redirect || '/index' })
-                                // // }else(this.$message.error("请使用客服账号登录"),
-                                // this.loading = false)
-
+                                this.$message.success('登录成功');
+                                this.$router.push('/');
                             })
-                            .catch(() => {
-                                // this.loading = false
-                                // this.getCode()
-                            })
-
-                        this.$message.success('登录成功');
-                        localStorage.setItem('ms_username', this.param.username);
-                        this.$router.push('/');
                     } else {
                         this.$message.error('请输入账号和密码');
                         console.log('error submit!!');

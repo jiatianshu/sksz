@@ -1,8 +1,14 @@
+
 const getters = {
-    token: state => state.user.token,
-    roles: state => state.user.roles,
-    user: state => state.user.user,
-  
-  }
-  export default getters
-  
+  //获取token
+  token: state => {
+    console.log(state.user)
+    return state.user.token
+
+  },
+  //获取用户权限
+  roles: state => state.user.roles,
+  //获取用户信息
+  user: state => state.user.user,
+}
+export default getters

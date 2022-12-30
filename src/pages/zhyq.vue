@@ -16,8 +16,9 @@
                 <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
             </el-select>
+            <skIconInput></skIconInput>
         </div>
-        <div class="contant_class">
+        <!-- <div class="contant_class">
             <div class="lf_cont">
                 <div class="xzq_cl">行政区</div>
                 <div class="tit_box">
@@ -67,9 +68,9 @@
                 7878787
             </div>
 
-        </div>
+        </div> -->
 
-
+        
     </div>
 
 

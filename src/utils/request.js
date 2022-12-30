@@ -1,13 +1,13 @@
 
 import axios from 'axios'
 import router from '@/router/index'
-import { Notification } from 'element-ui'
+import { Notification, Message } from 'element-ui'
 import store from '../store'
 // import { getToken } from '@/utils/auth'
 import Config from '@/settings'
-import Cookies from 'js-cookie'
 import qs from 'qs';
-import vuex from '../store/index';
+import vuex from '@/store/index';
+import rqeuestError from '@/config/request-error';
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_SERVER_URL, // api 的 base_url
@@ -17,14 +17,12 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     //获取用户token
-    console.log(vuex.getters.token,"vuex.getters.token")
-    let userToken=vuex.getters.token;
+    let userToken = vuex.getters.token;
     config.headers['Authorization'] = userToken || "Basic dGVzdDp0ZXN0" // 让每个请求携带自定义token 请根据实际情况自行修改
     if (config.contentType) {
       config.data = qs.stringify(config.data);
       config.headers['Content-Type'] = config.contentType
     }
-
     return config
   },
   error => {
@@ -38,13 +36,17 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const code = response.status
-    if (code < 200 || code > 300) {
-      Notification.error({
-        title: response.message
-      })
-      return Promise.reject('error')
-    } else {
+    console.log(response,"response")
+    if (code == 200) {
       return response.data
+    } else {
+      rqeuestError(code);
+      Message({
+        message: response.msg || '接口请求失败',
+        error: 'warning'
+      })
+
+
     }
   },
   error => {
@@ -52,6 +54,7 @@ service.interceptors.response.use(
     try {
       code = error.response.data.status
     } catch (e) {
+
       if (error.toString().indexOf('Error: timeout') !== -1) {
         Notification.error({
           title: '网络请求超时',
@@ -60,11 +63,11 @@ service.interceptors.response.use(
         return Promise.reject(error)
       }
     }
+    console.log(error)
     if (code) {
       if (code === 401) {
         store.dispatch('LogOut').then(() => {
           // 用户登录界面提示
-          Cookies.set('point', 401)
           location.reload()
         })
       } else if (code === 403) {
@@ -79,9 +82,9 @@ service.interceptors.response.use(
         }
       }
     } else {
-      Notification.error({
-        title: '接口请求失败',
-        duration: 5000
+      Message({
+        message: '接口请求失败',
+        error: 'warning'
       })
     }
     return Promise.reject(error)
