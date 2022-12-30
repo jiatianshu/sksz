@@ -11,7 +11,9 @@
                             <!-- title -->
                             <el-submenu :index="item.index" :key="item.index">
                                 <template slot="title">
-                                    <i :class="item.icon"></i>
+                                    <!-- <i :class="item.icon"></i> -->
+                                    <!-- <img src="../../assets/img/icon/ic_bell.png" alt="" srcset=""> -->
+                                    <img :src="item.icon" alt="" srcset="" class="img_icon">
                                     <span slot="title">{{ item.title }}</span>
                                 </template>
                                 <!-- 子路由 -->
@@ -21,6 +23,7 @@
                                         <template slot="title">
 
                                             <i :class="subItem.icon"></i>
+                                            <!-- <img src="./../../assets/img/icon/button_ormenu@2x.png" alt="" srcset="" class="img_icon"> -->
                                             {{ subItem.title }}</template>
 
                                         <!-- 第三层路由 -->
@@ -46,7 +49,8 @@
                         </template>
                         <template v-else>
                             <el-menu-item :index="item.index" :key="item.index">
-                                <i :class="item.icon"></i>
+                                <!-- <i :class="item.icon"></i> -->
+                                <img :src="item.icon" alt="" srcset="" class="img_icon">
                                 <span slot="title">{{ item.title }}</span>
                             </el-menu-item>
                         </template>
@@ -73,24 +77,24 @@ export default {
             collapse: false,
             items: [
                 {
-                    icon: 'el-icon-lx-home',
+                    icon: require('./../../assets/img/icon/ic_perception2x.png'),
                     index: '/dashboard',
                     title: '全域感知',
                     subs: [
                         {
-                            icon: 'el-icon-lx-homefill',
+                            icon: 'el-icon-lx-szcs',
                             index: '/dashboard',
                             title: '数字城市'
                         },
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-copy',
+                    icon: require('./../../assets/img/icon/ic_smart2x.png'),
                     index: '/zhyq',
                     title: '智慧中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-locationfill',
+                            icon: 'el-icon-lx-zhyq',
                             index: '/zhyq',
                             title: '智慧园区'
                         },
@@ -98,12 +102,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-record',
+                    icon: require('./../../assets/img/icon/ic_video2x.png'),
                     index: '/spgl',
                     title: '视频中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-recordfill',
+                            icon: 'el-icon-lx-video',
                             index: '/spgl',
                             title: '视频管理'
                         },
@@ -111,37 +115,37 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-rank',
+                    icon: require('./../../assets/img/icon/ic_data2x.png'),
                     index: '/data-center',
                     title: '数据中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-iconpeople',
                             index: '/personData',
                             title: '人员数据'
                         },
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-iconcar',
                             index: '/carData',
                             title: '车辆数据'
                         },
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-icon-house',
                             index: '/data-center/houseData',
                             title: '房屋数据'
                         },
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-icon-yqsj',
                             index: '/data-center/parkData',
                             title: '园区数据'
                         },
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-icon-work',
                             index: '/data-center/workData',
                             title: '单位数据'
                         },
                         {
-                            icon: 'el-icon-lx-people',
+                            icon: 'el-icon-sbsj',
                             index: '/data-center/equipmentData',
                             title: '设备数据'
                         },
@@ -149,12 +153,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-record',
+                    icon: require('./../../assets/img/icon/ic_bell2x.png'),
                     index: 'warningCenter',
                     title: '预警中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-recordfill',
+                            icon: 'el-icon-yjzx',
                             index: '/warningCenter',
                             title: '预警中心'
                         },
@@ -162,12 +166,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-record',
+                    icon: require('./../../assets/img/icon/ic_share2x.png'),
                     index: 'sharingData',
                     title: '共享中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-recordfill',
+                            icon: 'el-icon-sjgx',
                             index: '/sharingData',
                             title: '数据共享'
                         },
@@ -175,12 +179,12 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: require('./../../assets/img/icon/ic_Bus2x.png'),
                     index: 'policeServices',
                     title: '业务中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-cascades',
+                            icon: 'el-icon-jwfw',
                             index: '/policeServices',
                             title: '警务服务'
                         },
@@ -188,7 +192,7 @@ export default {
                     ]
                 },
                 {
-                    icon: 'el-icon-lx-cascades',
+                    icon: require('./../../assets/img/icon/ic_Service2x.png'),
                     index: '/centerServices',
                     title: '服务中心',
                 },
@@ -249,6 +253,92 @@ export default {
     ;
 }
 
+.el-icon-lx-szcs {
+    background: url('./../../assets/img/icon/ic_city2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-lx-zhyq {
+    background: url('./../../assets/img/icon/ic_plaza2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-lx-video {
+    background: url('./../../assets/img/icon/ic_video_white2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-iconpeople {
+    background: url('./../../assets/img/icon/ic_rentrole2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-iconcar {
+    background: url('./../../assets/img/icon/ic_carnumber2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-house {
+    background: url('./../../assets/img/icon/ic_housenumber2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-work {
+    background: url('./../../assets/img/icon/Ic_worknumber2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-yqsj {
+    background: url('./../../assets/img/icon/ic_plaza2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-sbsj {
+    background: url('./../../assets/img/icon/Ic_trail2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    
+}
+.el-icon-sjgx {
+    background: url('./../../assets/img/icon/Ic_sharedata2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-yjzx {
+    background: url('./../../assets/img/icon/ic_bell_outline2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+.el-icon-jwfw {
+    background: url('./../../assets/img/icon/Ic_police2x.png') center center no-repeat;
+    background-size: 100% 100%;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+}
+
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
 }
@@ -272,5 +362,10 @@ export default {
     padding: 0 21px;
     cursor: pointer;
     line-height: 70px; */
+}
+
+.img_icon {
+    width: 4vh;
+    margin: 0 2vh 0 0;
 }
 </style>

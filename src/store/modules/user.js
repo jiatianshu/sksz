@@ -18,7 +18,8 @@ const user = {
 
   mutations: {
     SET_TOKEN: (state, token) => {
-      state.token = token
+      state.token = 'bearer ' +sessionStorage.getItem("token")
+      // state.token = token
     },
     SET_USER: (state, user) => {
       state.user = user
@@ -34,6 +35,9 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo).then(res => {
           // setToken(res.token, rememberMe)
+          sessionStorage.setItem('token',res.access_token)
+          
+          
          this.commit('SET_TOKEN', res.access_token);
          this.commit('SET_USER', {
             userId: res.user_id,
