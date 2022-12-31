@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import vuex from '@/store/index';
 Vue.use(Router);
-let router=new Router({
+let router = new Router({
     routes: [
         {
             path: '/',
@@ -29,43 +29,43 @@ let router=new Router({
                     path: '/spgl',
                     name: "view-setting",
                     component: () => import('@/pages/spgl/view-setting.vue'),
-                    meta: { title: '视频管理' }
+                    meta: { title: '视频中心 > 视频管理' }
                 },
                 {
                     path: '/personData',
                     name: "personData",
                     component: () => import('@/pages/dataCenter/personData.vue'),
-                    meta: { title: '人员数据' }
+                    meta: { title: '数据中心 > 人员数据' }
                 },
                 {
                     path: '/carData',
                     name: "carData",
                     component: () => import('@/pages/dataCenter/carData.vue'),
-                    meta: { title: '车辆数据' }
+                    meta: { title: '数据中心 > 车辆数据' }
                 },
                 {
                     path: '/data-center/houseData',
                     name: "houseData",
                     component: () => import('@/pages/dataCenter/houseData.vue'),
-                    meta: { title: '房屋数据' }
+                    meta: { title: '数据中心 > 房屋数据' }
                 },
                 {
                     path: '/data-center/parkData',
                     name: "parkData",
                     component: () => import('@/pages/dataCenter/parkData.vue'),
-                    meta: { title: '园区数据' }
+                    meta: { title: '数据中心 > 园区数据' }
                 },
                 {
                     path: '/data-center/workData',
                     name: "workData",
                     component: () => import('@/pages/dataCenter/workData.vue'),
-                    meta: { title: '单位数据' }
+                    meta: { title: '数据中心 > 单位数据' }
                 },
                 {
                     path: '/data-center/equipmentData',
                     name: "equipmentData",
                     component: () => import('@/pages/dataCenter/equipmentData.vue'),
-                    meta: { title: '设备数据' }
+                    meta: { title: '数据中心 > 设备数据' }
                 },
                 {
                     path: '/warningCenter',
@@ -132,33 +132,15 @@ let router=new Router({
 
 
 });
-    //使用钩子函数对路由进行权限跳转
- router.beforeEach((to, from, next) =>{
-        let token =vuex.getters.token;
-        if(to.path=="/login"){
-            vuex.commit("CLEAR_TOKEN");
-            next();
-        }else{
-            if(!token)next("/login");
-            next()
-        }
-      
-        // document.title = `${to.meta.title} | vue-manage-system`;
-        // const role = localStorage.getItem('ms_username');
-        // if (!role && to.path !== '/login') {
-        //     next('/login');
-        // } else if (to.meta.permission) {
-        //     // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-        //     role === 'admin' ? next() : next('/403');
-        // } else {
-        //     // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容
-        //     if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor') {
-        //         Vue.prototype.$alert('vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看', '浏览器不兼容通知', {
-        //             confirmButtonText: '确定'
-        //         });
-        //     } else {
-        //         next();
-        //     }
-        // }
-    })
+//使用钩子函数对路由进行权限跳转
+router.beforeEach((to, from, next) => {
+    let token = vuex.getters.token;
+    if (to.path == "/login") {
+        vuex.commit("CLEAR_TOKEN");
+        next();
+    } else {
+        if (!token) next("/login");
+        next()
+    }
+})
 export default router

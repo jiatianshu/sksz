@@ -207,7 +207,7 @@ Bg .ql-container {
     margin: 0 0 20px 0 !important;
     border-radius: 1.2vh !important;
     padding-left: 0 !important;
-    background: rgb(48, 65, 86) !important;
+    background: rgba(30,31,37,0.88);
 }
 
 .el-submenu.is-active .el-submenu__title {

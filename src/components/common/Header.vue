@@ -14,15 +14,15 @@
         <div class="rgt_title">
             <div class="logo">
                 <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
-                <div style="margin: 0 0 0 2vh;" class="tit_cl">{{title}} / {{tabtitle}}</div>
+                <div style="margin: 0 0 0 2vh;" class="tit_cl">{{ title }}</div>
             </div>
             <div class="header-right">
                 <div class="header-user-con">
                     <!-- 全屏显示 -->
-                    <div class="btn-fullscreen" @click="handleFullScreen">
-                        <el-tooltip effect="dark" :content="fullscreen ? `取消全屏` : `全屏`" placement="bottom">
-                            <i class="el-icon-rank"></i>
-                        </el-tooltip>
+                    <div class="btn-fullscreen">
+                        <el-badge :value="12" class="item">
+                            <img src="@/assets/img/icon/ic_bell_outline2x.png" alt="">
+                        </el-badge>
                     </div>
                     <!-- 消息中心 -->
                     <!-- <div class="btn-bell">
@@ -57,237 +57,170 @@
     </div>
 </template>
 <script>
-    import bus from '../common/bus';
-    import Breadcrumb from '@/components/breadcrumbnew'
-    export default {
-        components: {
-            Breadcrumb,
-        },
-        data() {
-            return {
-                title:'',
-                tabtitle:'',
-                collapse: false,
-                fullscreen: false,
-                name: 'linxin',
-                message: 2,
-                tagsList: []
-            };
-        },
-        computed: {
-            username() {
-                let username = localStorage.getItem('ms_username');
-                return username ? username : this.name;
-            }
-        },
-        watch: {
-            $route(newValue, oldValue) {
-                this.setTags(newValue);
-            }
-        },
-        created() {
+import bus from '../common/bus';
+import Breadcrumb from '@/components/breadcrumbnew'
+export default {
+    components: {
+        Breadcrumb,
+    },
+    data() {
+        return {
+            title: '',
+            tabtitle: '',
+            collapse: false,
+            fullscreen: false,
+            name: 'linxin',
+            message: 2,
+            tagsList: [],
 
-            this.setTags(this.$route);
-        },
-        methods: {
-            // 设置标签
-
-            setTags(route) {
-          
-                var title = route.fullPath
-                this.tabtitle= route.meta.title
-                if (title == '/dashboard') {
-                   this.title = '全域感知'
-                 
-                }
-                if (title == '/zhyq') {
-                   this.title = '智慧中心'
-                 
-                }
-                if (title == '/spgl') {
-                   this.title = '视频中心'
-                 
-                }
-                if (title == '/personData' ||title == '/carData'  ||title == '/houseData' ||title == '/parkData' ||title == '/workData' ||title == '/equipmentData') {
-                   this.title = '数据中心'
-                 
-                }
-                if (title == '/warningCenter') {
-                   this.title = '预警中心'
-                 
-                }
-                if (title == '/sharingData') {
-                   this.title = '共享中心'
-                 
-                }
-                if (title == '/policeServices') {
-                   this.title = '业务中心'
-                 
-                }
-                if (title == '/centerServices') {
-                   this.title = '服务中心'
-                 
-                }
-
-            },
-            handleTags(command) {
-                command === 'other' ? this.closeOther() : this.closeAll();
-            },
-            // 用户名下拉菜单选择事件
-            handleCommand(command) {
-                if (command == 'loginout') {
-                    localStorage.removeItem('ms_username');
-                    this.$router.push('/login');
-                }
-            },
-            // 侧边栏折叠
-            collapseChage() {
-                this.collapse = !this.collapse;
-                bus.$emit('collapse', this.collapse);
-            },
-            // 全屏事件
-            handleFullScreen() {
-                let element = document.documentElement;
-                if (this.fullscreen) {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.webkitCancelFullScreen) {
-                        document.webkitCancelFullScreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen();
-                    }
-                } else {
-                    if (element.requestFullscreen) {
-                        element.requestFullscreen();
-                    } else if (element.webkitRequestFullScreen) {
-                        element.webkitRequestFullScreen();
-                    } else if (element.mozRequestFullScreen) {
-                        element.mozRequestFullScreen();
-                    } else if (element.msRequestFullscreen) {
-                        // IE11
-                        element.msRequestFullscreen();
-                    }
-                }
-                this.fullscreen = !this.fullscreen;
-            }
-        },
-        mounted() {
-            if (document.body.clientWidth < 1500) {
-                this.collapseChage();
-            }
+        };
+    },
+    computed: {
+        username() {
+            let username = localStorage.getItem('ms_username');
+            return username ? username : this.name;
         }
-    };
+    },
+    watch: {
+        $route: {
+            handler(newVal) {
+                this.title = newVal.meta.title;
+            },
+            immediate: true
+        }
+    },
+
+    methods: {
+
+        handleTags(command) {
+            command === 'other' ? this.closeOther() : this.closeAll();
+        },
+        // 用户名下拉菜单选择事件
+        handleCommand(command) {
+            if (command == 'loginout') {
+                localStorage.removeItem('ms_username');
+                this.$router.push('/login');
+            }
+        },
+        // 侧边栏折叠
+        collapseChage() {
+            this.collapse = !this.collapse;
+            bus.$emit('collapse', this.collapse);
+        },
+
+    },
+    mounted() {
+        if (document.body.clientWidth < 1500) {
+            this.collapseChage();
+        }
+    }
+};
 </script>
 <style scoped lang="scss">
-    .header {
-        /* position: relative;
+.header {
+    /* position: relative;
     box-sizing: border-box; */
-        /* width: 100%; */
-        height: 70px;
-        margin: 0 0 20px 0;
-        font-size: 22px;
-        display: flex;
-        color: #fff;
+    /* width: 100%; */
+    height: 70px;
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    display: flex;
+    color: #fff;
 
-    }
+}
 
-    .rgt_title {
-        width: 100%;
-        background: rgb(48, 65, 86);
-        margin: 0 0 0 20px;
-        border-radius: 1.2vh;
-    }
+.rgt_title {
+    width: 100%;
+    background: rgba(30,31,37,0.88);
+    margin: 0 0 0 20px;
+    border-radius: 1.2vh;
+}
 
-    .title_nav {
-        background: rgb(48, 65, 86);
-        width: 250px;
-        border-radius: 1.2vh;
-        /* line-height: 68px; */
-        color: #fff;
-        text-align: center;
-    }
+.title_nav {
+    background: rgba(30,31,37,0.88);
+    width: 250px;
+    border-radius: 1.2vh;
+    /* line-height: 68px; */
+    color: #fff;
+    text-align: center;
+}
 
-    .collapse-btn {
-        float: left;
-        padding: 0 21px;
-        cursor: pointer;
-        line-height: 70px;
-    }
+.collapse-btn {
+    float: left;
+    padding: 0 21px;
+    cursor: pointer;
+    line-height: 70px;
+}
 
-    .header .logo {
-        float: left;
-        /* width: 250px; */
-        line-height: 70px;
-    }
+.header .logo {
+    float: left;
+    /* width: 250px; */
+    line-height: 70px;
+}
 
-    .header-right {
-        float: right;
-        padding-right: 50px;
-    }
+.header-right {
+    float: right;
+    // padding-right: 50px;
+}
 
-    .header-user-con {
-        display: flex;
-        height: 70px;
-        align-items: center;
-    }
+.header-user-con {
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
 
-    .btn-fullscreen {
-        transform: rotate(45deg);
-        margin-right: 5px;
-        font-size: 24px;
-    }
+.btn-fullscreen {
+    padding-top: 10px;
+    margin-right: 16px;
+   img{
+    width: 28px;
+    height: 28px;
+   }
+}
 
-    .btn-bell,
-    .btn-fullscreen {
-        position: relative;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        border-radius: 15px;
-        cursor: pointer;
-    }
-    .tit_cl{
-        font-size: 16px;
-    }
 
-    .btn-bell-badge {
-        position: absolute;
-        right: 0;
-        top: -2px;
-        width: 8px;
-        height: 8px;
-        border-radius: 4px;
-        background: #f56c6c;
-        color: #fff;
-    }
 
-    .btn-bell .el-icon-bell {
-        color: #fff;
-    }
+.tit_cl {
+    font-size: 16px;
+}
 
-    .user-name {
-        margin-left: 10px;
-    }
+.btn-bell-badge {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #f56c6c;
+    color: #fff;
+}
 
-    .user-avator {
-        margin-left: 20px;
-    }
+.btn-bell .el-icon-bell {
+    color: #fff;
+}
 
-    .user-avator img {
-        display: block;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-    }
+.user-name {
+    margin-left: 10px;
+}
 
-    .el-dropdown-link {
-        color: #fff;
-        cursor: pointer;
-    }
+.user-avator {
+    margin-left: 20px;
+ 
+}
 
-    .el-dropdown-menu__item {
-        text-align: center;
-    }
+.user-avator img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.el-dropdown-link {
+    color: #fff;
+    cursor: pointer;
+}
+
+.el-dropdown-menu__item {
+    text-align: center;
+}
 </style>

@@ -1,0 +1,47 @@
+<!--
+ * @Author: gq
+ * @Date: 2022-12-30 23:53:03
+ * @LastEditors: gq
+ * @LastEditTime: 2022-12-31 10:33:35
+ * @Description: 分页
+-->
+<template>
+    <el-pagination background layout="prev, pager, next" :total="1000">
+    </el-pagination>
+
+</template>
+<script>
+export default {
+    props: {
+
+    },
+    data() {
+        return {
+
+        }
+    }
+}
+</script>
+<style scoped lang="scss">
+::v-deep.el-pagination {
+    .el-pager {
+        li {
+            height: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+            background-color: #1E1F25!important;
+        }
+        .active{
+            background: rgba(16,142,233,0.20)!important;
+            border: none;
+        }
+    }
+
+    .btn-prev,.btn-next {
+        height: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 4px;
+        background-color: #1E1F25!important;
+    }
+}
+</style>

@@ -2,11 +2,12 @@
  * @Author: gq
  * @Date: 2022-12-30 23:53:03
  * @LastEditors: gq
- * @LastEditTime: 2022-12-31 00:13:36
+ * @LastEditTime: 2022-12-31 09:43:03
  * @Description: icon-input输入框
 -->
 <template>
-    <el-input :placeholder="placeholder" v-model="value" class="input-with-select">
+    <el-input :placeholder="placeholder" :value="value" @input="$emit('update:value', $event)"
+        class="input-with-select">
         <el-button slot="prepend" :icon="icon"></el-button>
     </el-input>
 
@@ -21,8 +22,8 @@ export default {
 
             default: "el-icon-search"
         },
-        placeholder:{
-            default:"输入搜索内容…"
+        placeholder: {
+            default: "输入搜索内容…"
         }
     },
     data() {
@@ -50,10 +51,18 @@ export default {
         line-height: 42px;
         height: 42px;
         text-align: left;
-       
+        background-color: #1E1F25;
+        border: none;
+        color:#fff;
         &::placeholder {
             color: #757B8C;
             font-size: 14px;
+        }
+    }
+
+    ::v-deep .el-button {
+        i {
+            font-size: 16px;
         }
     }
 
