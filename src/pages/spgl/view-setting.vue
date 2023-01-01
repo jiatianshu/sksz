@@ -9,6 +9,7 @@
 
 export default {
     name:"view-setting",
+    title:"视频中心 > 视频管理",
     data() {
         return {
           

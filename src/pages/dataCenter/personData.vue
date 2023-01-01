@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2022-12-31 10:55:48
+ * @LastEditTime: 2023-01-02 00:37:34
  * @Description: 数据中心-人员数据
 -->
 <template>
@@ -43,6 +43,7 @@
 
 export default {
     name: 'personData',
+    title:"数据中心 > 人员数据",
     data() {
         return {
             tableData: [{},{}],

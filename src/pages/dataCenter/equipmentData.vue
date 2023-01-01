@@ -13,6 +13,7 @@ export default {
           
         };
     },
+    title:"数据中心 > 设备数据",
     components: {
   
     },

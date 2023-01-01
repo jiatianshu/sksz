@@ -9,6 +9,7 @@
 
 export default {
     name:'houseData',
+    title:"数据中心 > 房屋数据",
     data() {
         return {
           

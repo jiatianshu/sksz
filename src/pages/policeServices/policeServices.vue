@@ -9,6 +9,7 @@
 
 export default {
     name:'warningCenter',
+    title:"业务中心 > 警务服务",
     data() {
         return {
           

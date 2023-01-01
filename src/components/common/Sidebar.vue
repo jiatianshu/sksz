@@ -3,18 +3,20 @@
         <el-aside class="el-aside" width="aotu">
             <div class="sidebar">
 
-                <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse"
+                <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" @close="closeMenu" @open="openMenu"
                     background-color="transparent" text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened
                     router>
                     <template v-for="item in items">
                         <template v-if="item.subs">
                             <!-- title -->
-                            <el-submenu :index="item.index" :key="item.index">
+                            <el-submenu :index="item.index" :key="item.index" >
                                 <template slot="title">
-                                    <!-- <i :class="item.icon"></i> -->
-                                    <!-- <img src="../../assets/img/icon/ic_bell.png" alt="" srcset=""> -->
-                                    <img :src="item.icon" alt="" srcset="" class="img_icon">
-                                    <span slot="title">{{ item.title }}</span>
+                                    <div class="menu-item-box">
+                                        <img :src="item.icon" alt="" srcset="" class="img_icon">
+                                        <span slot="title">{{ item.title }}</span>
+                                        <img src="@/assets/img/icon/ic_extend@2x.png" alt="" :class="[item.showType?'active-menu':'']" class="img-down">
+                                    </div>
+
                                 </template>
                                 <!-- 子路由 -->
                                 <template v-for="subItem in item.subs">
@@ -22,24 +24,25 @@
                                         class="liclass">
                                         <template slot="title">
 
-                                            <i :class="subItem.icon"></i>
-                                            <!-- <img src="./../../assets/img/icon/button_ormenu@2x.png" alt="" srcset="" class="img_icon"> -->
+                                            <img :src="require(`@/assets/img/icon/${subItem.icon}`)" class="child-menu-icon">
                                             {{ subItem.title }}</template>
 
-                                        <!-- 第三层路由 -->
+                                       
                                         <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i"
                                             :index="threeItem.index">
                                             <template slot="title">
-                                                <i :class="threeItem.icon"></i>
+                                                <img :src="require(`@/assets/img/icon/${threeItem.icon}`)" class="child-menu-icon">
                                                 {{ threeItem.title }}
+
                                             </template>
 
                                         </el-menu-item>
-                                        <!-- 第三层路由完 -->
+                                    
                                     </el-submenu>
-                                    <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                                    <el-menu-item v-else :index="subItem.index" >
                                         <template slot="title">
-                                            <i :class="subItem.icon"></i>
+                                            <img :src="require(`@/assets/img/icon/${subItem.icon}`)" class="child-menu-icon">
+                                            <!-- <i :class="subItem.icon"></i> -->
                                             {{ subItem.title }}
                                         </template>
                                     </el-menu-item>
@@ -56,17 +59,13 @@
                         </template>
                     </template>
                 </el-menu>
-
             </div>
-
         </el-aside>
         <div class="collapse-btn" @click="collapseChage">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-
     </div>
-
 </template>
 
 <script>
@@ -82,7 +81,7 @@ export default {
                     title: '全域感知',
                     subs: [
                         {
-                            icon: 'el-icon-lx-szcs',
+                            icon: 'ic_city2x.png',
                             index: '/dashboard',
                             title: '数字城市'
                         },
@@ -94,7 +93,7 @@ export default {
                     title: '智慧中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-zhyq',
+                            icon: 'ic_plaza2x.png',
                             index: '/zhyq',
                             title: '智慧园区'
                         },
@@ -103,12 +102,12 @@ export default {
                 },
                 {
                     icon: require('./../../assets/img/icon/ic_video2x.png'),
-                    index: '/spgl',
+                    index: '/spgl/view-setting',
                     title: '视频中心',
                     subs: [
                         {
-                            icon: 'el-icon-lx-video',
-                            index: '/spgl',
+                            icon: 'ic_video_white2x.png',
+                            index: '/spgl/view-setting',
                             title: '视频管理'
                         },
 
@@ -120,33 +119,33 @@ export default {
                     title: '数据中心',
                     subs: [
                         {
-                            icon: 'el-iconpeople',
-                            index: '/personData',
+                            icon: 'ic_video_white2x.png',
+                            index: '/dataCenter/personData',
                             title: '人员数据'
                         },
                         {
-                            icon: 'el-iconcar',
-                            index: '/carData',
+                            icon: 'ic_carnumber2x.png',
+                            index: '/dataCenter/carData',
                             title: '车辆数据'
                         },
                         {
-                            icon: 'el-icon-house',
-                            index: '/data-center/houseData',
+                            icon: 'ic_housenumber2x.png',
+                            index: '/dataCenter/houseData',
                             title: '房屋数据'
                         },
                         {
-                            icon: 'el-icon-yqsj',
-                            index: '/data-center/parkData',
+                            icon: 'ic_plaza2x.png',
+                            index: '/dataCenter/parkData',
                             title: '园区数据'
                         },
                         {
-                            icon: 'el-icon-work',
-                            index: '/data-center/workData',
+                            icon: 'Ic_worknumber2x.png',
+                            index: '/dataCenter/workData',
                             title: '单位数据'
                         },
                         {
-                            icon: 'el-icon-sbsj',
-                            index: '/data-center/equipmentData',
+                            icon: 'Ic_trail2x.png',
+                            index: '/dataCenter/equipmentData',
                             title: '设备数据'
                         },
 
@@ -158,8 +157,8 @@ export default {
                     title: '预警中心',
                     subs: [
                         {
-                            icon: 'el-icon-yjzx',
-                            index: '/warningCenter',
+                            icon: 'ic_bell_outline2x.png',
+                            index: '/warning/warningCenter',
                             title: '预警中心'
                         },
 
@@ -171,8 +170,8 @@ export default {
                     title: '共享中心',
                     subs: [
                         {
-                            icon: 'el-icon-sjgx',
-                            index: '/sharingData',
+                            icon: 'Ic_sharedata2x.png',
+                            index: '/sharing/sharingData',
                             title: '数据共享'
                         },
 
@@ -184,16 +183,15 @@ export default {
                     title: '业务中心',
                     subs: [
                         {
-                            icon: 'el-icon-jwfw',
-                            index: '/policeServices',
+                            icon: 'Ic_police2x.png',
+                            index: '/policeServices/policeServices',
                             title: '警务服务'
                         },
-
                     ]
                 },
                 {
                     icon: require('./../../assets/img/icon/ic_Service2x.png'),
-                    index: '/centerServices',
+                    index: '/centerServices/centerServices',
                     title: '服务中心',
                 },
             ]
@@ -212,6 +210,33 @@ export default {
         });
     },
     methods: {
+        fitlerIndex(index){
+            let forFilter=(arr)=>{
+              return  arr.find(item=>{
+                    if(item.index==index){
+                        return item
+                    }else if(item.subs){
+                       return forFilter(item.subs)
+                    }
+                })
+            }
+           return forFilter(this.items);
+        },
+        /**
+         * @description: 打开菜单函数
+         * @param {*} index
+         */        
+        openMenu(index){
+            this.$set( this.fitlerIndex(index),"showType",true);
+        
+        },
+        /**
+         * @description: 关闭菜单函数                                           
+         * @param {*} index
+         */        
+        closeMenu(index){
+            this.fitlerIndex(index).showType=false
+        },
         // 侧边栏折叠
         collapseChage() {
             this.collapse = !this.collapse;
@@ -221,21 +246,53 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.active-menu{
+    transform: rotate(180deg);
+}
+.child-menu-icon{
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    margin-right: 16px;
+}
+::v-deep .el-menu-item{
+    background: #1E1F25!important;
+    border-radius: 0px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    height: 60px;
+}
 .sidebar {
-    /* height: 100%; */
-    overflow: scroll;
-    /* overflow-y: scroll; */
-    /* height: 100%; */
-    /* width: 250px; */
-    /* margin: 0 0 20px 0; */
-    /* margin: 0 20px 0 20px; */
-    /* display: block;
-    position: absolute;
-    left: 0;
-    top: 70px;
-    bottom: 0;
-    overflow-y: scroll; */
+    overflow: scroll; 
+}
+
+::v-deep .el-submenu__icon-arrow {
+    display: none;
+}
+
+::v-deep .el-submenu__title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: auto;
+
+}
+
+.menu-item-box {
+
+    // height: 36px;
+    .img_icon {
+        width: 36px;
+        margin-right: 24px;
+
+    }
+
+    .img-down {
+        width: 28px;
+        height: 28px;
+        float: right;
+        margin-top: 14px;
+    }
 }
 
 .el-aside {
@@ -252,93 +309,6 @@ export default {
     display: none !important;
     ;
 }
-
-.el-icon-lx-szcs {
-    background: url('./../../assets/img/icon/ic_city2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-lx-zhyq {
-    background: url('./../../assets/img/icon/ic_plaza2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-lx-video {
-    background: url('./../../assets/img/icon/ic_video_white2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-iconpeople {
-    background: url('./../../assets/img/icon/ic_rentrole2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-iconcar {
-    background: url('./../../assets/img/icon/ic_carnumber2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-house {
-    background: url('./../../assets/img/icon/ic_housenumber2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-work {
-    background: url('./../../assets/img/icon/Ic_worknumber2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-yqsj {
-    background: url('./../../assets/img/icon/ic_plaza2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-sbsj {
-    background: url('./../../assets/img/icon/Ic_trail2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-    
-}
-.el-icon-sjgx {
-    background: url('./../../assets/img/icon/Ic_sharedata2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-yjzx {
-    background: url('./../../assets/img/icon/ic_bell_outline2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-.el-icon-jwfw {
-    background: url('./../../assets/img/icon/Ic_police2x.png') center center no-repeat;
-    background-size: 100% 100%;
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-}
-
 .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
 }
@@ -362,10 +332,5 @@ export default {
     padding: 0 21px;
     cursor: pointer;
     line-height: 70px; */
-}
-
-.img_icon {
-    width: 4vh;
-    margin: 0 2vh 0 0;
 }
 </style>

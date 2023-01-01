@@ -24,32 +24,32 @@
                             <img src="@/assets/img/icon/ic_bell_outline2x.png" alt="">
                         </el-badge>
                     </div>
-                    <!-- 消息中心 -->
-                    <!-- <div class="btn-bell">
-                        <el-tooltip effect="dark" :content="message ? `有${message}条未读消息` : `消息中心`" placement="bottom">
-                            <router-link to="/tabs">
-                                <i class="el-icon-bell"></i>
-                            </router-link>
-                        </el-tooltip>
-                        <span class="btn-bell-badge" v-if="message"></span>
-                    </div> -->
-                    <!-- 用户头像 -->
-                    <div class="user-avator">
-                        <img src="../../assets/img/img.jpg" />
+
+
+                    <div class="user-info-box">
+                        <div class="user-avator">
+                            <img src="../../assets/img/img.jpg" />
+                        </div>
+                        <!-- 用户名下拉菜单 -->
+                        <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                            <div style="width:120px">
+                                <span class="el-name-link">
+                                    {{ username }}
+                                </span>
+                                <br>
+                                <span style="font-size: 12px;color: #757B8C;">
+                                    {{ email }}
+                                </span>
+                            </div>
+                            <div style="font-size:30px;color: #757B8C;">
+                                ...
+                            </div>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </div>
-                    <!-- 用户名下拉菜单 -->
-                    <el-dropdown class="user-name" trigger="click" @command="handleCommand">
-                        <span class="el-dropdown-link">
-                            {{ username }}
-                            <i class="el-icon-caret-bottom"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <!-- <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                                <el-dropdown-item>项目仓库</el-dropdown-item>
-                            </a> -->
-                            <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+
                 </div>
             </div>
         </div>
@@ -70,6 +70,7 @@ export default {
             collapse: false,
             fullscreen: false,
             name: 'linxin',
+            email: "xxxxxxxx@qq.com",
             message: 2,
             tagsList: [],
 
@@ -85,6 +86,7 @@ export default {
         $route: {
             handler(newVal) {
                 this.title = newVal.meta.title;
+                console.log(newVal.meta)
             },
             immediate: true
         }
@@ -113,10 +115,27 @@ export default {
         if (document.body.clientWidth < 1500) {
             this.collapseChage();
         }
+      
     }
 };
 </script>
 <style scoped lang="scss">
+::v-deep .el-badge__content {
+    background: #FA2256;
+    border: none;
+}
+::v-deep .el-dropdown{
+    display: flex;
+}
+.user-info-box {
+    width: 250px;
+    background: #282C38;
+    display: flex;
+    height: 100%;
+    padding-top: 14px;
+    cursor: pointer;
+}
+
 .header {
     /* position: relative;
     box-sizing: border-box; */
@@ -131,13 +150,14 @@ export default {
 
 .rgt_title {
     width: 100%;
-    background: rgba(30,31,37,0.88);
+    background: rgba(30, 31, 37, 0.88);
     margin: 0 0 0 20px;
     border-radius: 1.2vh;
+    overflow: hidden;
 }
 
 .title_nav {
-    background: rgba(30,31,37,0.88);
+    background: rgba(30, 31, 37, 0.88);
     width: 250px;
     border-radius: 1.2vh;
     /* line-height: 68px; */
@@ -172,10 +192,12 @@ export default {
 .btn-fullscreen {
     padding-top: 10px;
     margin-right: 16px;
-   img{
-    width: 28px;
-    height: 28px;
-   }
+
+    img {
+
+        width: 28px;
+        height: 28px;
+    }
 }
 
 
@@ -205,7 +227,7 @@ export default {
 
 .user-avator {
     margin-left: 20px;
- 
+
 }
 
 .user-avator img {
@@ -215,8 +237,10 @@ export default {
     border-radius: 50%;
 }
 
-.el-dropdown-link {
+.el-name-link {
     color: #fff;
+    font-size: 14px;
+
     cursor: pointer;
 }
 

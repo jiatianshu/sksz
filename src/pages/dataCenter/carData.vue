@@ -9,6 +9,7 @@
 
 export default {
     name:'carData',
+    title:"数据中心 > 车辆数据",
     data() {
         return {
           

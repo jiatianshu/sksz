@@ -8,6 +8,7 @@
 <script>
 
 export default {
+    title:"数据中心 > 园区数据",
     data() {
         return {
           

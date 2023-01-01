@@ -1,3 +1,4 @@
+
 <template>
 
     <div>
@@ -9,6 +10,7 @@
 
 export default {
     name:'warningCenter',
+    title:"预警中心 > 预警中心",
     data() {
         return {
           

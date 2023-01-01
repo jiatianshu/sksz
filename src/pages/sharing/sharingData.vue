@@ -9,6 +9,7 @@
 
 export default {
     name:'warningCenter',
+    title:"共享中心 > 数据共享",
     data() {
         return {
           
