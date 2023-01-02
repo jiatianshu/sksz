@@ -1,8 +1,6 @@
-
 const getters = {
   //获取token
   token: state => {
-    console.log(state.user)
     return state.user.token
 
   },

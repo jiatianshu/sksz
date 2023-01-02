@@ -2,7 +2,6 @@
     <div class="lf_sidebar">
         <el-aside class="el-aside" width="aotu">
             <div class="sidebar">
-
                 <el-menu class="sidebar-el-menu" ref="menusRef" :default-active="onRoutes" :collapse="collapse"
                     @close="closeMenu" @open="openMenu" background-color="transparent" text-color="#bfcbd9"
                     active-text-color="#20a0ff" unique-opened router>
@@ -29,7 +28,6 @@
                                             <img :src="require(`@/assets/img/icon/${subItem.icon}`)" class="child-menu-icon">
                                             {{ subItem.title }}</template>
 
-                                       
                                         <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i"
                                             :index="threeItem.index">
                                             <template slot="title">
@@ -94,7 +92,6 @@ export default {
         });
     },
     methods: {
-
         filterIndex(index) {
             let forFilter = (arr) => {
                 return arr.find(item => {
