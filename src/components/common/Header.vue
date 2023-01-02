@@ -86,7 +86,7 @@ export default {
         $route: {
             handler(newVal) {
                 this.title = newVal.meta.title;
-                console.log(newVal.meta)
+               
             },
             immediate: true
         }
