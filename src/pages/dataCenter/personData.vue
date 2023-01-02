@@ -12,6 +12,13 @@
             <sk-icon-input :value.sync="num"></sk-icon-input>
             <sk-icon-button style="margin-left:12px" @click="aaaa"></sk-icon-button>
         </div>
+        <div class="title_cl">
+            <div class="left_cl">
+
+            </div>
+            <div class="center_cl"></div>
+            <div class="right_cl"></div>
+        </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column type="index" label="序号" align="center" width="100">
@@ -80,5 +87,14 @@
 <style scoped>
     .button_cl {
         display: flex;
+    }
+
+    .title_cl {
+        display: flex;
+    }
+   .left_cl{
+    width: 6vh;
+    height: 6vh;
+        background: url(../../assets/img/image/ic_card_police2x.png)no-repeat;
     }
 </style>
