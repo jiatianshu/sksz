@@ -1,3 +1,10 @@
+/*
+ * @Author: gq
+ * @Date: 2023-01-02 10:20:51
+ * @LastEditors: gq
+ * @LastEditTime: 2023-01-02 18:13:42
+ * @Description: 菜单数据
+ */
 export default [
         {
             icon: require('./../../assets/img/icon/ic_perception2x.png'),

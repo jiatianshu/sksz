@@ -36,11 +36,11 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const code = response.status
-    console.log(response,"response")
+   
     if (code == 200) {
       return response.data
     } else {
-      rqeuestError(code);
+     
       Message({
         message: response.msg || '接口请求失败',
         error: 'warning'
@@ -51,8 +51,9 @@ service.interceptors.response.use(
   },
   error => {
     let code = 0
+    console.log(error.response.data)
     try {
-      code = error.response.data.status
+      code = error.response.data.code
     } catch (e) {
 
       if (error.toString().indexOf('Error: timeout') !== -1) {
@@ -63,7 +64,7 @@ service.interceptors.response.use(
         return Promise.reject(error)
       }
     }
-    console.log(error)
+    rqeuestError(error.response.data);
     if (code) {
       if (code === 401) {
         store.dispatch('LogOut').then(() => {
