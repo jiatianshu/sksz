@@ -114,7 +114,7 @@ import Schart from 'vue-schart';
 import bus from '../components/common/bus';
 export default {
     name: 'dashboard',
-    
+    title:"全域感知 > 数字城市",
     data() {
         return {
             name: localStorage.getItem('ms_username'),
