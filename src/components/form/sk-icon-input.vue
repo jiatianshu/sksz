@@ -2,10 +2,10 @@
  * @Author: gq
  * @Date: 2022-12-30 23:53:03
  * @LastEditors: gq
- * @LastEditTime: 2022-12-31 09:43:03
+ * @LastEditTime: 2023-01-03 18:52:30
  * @Description: icon-input输入框
 -->
-<template>el-pagination 二次封装el-button
+<template>
     <el-input :placeholder="placeholder" :value="value" @input="$emit('update:value', $event)"
         class="input-with-select">
         <el-button slot="prepend" @click="$emit('click')" :icon="icon"></el-button>

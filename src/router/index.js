@@ -1,4 +1,5 @@
 
+
 import Vue from 'vue';
 import Router from 'vue-router';
 import vuex from '@/store/index';
@@ -54,6 +55,7 @@ let router = new Router({
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     let token = vuex.getters.token;
+    console.log(token,"token")
     if (to.path == "/login") {
         vuex.commit("CLEAR_TOKEN");
         next();

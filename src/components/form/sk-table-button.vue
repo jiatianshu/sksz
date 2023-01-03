@@ -32,9 +32,6 @@ export default {
 
         }
     },
-    mounted() {
-        console.log(this.src,"url")
-    }
 }
 </script>
 <style scoped lang="scss">
