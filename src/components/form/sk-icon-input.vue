@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-12-31 09:43:03
  * @Description: icon-input输入框
 -->
-<template>el-pagination 二次封装el-button
+<template>
     <el-input :placeholder="placeholder" :value="value" @input="$emit('update:value', $event)"
         class="input-with-select">
         <el-button slot="prepend" @click="$emit('click')" :icon="icon"></el-button>
