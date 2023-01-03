@@ -167,7 +167,7 @@ export default {
 }
 
 ::v-deep .el-submenu__title {
-    // padding-top: 10px;
+    /* // padding-top: 10px; */
     padding-bottom: 10px;
     height: auto;
 
@@ -176,7 +176,7 @@ export default {
 .menu-item-box {
     padding-top: 10px;
 
-    // height: 36px;
+    /* // height: 36px; */
     .img_icon {
         width: 36px;
         margin-right: 24px;
@@ -215,11 +215,11 @@ export default {
 }
 
 .collapse-btn {
-    // width: 5vh;
+    /* // width: 5vh; */
     height: 5vh;
     margin: 20px 0 0 0;
     border-radius: 1.2vh;
-    // display: inline-block;
+    /* // display: inline-block; */
     text-align: center;
     cursor: pointer;
 

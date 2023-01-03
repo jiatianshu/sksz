@@ -6,7 +6,7 @@
  * @Description: table-button按钮
 -->
 <template>
-    <el-button type="primary">
+    <el-button type="primary"  @click="$emit('click')">
         <img :src="src" alt="">
         {{ title }}</el-button>
 </template>
