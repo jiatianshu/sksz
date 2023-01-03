@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-03 20:29:11
  * @LastEditors: gq
- * @LastEditTime: 2023-01-03 20:43:52
+ * @LastEditTime: 2023-01-03 21:01:07
  * @Description: 智慧园区-当前位置
 -->
 <template>
@@ -13,9 +13,10 @@
         </h4>
         <ul class="img-ul">
             <li v-for="item in imgList" :key="item.src">
-                <img :src="request(`@/assets/img/image/${item.src}`)" alt="">
-                <div>
-
+                <img :src="require(`@/assets/img/image/${item.src}`)" alt="">
+                <div class="img-text-box">
+                    <p class="img-text-num">{{ item.num }}</p>
+                    <p class="img-text-location">{{ item.location }}</p>
                 </div>
             </li>
 
@@ -31,7 +32,7 @@ export default {
         return {
             imgList: [
                 {
-                    src: "ic_card_security area @2x.png",
+                    src: "ic_card_sec.png",
                     num: 90,
                     location: "安防小区"
                 }, {
@@ -45,6 +46,9 @@ export default {
                 }
             ]
         }
+    },
+    methods: {
+       
     }
 }
 </script>
@@ -68,15 +72,31 @@ export default {
 
 .img-ul {
     margin-top: 40px;
-
+    display: flex;
     li {
         width: 148px;
         height: 148px;
         border-radius: 18px;
         overflow: hidden;
+        margin-right: 30px;
+        position: relative;
         img {
             width: 148px;
             height: 148px;
+        }
+        .img-text-box{
+            text-align: center;
+            position: absolute;
+            color: #fff;
+            top: 50px;
+            width: 100%;
+            .img-text-num{
+                font-size: 40px;
+                font-weight: bold;
+            }
+            .img-text-location{
+                font-size: 16px;
+            }
         }
     }
 }
