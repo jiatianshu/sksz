@@ -1,7 +1,7 @@
 const getters = {
   //获取token
   token: state => {
-    return state.user.token
+    return state.user.token||1233
 
   },
   //获取用户权限

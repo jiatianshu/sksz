@@ -21,14 +21,14 @@ export default [
         },
         {
             icon: require('./../../assets/img/icon/ic_smart2x.png'),
-            index: 'zhyq',
+            index: 'wisdomScenter',
             title: '智慧中心',
             subs: [
                 {
                     icon: 'ic_plaza2x.png',
-                    index: '/zhyq',
+                    index: '/wisdomScenter/park',
                     title: '智慧园区',
-                    parent:"zhyq",
+                    parent:"wisdomScenter",
                 },
 
             ]
