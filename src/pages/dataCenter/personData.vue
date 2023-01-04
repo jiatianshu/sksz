@@ -8,7 +8,10 @@
 <template>
     <div>
         <div>
-            <sk-icon-input :value.sync="num"></sk-icon-input>
+            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name"></sk-icon-input>
+            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum" class="mr_20"></sk-icon-input>
+            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"></sk-icon-input>
+            <!-- <sk-icon-input :placeholder ='placeholder' :value.sync="num"></sk-icon-input> -->
             <sk-icon-button style="margin-left:12px" @click="aaaa"></sk-icon-button>
         </div>
         <div class="title_cl">
@@ -18,12 +21,15 @@
                     <div class="per_num">人员总数</div>
                 </div>
             </div>
-            <div class="center_cl">
+            <div class="">
                 <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
                 </div>
             </div>
             <div class="center_cl">
-                <doughnutChart :chartData="chartData_1" />
+                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
+            </div>
+            <div class="center_rg_cl">
+                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
             </div>
             <div class="right_cl"></div>
         </div>
@@ -59,7 +65,8 @@
     </div>
 </template>
 <script>
-    import doughnutChart from '_c/echartsCon/doughnutChart.vue'
+    import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
+    import ageCharts from '_c/echartsCon/ageCharts.vue'
 
     import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";
@@ -68,6 +75,7 @@
         name: 'dataCenter-personData',
         components: {
             doughnutChart,
+            ageCharts
         },
         title: "数据中心 > 人员数据",
         data() {
@@ -85,6 +93,14 @@
                 num: "",
                 slxxList: ['1048', '110', '1120', '4562'],
                 keys: ['抄见水量', '三平', '六平', '年均'],
+                num: "",
+                tellnum: "",
+                name: "",
+                idnum: "",
+                placeholder: "请输入人名",
+                nameplaceholder: "请输入人名",
+                idnumplaceholder: "请输入身份证号",
+                telplaceholder: "请输入手机号",
             };
         },
         methods: {
@@ -154,18 +170,18 @@
                         value: 101,
                         name: '4.0分',
                     },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
+                    // {
+                    //     value: 89,
+                    //     name: '3.0分',
+                    // },
+                    // {
+                    //     value: 82,
+                    //     name: '2.0分',
+                    // },
+                    // {
+                    //     value: 35,
+                    //     name: '1.0分',
+                    // },
                 ],
                 pieTitle: '服务响应时效',
                 satisfaction: '90%',
@@ -267,7 +283,16 @@
     }
 
     .center_cl {
-        width: 40vh;
+        width: 53vh;
+        height: 16vh;
+        margin: 0 0 0 4vh
+    }
+
+    .center_rg_cl {
+        width: 70vh;
         height: 16vh;
     }
+    .mr_20 {
+    margin: 0 2vh;
+}
 </style>

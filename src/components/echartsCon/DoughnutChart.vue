@@ -1,10 +1,11 @@
 <template>
-    <div  :style="{ height: '242px' }"></div>
-  </template>
-  
-  <script>
+  <div ref="treeChartCommon"  :style="{ height: '200px' }"></div>
+</template>
+
+<script>
+  // import * as echarts from 'echarts';
   export default {
-    name: 'eCharts',
+    name: 'eChartss',
     props: {
       chartData: {
         type: Object,
@@ -21,7 +22,7 @@
     },
     methods: {
       showChart() {
-        debugger
+        console.log(this.$echarts,"????")
         // 基于准备好的dom，初始化echarts实例
         var myChart = this.$echarts.init(this.$refs.treeChartCommon)
         myChart.clear()
@@ -33,74 +34,75 @@
         var option = {
           //标题
           title: {
-            text: this.chartData.pieTitle,
+            // text: this.chartData.pieTitle,
             x: 'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
             y: 'bottom', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
             textStyle: {
               fontFamily: 'Microsoft YaHei',
               fontSize: 14,
               fontWeight: 'normal',
-              color: '#333333',
+              color: '#fff',
             },
             left: '25%',
             top: '80%',
             textAlign: 'center', // 标题始终和图表保持居中
           },
           // 设置圆环渐变色
-          color: [
-            new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              // 右 下 左 上
-              {
-                offset: 0,
-                color: '#65D161',
-              },
-              {
-                offset: 1,
-                color: '#8AE587',
-              },
-            ]),
-            new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              {
-                offset: 0,
-                color: '#5393E7',
-              },
-              {
-                offset: 1,
-                color: '#9EC8FF',
-              },
-            ]),
-            new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              //0, 1, 1, 0
-              {
-                offset: 0,
-                color: '#F5E127',
-              },
-              {
-                offset: 1,
-                color: '#FFF381',
-              },
-            ]),
-            new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              {
-                offset: 0,
-                color: '#FFC772',
-              },
-              {
-                offset: 1,
-                color: '#FFA51E',
-              },
-            ]),
-            new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
-              {
-                offset: 0,
-                color: '#FF8A8A',
-              },
-              {
-                offset: 1,
-                color: '#EC6161',
-              },
-            ]),
-          ],
+          color: ['#246CF9', '#30E0A1'],
+          // color: [
+          //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          //     // 右 下 左 上
+          //     {
+          //       offset: 0,
+          //       color: '#65D161',
+          //     },
+          //     {
+          //       offset: 1,
+          //       color: '#8AE587',
+          //     },
+          //   ]),
+          //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          //     {
+          //       offset: 0,
+          //       color: '#5393E7',
+          //     },
+          //     {
+          //       offset: 1,
+          //       color: '#9EC8FF',
+          //     },
+          //   ]),
+          //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          //     //0, 1, 1, 0
+          //     {
+          //       offset: 0,
+          //       color: '#F5E127',
+          //     },
+          //     {
+          //       offset: 1,
+          //       color: '#FFF381',
+          //     },
+          //   ]),
+          //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          //     {
+          //       offset: 0,
+          //       color: '#FFC772',
+          //     },
+          //     {
+          //       offset: 1,
+          //       color: '#FFA51E',
+          //     },
+          //   ]),
+          //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+          //     {
+          //       offset: 0,
+          //       color: '#FF8A8A',
+          //     },
+          //     {
+          //       offset: 1,
+          //       color: '#EC6161',
+          //     },
+          //   ]),
+          // ],
 
           legend: {
             itemWidth: 8,
@@ -110,8 +112,8 @@
             y: 'center',
             orient: 'vertical', //设置图例排列纵向显示
             align: 'left', //设置图例中文字位置在icon标识符的右侧
-            left: '50%',
-            top: '20%',
+            left: '35%',
+            top: '30%',
             itemGap: 10, //设置图例之间的间距
             padding: [0, 0, 0, 0], //设置图例与圆环图之间的间距
 
@@ -133,17 +135,17 @@
             textStyle: {
               rich: {
                 a: {
-                  color: '#333333',
+                  color: '#fff',
                   padding: [0, 10, 0, 0],
                   fontSize: 12,
                 },
                 b: {
-                  color: '#666666',
+                  color: '#fff',
                   padding: [0, 10, 0, 0],
                   fontSize: 12,
                 },
                 c: {
-                  color: '#666666',
+                  color: '#fff',
                   fontSize: 12,
                 },
               },
@@ -153,16 +155,17 @@
             // 设置圆环内文字始终在圆环的正中间
             {
               type: 'group',
-              left: '25%',
-              top: '36%',
+              left: '15%',
+              top: '40%',
               bounding: 'raw',
               children: [
                 {
                   type: 'text',
                   style: {
-                    text: this.chartData.satisfaction,
-                    fontSize: 24,
-                    fill: '#333333', //文字的颜色
+                    // text: this.chartData.satisfaction,
+                    text: '性别',
+                    fontSize: 12,
+                    fill: '#fff', //文字的颜色
                     textVerticalAlign: 'middle',
                     textAlign: 'center',
                   },
@@ -171,16 +174,16 @@
             },
             {
               type: 'group',
-              left: '25%',
-              top: '46%',
+              left: '15%',
+              top: '56%',
               bounding: 'raw',
               children: [
                 {
                   type: 'text',
                   style: {
-                    text: '满意度',
-                    fontSize: 14,
-                    fill: '#333333', //文字的颜色
+                    text: '区间',
+                    fontSize: 12,
+                    fill: '#fff', //文字的颜色
                     textVerticalAlign: 'middle',
                     textAlign: 'center',
                   },
@@ -191,11 +194,11 @@
           calculable: true,
           series: [
             {
-              name: '企业类型',
+              name: '',
               type: 'pie',
-              radius: ['42%', '70%'], //饼图的半径，数组的第一项是内半径，第二项是外半径。支持设置成百分比，相对于容器高宽中较小的一项的一半。可以将内半径设大显示成圆环图, 设置内半径和外半径，形成环状
-              center: ['25%', '40%'], //饼图的中心(圆心)坐标，数组的第一项是横坐标，第二项是纵坐标。支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度。这里的center一旦设置, 则 graphic/legend 里的内容位置也要相应进行调整
-              roseType: 'radius',
+              radius: ['60%', '90%'], //饼图的半径，数组的第一项是内半径，第二项是外半径。支持设置成百分比，相对于容器高宽中较小的一项的一半。可以将内半径设大显示成圆环图, 设置内半径和外半径，形成环状
+              center: ['15%', '50%'], //饼图的中心(圆心)坐标，数组的第一项是横坐标，第二项是纵坐标。支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度。这里的center一旦设置, 则 graphic/legend 里的内容位置也要相应进行调整
+              // roseType: 'radius', //扇形
               itemStyle: {
                 normal: {
                   label: {

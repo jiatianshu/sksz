@@ -11,7 +11,7 @@ import App from './App.vue';
 import router from './router';
 import ElementUI from 'element-ui';
 import store from './store'
-// import * as echarts from 'echarts';
+import * as echarts from 'echarts';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
@@ -25,6 +25,7 @@ import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
