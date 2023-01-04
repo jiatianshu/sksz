@@ -13,8 +13,15 @@
         </div>
         <div class="title_cl">
             <div class="left_cl">
+                <div class="le_num">
+                    <div class="num_cl">98655</div>
+                    <div class="per_num">人员总数</div>
+                </div>
             </div>
-            <div class="center_cl"></div>
+            <div class="center_cl">
+                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+                </div>
+            </div>
             <div class="right_cl"></div>
         </div>
         <div class="table-box">
@@ -49,7 +56,9 @@
     </div>
 </template>
 <script>
-
+    import chartsoptions from "@/utils/echartsOption";
+    import * as echarts from "echarts";
+    // import request from '../utils/request';
     export default {
         name: 'personData',
         title: "数据中心 > 人员数据",
@@ -63,6 +72,8 @@
                 },
                 total:0,
                 num: "",
+                slxxList: ['1048', '110', '1120', '4562'],
+                keys: ['抄见水量', '三平', '六平', '年均'],
             };
         },
 
@@ -76,13 +87,55 @@
             yzxx(e) {
                 console.log(e, "aaaaaaaaa")
             },
-            getData(){
+            slxxmxEchart() {
+                let myChart = echarts.init(document.getElementById('slxxmxEChart'))
+                myChart.clear()
+                myChart.setOption(
+                    chartsoptions.pieEChart(this.slxxList, this.keys)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
+            postSfmx() {
+                // api.postSfmx(this.cardId).then((res) => {
+                //     let arr = []
+                //     arr = res.data
+                //     arr.forEach(e => {
+                //         let dataone = {
+                //             year: e.month,
+                //             fcsl: e.fcsl,
+                //             avgWater3: e.avgWater3,
+                //             avgWater6: e.avgWater6,
+                //             avgWater12: e.avgWater12,
+                //         }
+                //         this.slxxList.push(dataone)
+                //     })
+                //     arr.forEach(e => {
+                //         let datatwo = {
+                //             year: e.month,
+                //             yssf: e.yssf,
+                //             sssf: e.sssf
+                //         }
+                //         this.ysssList.push(datatwo)
+                //     })
+                //     this.slxxmxEchart()
+                // })
+            },
+              getData(){
 
             },
             pageChange(val){
                 this.$set(this.queryData,"current",val);
                 this.getData();
             }
+
+        },
+        mounted() {
+            this.slxxmxEchart()
+
+          
         },
         mounted() {
             this.getData();
@@ -96,10 +149,42 @@
 
     .title_cl {
         display: flex;
+        margin: 2vh 0;
+        color: #FFFFFF;
     }
-   .left_cl{
-    width: 6vh;
-    height: 6vh;
-        background: url(../../assets/img/image/ic_card_police2x.png)no-repeat;
+
+
+    .left_cl {
+        width: 16vh;
+        height: 16vh;
+        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
+        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-size: 100% 100%;
+    }
+
+    .num_cl {
+
+        color: #FFFFFF;
+        font-size: 3.6vh;
+        font-family: SegoeUI-Bold;
+        text-align: center;
+        font-weight: 700;
+        margin: auto;
+    }
+
+    .le_num {
+        margin: 35% auto 0 auto;
+        width: 100%;
+        text-align: center;
+        height: 100%
+    }
+
+    .per_num {
+        font-size: 2.4vh;
+    }
+
+    .center_cl {
+        width: 40vh;
+        height: 16vh;
     }
 </style>

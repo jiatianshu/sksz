@@ -40,6 +40,7 @@
         },
         methods: {
             submitForm() {
+                this.$router.push('/');
                 this.$refs.login.validate(valid => {
                     if (valid) {
                         const user = {
