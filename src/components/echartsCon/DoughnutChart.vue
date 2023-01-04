@@ -1,5 +1,5 @@
 <template>
-    <div ref="treeChartCommon" :style="{ height: '242px' }"></div>
+    <div  :style="{ height: '242px' }"></div>
   </template>
   
   <script>
