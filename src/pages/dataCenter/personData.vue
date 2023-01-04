@@ -59,7 +59,7 @@
     </div>
 </template>
 <script>
-    import DoughnutChart from './../../components/echartsCon/DoughnutChart.vue'
+    import DoughnutChart from '../../components/echartsCon/DoughnutChart.vue'
 
     import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";

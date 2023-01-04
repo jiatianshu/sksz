@@ -1,8 +1,9 @@
 <template>
-    <div ref="treeChartCommon" :style="{ height: '242px' }"></div>
-  </template>
-  
-  <script>
+  <div ref="treeChartCommon" :style="{ height: '242px' }"></div>
+</template>
+
+<script>
+  import * as echarts from "echarts";
   export default {
     name: 'eCharts',
     props: {
@@ -25,10 +26,10 @@
         // 基于准备好的dom，初始化echarts实例
         var myChart = this.$echarts.init(this.$refs.treeChartCommon)
         myChart.clear()
-  
+
         this.pieData = this.chartData.pieData
         const list = this.pieData
-  
+
         // 指定图表的配置项和数据
         var option = {
           //标题
@@ -101,7 +102,7 @@
               },
             ]),
           ],
-  
+
           legend: {
             itemWidth: 8,
             itemHeight: 8,
@@ -114,7 +115,7 @@
             top: '20%',
             itemGap: 10, //设置图例之间的间距
             padding: [0, 0, 0, 0], //设置图例与圆环图之间的间距
-  
+
             formatter: function (name) {
               //该函数用于设置图例显示后的百分比
               var total = 0
@@ -219,7 +220,7 @@
         }
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
-  
+
         window.addEventListener('resize', function () {
           //浏览器大小调整echarts随之改变
           myChart.resize()
@@ -227,5 +228,4 @@
       },
     },
   }
-  </script>
-  
+</script>
