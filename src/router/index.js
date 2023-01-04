@@ -1,3 +1,10 @@
+/*
+ * @Author: gq
+ * @Date: 2022-12-30 19:29:59
+ * @LastEditors: gq
+ * @LastEditTime: 2023-01-04 22:08:39
+ * @Description: file content
+ */
 
 
 import Vue from 'vue';
@@ -20,7 +27,7 @@ const modules = modulesFiles.keys().map((modulePath) => {
         }
     }
 })
-
+console.log(modules)
 Vue.use(Router);
 let router = new Router({
     routes: [

@@ -1,9 +1,8 @@
 <template>
-  <div ref="treeChartCommon" :style="{ height: '242px' }"></div>
-</template>
-
-<script>
-  import * as echarts from "echarts";
+    <div  :style="{ height: '242px' }"></div>
+  </template>
+  
+  <script>
   export default {
     name: 'eCharts',
     props: {

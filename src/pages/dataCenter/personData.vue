@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-04 20:09:28
+ * @LastEditTime: 2023-01-04 22:09:32
  * @Description: 数据中心-人员数据
 -->
 <template>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="center_cl">
-                <DoughnutChart :chartData="chartData_1" />
+                <doughnutChart :chartData="chartData_1" />
             </div>
             <div class="right_cl"></div>
         </div>
@@ -59,15 +59,15 @@
     </div>
 </template>
 <script>
-    import DoughnutChart from '../../components/echartsCon/DoughnutChart.vue'
+    import doughnutChart from '_c/echartsCon/doughnutChart.vue'
 
     import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";
-    // import request from '../utils/request';
+
     export default {
-        name: 'personData',
+        name: 'dataCenter-personData',
         components: {
-            DoughnutChart,
+            doughnutChart,
         },
         title: "数据中心 > 人员数据",
         data() {
@@ -86,10 +86,6 @@
                 slxxList: ['1048', '110', '1120', '4562'],
                 keys: ['抄见水量', '三平', '六平', '年均'],
             };
-        },
-
-        components: {
-
         },
         methods: {
             aaaa() {
