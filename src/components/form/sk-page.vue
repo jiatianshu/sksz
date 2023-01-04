@@ -2,23 +2,33 @@
  * @Author: gq
  * @Date: 2022-12-30 23:53:03
  * @LastEditors: gq
- * @LastEditTime: 2022-12-31 10:33:35
- * @Description: 分页
+ * @LastEditTime: 2023-01-04 20:09:16
+ * @Description: 分页组件
 -->
 <template>
-    <el-pagination background layout="prev, pager, next" :total="1000">
+    <el-pagination background layout="prev, pager, next"
+     @current-change="val=>$emit('page-change',val)"
+     :total="total">
     </el-pagination>
 
 </template>
 <script>
 export default {
     props: {
-
+        /**
+         * 数据总数
+         */        
+        total:{
+            default:0,
+        }
     },
     data() {
         return {
 
         }
+    },
+    methods:{
+        
     }
 }
 </script>

@@ -2,11 +2,10 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-02 00:37:34
+ * @LastEditTime: 2023-01-04 20:09:28
  * @Description: 数据中心-人员数据
 -->
 <template>
-
     <div>
         <div>
             <sk-icon-input :value.sync="num"></sk-icon-input>
@@ -51,9 +50,8 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page></sk-page>
+                <sk-page :total="total" @page-change="pageChange"></sk-page>
             </div>
-
         </div>
     </div>
 </template>
@@ -69,6 +67,10 @@
                 tableData: [{
                     name: 'adasda'
                 }, {}],
+                queryData:{
+                    current:1,
+                },
+                total:0,
                 num: "",
                 slxxList: ['1048', '110', '1120', '4562'],
                 keys: ['抄见水量', '三平', '六平', '年均'],
@@ -121,14 +123,23 @@
                 //     this.slxxmxEchart()
                 // })
             },
+              getData(){
+
+            },
+            pageChange(val){
+                this.$set(this.queryData,"current",val);
+                this.getData();
+            }
 
         },
         mounted() {
             this.slxxmxEchart()
-        },
-        created() {
 
-        }
+          
+        },
+        mounted() {
+            this.getData();
+        },
     };
 </script>
 <style scoped>

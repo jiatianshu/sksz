@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-03 20:32:30
+ * @LastEditTime: 2023-01-04 20:59:49
  * @Description: 智慧园区
 -->
 <template>
@@ -25,19 +25,30 @@
         <div class="content-box">
             <div class="content">
                 <h4 class="title-h4">行政区划</h4>
-                <div class="content-div-box" >
+                <div class="content-div-box">
                     <pictureBox />
-                    <currentPosition/>
+                    <currentPosition />
                 </div>
                 <h4 class="title-h4">一标三实</h4>
-                <div class="content-div-box">
-                   
-
+                <div class="content-div-box" style="justify-content: space-around;">
+                    <statCard title="标准地址" num="2.424" v-for="item in '1234'" />
                 </div>
                 <h4 class="title-h4">群防群治</h4>
                 <div class="content-div-box">
+                    <ul class="occupation-box">
+                        <li>
+                            <div class="occupation-img-box" :style="{background:'red'}">
+                                <img src="@/assets/img/image/ic_volunteer@2x.png" alt="">
+                            </div>
+                            <span style="font-size:16px;margin-left:12px">职业</span>
+                            <span>数字</span>
+                            <span>12%</span>
+                        </li>
 
+                    </ul>
+                    <div class="echart-box">
 
+                    </div>
                 </div>
 
             </div>
@@ -49,10 +60,12 @@
 <script>
 import pictureBox from '_c/park/pictureBox.vue';
 import currentPosition from '_c/park/currentPosition.vue';
+import statCard from "_c/park/statCard.vue";
 export default {
-    components:{
+    components: {
         pictureBox,
-        currentPosition
+        currentPosition,
+        statCard
     },
     data() {
         return {
@@ -95,23 +108,46 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.occupation-box {
+    li {
+        height: 40px;
+        color: #fff;
+        span{
+            margin-right:14px;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 32px;
+        }
+    }
+    .occupation-img-box {
+        height: 40px;
+        widows: 40px;
+        display: inline-block;
+        border-radius: 10px;
+        img {
+            height: 40px;
+            widows: 40px;
+            vertical-align: middle;
+        }
+    }
+}
+
 .title-h4 {
     font-family: PingFangSC-Semibold;
     font-size: 20px;
     color: #FFFFFF;
     font-weight: 600;
-    margin:12px 0;
+    margin: 12px 0;
 }
 
 .content-box {
     margin-top: 12px;
     display: flex;
-    // .table-box {
-    //     width: 540px;
-    // }
-    .content{
+
+    .content {
         padding-right: 60px;
-        .content-div-box{
+
+        .content-div-box {
             margin-bottom: 12px;
             display: flex;
         }
@@ -120,5 +156,10 @@ export default {
 
 .select {
     margin-right: 16px;
+}
+
+.echart-box {
+    width: 230px;
+    height: 230px;
 }
 </style>
