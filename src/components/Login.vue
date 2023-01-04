@@ -53,7 +53,7 @@
                             .dispatch('Login', user)
                             .then(() => {
                                 this.$message.success('登录成功');
-                                this.$router.push('/');
+                                this.$router.push('/').catch(()=>{});
                             })
                     } else {
                         this.$message.error('请输入账号和密码');

@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2022-12-31 09:29:00
+ * @LastEditTime: 2023-01-04 21:31:24
  * @Description: file content
  */
 
@@ -11,7 +11,7 @@ import App from './App.vue';
 import router from './router';
 import ElementUI from 'element-ui';
 import store from './store'
-import * as echarts from 'echarts';
+// import * as echarts from 'echarts';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
