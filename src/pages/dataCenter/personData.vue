@@ -22,6 +22,9 @@
                 <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
                 </div>
             </div>
+            <div class="center_cl">
+                <DoughnutChart :chartData="chartData_1" />
+            </div>
             <div class="right_cl"></div>
         </div>
         <div class="table-box">
@@ -56,21 +59,29 @@
     </div>
 </template>
 <script>
+    import DoughnutChart from './../../components/echartsCon/DoughnutChart.vue'
+
     import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";
     // import request from '../utils/request';
     export default {
         name: 'personData',
+        components: {
+            DoughnutChart,
+        },
         title: "数据中心 > 人员数据",
         data() {
             return {
+                chartData_1: {},
+                chartData_2: {},
+                chartData_3: {},
                 tableData: [{
                     name: 'adasda'
                 }, {}],
-                queryData:{
-                    current:1,
+                queryData: {
+                    current: 1,
                 },
-                total:0,
+                total: 0,
                 num: "",
                 slxxList: ['1048', '110', '1120', '4562'],
                 keys: ['抄见水量', '三平', '六平', '年均'],
@@ -123,22 +134,98 @@
                 //     this.slxxmxEchart()
                 // })
             },
-              getData(){
+            getData() {
 
             },
-            pageChange(val){
-                this.$set(this.queryData,"current",val);
+            pageChange(val) {
+                this.$set(this.queryData, "current", val);
                 this.getData();
             }
 
         },
         mounted() {
-            this.slxxmxEchart()
-
-          
-        },
-        mounted() {
             this.getData();
+            this.slxxmxEchart()
+        },
+        created() {
+            this.chartData_1 = {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                    {
+                        value: 89,
+                        name: '3.0分',
+                    },
+                    {
+                        value: 82,
+                        name: '2.0分',
+                    },
+                    {
+                        value: 35,
+                        name: '1.0分',
+                    },
+                ],
+                pieTitle: '服务响应时效',
+                satisfaction: '90%',
+            }
+            this.chartData_2 = {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                    {
+                        value: 89,
+                        name: '3.0分',
+                    },
+                    {
+                        value: 82,
+                        name: '2.0分',
+                    },
+                    {
+                        value: 35,
+                        name: '1.0分',
+                    },
+                ],
+                pieTitle: '服务人员态度',
+                satisfaction: '80%',
+            }
+            this.chartData_3 = {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                    {
+                        value: 89,
+                        name: '3.0分',
+                    },
+                    {
+                        value: 82,
+                        name: '2.0分',
+                    },
+                    {
+                        value: 35,
+                        name: '1.0分',
+                    },
+                ],
+                pieTitle: '处理方式',
+                satisfaction: '78%',
+            }
         },
     };
 </script>

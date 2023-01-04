@@ -1,6 +1,6 @@
 // echart option 配置
 //配置饼图
-
+import * as echarts from 'echarts';
 export function pieEChart(data, name) {
     //数据
     return {
