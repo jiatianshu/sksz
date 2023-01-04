@@ -248,7 +248,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0;
+        margin: 2vh 0 0 0;
         color: #FFFFFF;
     }
 
@@ -283,7 +283,7 @@
     }
 
     .center_cl {
-        width: 53vh;
+        width: 40vh;
         height: 16vh;
         margin: 0 0 0 4vh
     }

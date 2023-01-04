@@ -113,7 +113,7 @@
               orient: 'vertical', //设置图例排列纵向显示
               align: 'left', //设置图例中文字位置在icon标识符的右侧
               left: '30%',
-              top: '0',
+              top: '10%',
               itemGap: 10, //设置图例之间的间距
               padding: [0, 0, 0, 0], //设置图例与圆环图之间的间距
   
