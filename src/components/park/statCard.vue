@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-03 21:06:15
  * @LastEditors: gq
- * @LastEditTime: 2023-01-04 20:35:39
+ * @LastEditTime: 2023-01-05 20:20:25
  * @Description: 智慧园区-统计卡片
 -->
 <template>
@@ -35,7 +35,9 @@ export default {
         }
     },
     data() {
-
+        return{
+            
+        }
     }
 }
 </script>

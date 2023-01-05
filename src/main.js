@@ -1,10 +1,4 @@
-/*
- * @Author: gq
- * @Date: 2022-12-30 19:29:59
- * @LastEditors: gq
- * @LastEditTime: 2023-01-04 21:31:24
- * @Description: file content
- */
+
 
 import Vue from 'vue';
 import App from './App.vue';
@@ -21,10 +15,14 @@ import './components/common/directives';
 import 'babel-polyfill';
 import './assets/css/const.scss';
 import './assets/css/form.scss';
+import 'amfe-flexible'
+
+
 import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
+
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
