@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-05 20:10:28
+ * @LastEditTime: 2023-01-05 21:27:35
  * @Description: 智慧园区
 -->
 <template>
@@ -22,7 +22,7 @@
             </el-select>
             <skIconButton></skIconButton>
         </div>
-        <div class="content-box">
+        <div class="park-content-box">
             <div class="content">
                 <h4 class="title-h4">行政区划</h4>
                 <div class="content-div-box">
@@ -52,7 +52,7 @@
                 </div>
 
             </div>
-            <div class="community-table-box">
+            <div class="community-table-box" style="border-radius:20px">
                 <sk-icon-input></sk-icon-input>
             </div>
         </div>
@@ -110,7 +110,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .community-table-box {
-    min-width: 540px;
+    width: 500px;
     background: #1E1F25;
     padding: 24px 20px;
     ::v-deep .input-with-select{
@@ -153,12 +153,12 @@ export default {
     margin: 12px 0;
 }
 
-.content-box {
+.park-content-box {
     margin-top: 12px;
     display: flex;
 
     .content {
-        padding-right: 60px;
+        // padding-right: 60px;
 
         .content-div-box {
             margin-bottom: 12px;
