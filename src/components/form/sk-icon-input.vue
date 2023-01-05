@@ -6,9 +6,9 @@
  * @Description: icon-input输入框
 -->
 <template>
-    <el-input :placeholder="placeholder" :value="value" @input="$emit('update:value', $event)"
+    <el-input :placeholder="placeholder" :value="value"   @input="$emit('update:value', $event)"
         class="input-with-select">
-        <el-button slot="prepend" @click="$emit('click')" :icon="icon"></el-button>
+        <el-button slot="prepend" @keyup.enter.native="$emit('keyup.enter.native')" @click="$emit('click')" :icon="icon"></el-button>
     </el-input>
 
 </template>

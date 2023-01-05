@@ -6,7 +6,7 @@
  * @Description: icon-button按钮
 -->
 <template>
-    <el-button type="primary" :icon="icon">{{ title }}</el-button>
+    <el-button type="primary" @click="$emit('click')" :icon="icon">{{ title }}</el-button>
 </template>
 <script>
 export default {
