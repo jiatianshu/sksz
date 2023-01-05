@@ -1,35 +1,231 @@
+<!--
+ * @Author: gq
+ * @Date: 2022-12-30 19:29:59
+ * @LastEditors: gq
+ * @LastEditTime: 2023-01-04 22:09:32
+ * @Description: 数据中心-人员数据
+-->
 <template>
-
     <div>
-        车辆数据xxxxxx
+        <div>
+            <sk-icon-input :placeholder='carplaceholder' :value.sync="number"
+                @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
+        </div>
+        <div class="title_cl">
+            <div class="left_cl">
+                <div class="le_num">
+                    <div class="num_cl">98655</div>
+                    <div class="per_num">人员总数</div>
+                </div>
+            </div>
+            <div class="">
+                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+                </div>
+            </div>
+            <div class="center_cl">
+                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
+            </div>
+            <div class="center_rg_cl">
+                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
+            </div>
+            <div class="right_cl"></div>
+        </div>
+        <div class="table-box">
+            <el-table :data="tableData" style="width: 100%">
+                <el-table-column type="index" label="序号" align="center" width="">
+                </el-table-column>
+                <el-table-column prop="photo" label="车辆照片" width="">
+                    <template slot-scope="scope">
+                        <img :src="scope.row.carPhoto" alt="">
+                    </template>
+                </el-table-column>
+                <el-table-column prop="plateNumber" label="车牌号">
+                </el-table-column>
+                <el-table-column prop="brand" label="品牌" width="">
+                </el-table-column>
+                <el-table-column prop="color" label="颜色" width="">
+                </el-table-column>
+                <el-table-column prop="address" label="操作" width="500">
+                    <template slot-scope="scope" class="button_cl">
+                        <sk-table-button @click="yzxx(scope.row)" title="业主信息"
+                            icon="ic_personrole2x.png"></sk-table-button>
+                        <sk-table-button title="车辆信息" icon="ic_housenumber2x.png"></sk-table-button>
+                        <sk-table-button title="车位信息" icon="ic_rentrole2x.png"></sk-table-button>
+                        <sk-table-button title="轨迹查询" icon="ic_pic2x.png"></sk-table-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div style="height:52px;padding-top: 8px;text-align: right;">
+                <sk-page :total="total" @page-change="pageChange"></sk-page>
+            </div>
+        </div>
     </div>
-
 </template>
 <script>
+    import { getCarList } from '@/api/sjzx'
+    import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
+    import ageCharts from '_c/echartsCon/ageCharts.vue'
 
-export default {
-    name:'carData',
-    title:"数据中心 > 车辆数据",
-    data() {
-        return {
+    // import * as echarts from "echarts";
+
+    export default {
+        name: 'dataCenter-carData',
+        components: {
+            doughnutChart,
+            ageCharts
+        },
+        title: "数据中心 > 车辆数据",
+        data() {
+            return {
+                chartData_1: {},
+                chartData_2: {},
+                chartData_3: {},
+                tableData: [],
+                queryData: {
+                    current: 1,
+                },
+                total: 0,
+                number: "",
+                carplaceholder: "请输入车牌号",
+            };
+        },
+        methods: {
+            checkSearch() {
+                console.log(this.number, "aaaaaaaaa")
+                this.getListData()
+            },
+            yzxx(e) {
+                console.log(e, "aaaaaaaa00000a")
+            },
           
-        };
-    },
-    components: {
-  
-    },
-    methods:{
+            getListData() {
+                console.log(this.queryData.current, "yyyyy")
+                var data = {
+                    province: "", //省
+                    city: "", //市
+                    number: this.number, //号码
+                    current: this.queryData.current //当前页码
 
-    },
-    mounted() {
-        
-    },
-    created() {
-        
-    }
-};
+                }
+                getCarList(data).then((res) => {
+                    console.log(res, 'sssss')
+                    if (res.code == 0) {
+                        this.tableData = res.data.result
+                        this.total = res.data.total
+                    }
+
+                })
+            },
+     
+            pageChange(val) {
+                this.$set(this.queryData, "current", val);
+                this.getListData();
+            }
+
+        },
+        mounted() {
+            this.getListData()
+        },
+        created() {
+
+            this.chartData_1 = {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                ],
+                pieTitle: '服务响应时效',
+                satisfaction: '90%',
+            }
+            this.chartData_2 = {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                    {
+                        value: 89,
+                        name: '3.0分',
+                    },
+                    {
+                        value: 82,
+                        name: '2.0分',
+                    },
+                    {
+                        value: 35,
+                        name: '1.0分',
+                    },
+                ],
+                pieTitle: '服务人员态度',
+                satisfaction: '80%',
+            }
+        },
+    };
 </script>
+
 <style scoped>
+    .button_cl {
+        display: flex;
+    }
+
+    .title_cl {
+        display: flex;
+        margin: 2vh 0 0 0;
+        color: #FFFFFF;
+    }
 
 
+    .left_cl {
+        width: 16vh;
+        height: 16vh;
+        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
+        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-size: 100% 100%;
+    }
+
+    .num_cl {
+
+        color: #FFFFFF;
+        font-size: 3.6vh;
+        font-family: SegoeUI-Bold;
+        text-align: center;
+        font-weight: 700;
+        margin: auto;
+    }
+
+    .le_num {
+        margin: 35% auto 0 auto;
+        width: 100%;
+        text-align: center;
+        height: 100%
+    }
+
+    .per_num {
+        font-size: 2.4vh;
+    }
+
+    .center_cl {
+        width: 40vh;
+        height: 16vh;
+        margin: 0 0 0 4vh
+    }
+
+    .center_rg_cl {
+        width: 70vh;
+        height: 16vh;
+    }
+
+    .mr_20 {
+        margin: 0 2vh;
+    }
 </style>
