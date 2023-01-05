@@ -1,5 +1,8 @@
+
 <template>
-    <div class="wrapper">
+    <div>
+
+         <div class="wrapper">
         <v-head></v-head>
 
         <div class="center_box">
@@ -18,6 +21,9 @@
         </div>
 
     </div>
+    <div class="img-back"></div>
+    </div>
+   
 </template>
 
 <script>
@@ -55,8 +61,17 @@ export default {
 </script>
 <style scoped>
 .wrapper {
+    padding: 20px;
+    position: relative;
+    z-index: 99;
+}
+.img-back{
     background: url('././../../assets/img/image/bg01.jpg') no-repeat;
     background-size: 100% 100%;
-    padding: 20px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
 }
 </style>
