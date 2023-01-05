@@ -37,18 +37,18 @@
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column type="index" label="序号" align="center" width="100">
                 </el-table-column>
-                <el-table-column prop="photo" label="头像" width="180">
+                <el-table-column prop="photo" label="头像" width="80">
                     <template slot-scope="scope">
                         <img :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="name" label="姓名">
                 </el-table-column>
-                <el-table-column prop="idNumber" label="身份证">
+                <el-table-column prop="idNumber" label="身份证" width="160">
                 </el-table-column>
                 <el-table-column prop="sex" label="性别">
                 </el-table-column>
-                <el-table-column prop="telephone" label="手机号">
+                <el-table-column prop="telephone" label="手机号" width="100">
                 </el-table-column>
                 <el-table-column prop="address" label="操作" width="600">
                     <template slot-scope="scope" class="button_cl">
