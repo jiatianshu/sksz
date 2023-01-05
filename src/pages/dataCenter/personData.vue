@@ -280,8 +280,5 @@
         margin: 0 2vh;
     }
 
-    .table-box {
-        overflow: scroll;
-        height: 60vh;
-    }
+ 
 </style>
