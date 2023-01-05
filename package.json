@@ -8,12 +8,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "echarts": "^5.4.1",
     "element-ui": "^2.11.0",
     "js-cookie": "^3.0.1",
     "node-sass": "6.0.0",
+    "postcss-pxtorem": "^5.1.1",
     "qs": "^6.11.0",
     "vue": "^2.6.10",
     "vue-cropperjs": "^3.0.0",

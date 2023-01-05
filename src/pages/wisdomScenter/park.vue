@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-05 19:50:22
+ * @LastEditTime: 2023-01-05 20:10:28
  * @Description: 智慧园区
 -->
 <template>
@@ -37,7 +37,7 @@
                 <div class="content-div-box">
                     <ul class="occupation-box">
                         <li>
-                            <div class="occupation-img-box" :style="{background:'red'}">
+                            <div class="occupation-img-box" :style="{ background: 'red' }">
                                 <img src="@/assets/img/image/ic_volunteer@2x.png" alt="">
                             </div>
                             <span style="font-size:16px;margin-left:12px">职业</span>
@@ -52,10 +52,10 @@
                 </div>
 
             </div>
-            <div class="table-box">
+            <div class="community-table-box">
+                <sk-icon-input></sk-icon-input>
             </div>
         </div>
-        <!-- <img src="@/assets/img/image/bg01.jpg" style="position:fixed;width: 100%;height: 100%;left: 0;top: 0;"  alt=""> -->
     </div>
 </template>
 <script>
@@ -109,22 +109,34 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.community-table-box {
+    min-width: 540px;
+    background: #1E1F25;
+    padding: 24px 20px;
+    ::v-deep .input-with-select{
+        width: 100%;
+    }
+}
+
 .occupation-box {
     li {
         height: 40px;
         color: #fff;
-        span{
-            margin-right:14px;
+
+        span {
+            margin-right: 14px;
             font-size: 20px;
             font-weight: 600;
             line-height: 32px;
         }
     }
+
     .occupation-img-box {
         height: 40px;
         widows: 40px;
         display: inline-block;
         border-radius: 10px;
+
         img {
             height: 40px;
             widows: 40px;

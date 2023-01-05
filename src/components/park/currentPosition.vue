@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-03 20:29:11
  * @LastEditors: gq
- * @LastEditTime: 2023-01-03 21:01:07
+ * @LastEditTime: 2023-01-05 20:16:14
  * @Description: 智慧园区-当前位置
 -->
 <template>
@@ -12,7 +12,7 @@
             沈阳市-大东区
         </h4>
         <ul class="img-ul">
-            <li v-for="item in imgList" :key="item.src">
+            <li v-for="item in imgList" :key="item.location">
                 <img :src="require(`@/assets/img/image/${item.src}`)" alt="">
                 <div class="img-text-box">
                     <p class="img-text-num">{{ item.num }}</p>

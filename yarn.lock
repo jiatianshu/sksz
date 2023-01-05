@@ -1470,6 +1470,11 @@
   "resolved" "https://registry.npmmirror.com/amdefine/-/amdefine-1.0.1.tgz"
   "version" "1.0.1"
 
+"amfe-flexible@^2.2.1":
+  "integrity" "sha512-L2VfvDzoETBjhRptg5u/IUuzHSuxm22JpSRb404p/TBGeRfwWmmNEbB+TFPIP/sS/+pbM18bCFH9QnMojLuPNw=="
+  "resolved" "https://registry.npmjs.org/amfe-flexible/-/amfe-flexible-2.2.1.tgz"
+  "version" "2.2.1"
+
 "ansi-colors@^3.0.0":
   "integrity" "sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA=="
   "resolved" "https://registry.npmmirror.com/ansi-colors/-/ansi-colors-3.2.4.tgz"
@@ -6615,6 +6620,13 @@
     "postcss" "^7.0.0"
     "postcss-value-parser" "^3.0.0"
 
+"postcss-pxtorem@^5.1.1":
+  "integrity" "sha512-uvgIujL/pn0GbZ+rczESD2orHsbXrrCqi+q9wJO8PCk3ZGCoVVtu5hZTbtk+tbZHZP5UkTfCvqOrTZs9Ncqfsg=="
+  "resolved" "https://registry.npmjs.org/postcss-pxtorem/-/postcss-pxtorem-5.1.1.tgz"
+  "version" "5.1.1"
+  dependencies:
+    "postcss" "^7.0.27"
+
 "postcss-reduce-initial@^4.0.3":
   "integrity" "sha512-gKWmR5aUulSjbzOfD9AlJiHCGH6AEVLaM0AV+aSioxUDd16qXP1PCh8d1/BGVvpdWn8k/HiK7n6TjeoXN1F7DA=="
   "resolved" "https://registry.npmmirror.com/postcss-reduce-initial/-/postcss-reduce-initial-4.0.3.tgz"
@@ -6703,9 +6715,41 @@
     "source-map" "^0.6.1"
     "supports-color" "^5.4.0"
 
-"postcss@^7.0.0", "postcss@^7.0.1", "postcss@^7.0.27", "postcss@^7.0.32", "postcss@^7.0.36":
+"postcss@^7.0.0":
   "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
-  "resolved" "https://registry.npmmirror.com/postcss/-/postcss-7.0.39.tgz"
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.1":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.27":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.32":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.36":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
   "version" "7.0.39"
   dependencies:
     "picocolors" "^0.2.1"
@@ -6713,7 +6757,7 @@
 
 "postcss@^8.4.14":
   "integrity" "sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g=="
-  "resolved" "https://registry.npmmirror.com/postcss/-/postcss-8.4.20.tgz"
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.20.tgz"
   "version" "8.4.20"
   dependencies:
     "nanoid" "^3.3.4"
