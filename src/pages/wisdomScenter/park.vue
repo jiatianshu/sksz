@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-04 20:59:49
+ * @LastEditTime: 2023-01-05 19:50:22
  * @Description: 智慧园区
 -->
 <template>
@@ -55,6 +55,7 @@
             <div class="table-box">
             </div>
         </div>
+        <!-- <img src="@/assets/img/image/bg01.jpg" style="position:fixed;width: 100%;height: 100%;left: 0;top: 0;"  alt=""> -->
     </div>
 </template>
 <script>
