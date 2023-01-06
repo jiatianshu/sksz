@@ -8,7 +8,7 @@
 <template>
     <el-pagination background layout="prev, pager, next"
      @current-change="val=>$emit('page-change',val)"
-     :total="total">
+     :total="total" >
     </el-pagination>
 
 </template>
@@ -20,7 +20,7 @@ export default {
          */        
         total:{
             default:0,
-        }
+        },
     },
     data() {
         return {

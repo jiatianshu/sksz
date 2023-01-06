@@ -240,7 +240,7 @@
         width: 16vh;
         height: 16vh;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_polic2x.png');
         background-size: 100% 100%;
     }
 

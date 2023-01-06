@@ -15,9 +15,18 @@
         <div class="title_cl">
             <div class="left_cl">
                 <div class="le_num">
-                    <div class="num_cl">98655</div>
-                    <div class="per_num">人员总数</div>
+                    <div class="left_fw">
+                        <div class="num_cl">98655</div>
+                        <div class="per_num">房屋总数</div>
+                    </div>
+                    <div class="cen_cl"></div>
+                    <div class="left_fw">
+                        <div class="num_cl">98655</div>
+                        <div class="per_num">信息完善率</div>
+                    </div>
+
                 </div>
+
             </div>
             <div class="">
                 <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
@@ -98,7 +107,7 @@
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-          
+
             getListData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
@@ -117,7 +126,7 @@
 
                 })
             },
-     
+
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
@@ -186,32 +195,40 @@
 
 
     .left_cl {
-        width: 16vh;
-        height: 16vh;
+        width: 308px;
+        height: 148px;
+        border-radius: 20px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_car2x.png');
         background-size: 100% 100%;
     }
 
     .num_cl {
 
+        font-size: 32px;
         color: #FFFFFF;
-        font-size: 3.6vh;
-        font-family: SegoeUI-Bold;
         text-align: center;
-        font-weight: 700;
-        margin: auto;
+        font-weight: 700
     }
 
     .le_num {
-        margin: 35% auto 0 auto;
+        margin: 60px auto 0 auto;
         width: 100%;
+        display: flex;
+        justify-content: center;
         text-align: center;
         height: 100%
     }
 
     .per_num {
-        font-size: 2.4vh;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-align: center;
+        font-weight: 600;
+    }
+    .center_rg_cl {
+        width: 70vh;
+        height: 16vh;
     }
 
     .center_cl {
@@ -219,13 +236,28 @@
         height: 16vh;
         margin: 0 0 0 4vh
     }
+    .mr_20 {
+        margin: 0 2vh;
+    }
 
     .center_rg_cl {
         width: 70vh;
         height: 16vh;
     }
-
+    .cen_cl {
+        width: 1px;
+        height: 48px;
+        opacity: 0.4;
+        border: 1px solid rgba(255, 255, 255, 1);
+        margin: 6px 10px 0 10px;
+    }
     .mr_20 {
         margin: 0 2vh;
     }
+    .left_fw {
+        width: 100px;
+    }
+    .select {
+    margin-right: 16px;
+}
 </style>

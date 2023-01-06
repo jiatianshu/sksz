@@ -40,7 +40,7 @@
                     <div class="per_num">房屋总数</div>
                 </div>
             </div>
-            <div class="centert_cl">
+            <div class="centert_cl_per">
                 <div class="cen_text">
                     <div class="num_cl">93466</div>
                     <div class="per_num">人员总数</div>
@@ -238,8 +238,7 @@
         width: 308px;
         height: 148px;
         border-radius: 20px;
-        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_plaza2x.png');
         background-size: 100% 100%;
     }
 
@@ -248,8 +247,16 @@
         height: 148px;
         border-radius: 20px;
         text-align: center;
-        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_home2x.png');
+        background-size: 100% 100%;
+        margin: 0 0 0 32px;
+    }
+    .centert_cl_per {
+        width: 148px;
+        height: 148px;
+        border-radius: 20px;
+        text-align: center;
+        background-image: url('../../assets/img/datacente/ic_card_worker2x.png');
         background-size: 100% 100%;
         margin: 0 0 0 32px;
     }

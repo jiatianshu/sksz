@@ -227,8 +227,7 @@
         width: 308px;
         height: 148px;
         border-radius: 20px;
-        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_office2x.png');
         background-size: 100% 100%;
     }
 
@@ -237,8 +236,7 @@
         height: 148px;
         border-radius: 20px;
         text-align: center;
-        /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_role2x.png');
         background-size: 100% 100%;
         margin: 0 0 0 32px;
     }
