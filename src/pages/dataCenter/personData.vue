@@ -8,11 +8,11 @@
 <template>
     <div>
         <div>
-            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name"></sk-icon-input>
-            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum" class="mr_20"></sk-icon-input>
-            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"></sk-icon-input>
+            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name" @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum"  @keyup.enter.native="checkSearch" class="mr_20"></sk-icon-input>
+            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"  @keyup.enter.native="checkSearch"></sk-icon-input>
             <!-- <sk-icon-input :placeholder ='placeholder' :value.sync="num"></sk-icon-input> -->
-            <sk-icon-button style="margin-left:12px" @click="aaaa"></sk-icon-button>
+            <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>
         <div class="title_cl">
             <div class="left_cl">
@@ -37,15 +37,18 @@
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column type="index" label="序号" align="center" width="100">
                 </el-table-column>
-                <el-table-column prop="name" label="头像" width="180">
+                <el-table-column prop="photo" label="头像" width="80">
+                    <template slot-scope="scope">
+                        <img :src="scope.row.photo" alt="">
+                    </template>
                 </el-table-column>
-                <el-table-column prop="address" label="姓名">
+                <el-table-column prop="name" label="姓名">
                 </el-table-column>
-                <el-table-column prop="address" label="身份证">
+                <el-table-column prop="idNumber" label="身份证" width="160">
                 </el-table-column>
-                <el-table-column prop="address" label="性别">
+                <el-table-column prop="sex" label="性别">
                 </el-table-column>
-                <el-table-column prop="address" label="手机号">
+                <el-table-column prop="telephone" label="手机号" width="100">
                 </el-table-column>
                 <el-table-column prop="address" label="操作" width="600">
                     <template slot-scope="scope" class="button_cl">
@@ -65,6 +68,7 @@
     </div>
 </template>
 <script>
+    import { getperList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -83,9 +87,7 @@
                 chartData_1: {},
                 chartData_2: {},
                 chartData_3: {},
-                tableData: [{
-                    name: 'adasda'
-                }, {}],
+                tableData: [],
                 queryData: {
                     current: 1,
                 },
@@ -104,11 +106,12 @@
             };
         },
         methods: {
-            aaaa() {
-                console.log(this.num, "aaaaaaaaa")
+            checkSearch() {
+                console.log(this.name, "aaaaaaaaa")
+                this.getListData()
             },
             yzxx(e) {
-                console.log(e, "aaaaaaaaa")
+                console.log(e, "aaaaaaaa00000a")
             },
             slxxmxEchart() {
                 let myChart = echarts.init(document.getElementById('slxxmxEChart'))
@@ -119,6 +122,24 @@
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
                     myChart.resize()
+                })
+            },
+            getListData() {
+                console.log(this.queryData.current, "yyyyy")
+                var data = {
+                    name: this.name, //姓名
+                    telephone: this.tellnum, //手机号
+                    idNumber: this.idnum, //身份证号
+                    current: this.queryData.current   //当前页码
+
+                }
+                getperList(data).then((res) => {
+                    console.log(res, 'sssss')
+                    if (res.code == 0) {
+                        this.tableData = res.data.result
+                        this.total = res.data.total
+                    }
+
                 })
             },
             postSfmx() {
@@ -146,20 +167,19 @@
                 //     this.slxxmxEchart()
                 // })
             },
-            getData() {
 
-            },
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
-                this.getData();
+                this.getListData();
             }
 
         },
         mounted() {
-            this.getData();
             this.slxxmxEchart()
+            this.getListData()
         },
         created() {
+
             this.chartData_1 = {
                 pieData: [
                     {
@@ -170,18 +190,6 @@
                         value: 101,
                         name: '4.0分',
                     },
-                    // {
-                    //     value: 89,
-                    //     name: '3.0分',
-                    // },
-                    // {
-                    //     value: 82,
-                    //     name: '2.0分',
-                    // },
-                    // {
-                    //     value: 35,
-                    //     name: '1.0分',
-                    // },
                 ],
                 pieTitle: '服务响应时效',
                 satisfaction: '90%',
@@ -212,35 +220,10 @@
                 pieTitle: '服务人员态度',
                 satisfaction: '80%',
             }
-            this.chartData_3 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '处理方式',
-                satisfaction: '78%',
-            }
         },
     };
 </script>
+
 <style scoped>
     .button_cl {
         display: flex;
@@ -257,7 +240,7 @@
         width: 16vh;
         height: 16vh;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
-        background-image: url('../../assets/img/image/ic_card_police2x.png');
+        background-image: url('../../assets/img/datacente/ic_card_polic2x.png');
         background-size: 100% 100%;
     }
 
@@ -292,7 +275,10 @@
         width: 70vh;
         height: 16vh;
     }
+
     .mr_20 {
-    margin: 0 2vh;
-}
+        margin: 0 2vh;
+    }
+
+ 
 </style>

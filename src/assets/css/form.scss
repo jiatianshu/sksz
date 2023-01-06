@@ -7,28 +7,33 @@
  */
 .el-select {
     width: 160px !important;
+
     .el-input {
         input {
             text-align: left !important;
             font-size: 16px !important;
             color: #FFFFFF !important;
             font-weight: 500 !important;
+
             &::placeholder {
                 color: #757B8C !important;
                 font-weight: 400 !important;
             }
         }
     }
+
     .el-input__suffix-inner {
         display: inline-block;
     }
-    .el-input__inner{
+
+    .el-input__inner {
         height: 42px;
         background: #1E1F25;
         border: 1px solid rgba(60, 66, 84, 1);
         border-radius: 8px;
     }
-    .el-select__caret{
+
+    .el-select__caret {
         margin-top: 4px;
     }
 }
@@ -38,7 +43,7 @@
     margin-top: 24px;
     border-radius: 8px;
     overflow: hidden;
-
+    width: 100%;
 }
 
 .el-table {
@@ -68,7 +73,8 @@
 }
 
 
-.el-table--enable-row-hover .el-table__body tr:hover > td {
+.el-table--enable-row-hover .el-table__body tr:hover>td {
     background-color: #1b1b19 !important;
-    /* color: #f19944; */ /* 设置文字颜色，可以选择不设置 */
-  }
+    /* color: #f19944; */
+    /* 设置文字颜色，可以选择不设置 */
+}
