@@ -2,7 +2,7 @@
     <div class="lf_sidebar">
         <el-aside class="el-aside" width="aotu">
             <div class="sidebar">
-                <el-menu class="sidebar-el-menu" ref="menusRef" :collapse-transition="false" :default-active="onRoutes"
+                <el-menu class="sidebar-el-menu" ref="menusRef"  :default-active="onRoutes"
                     :collapse="collapse" @close="closeMenu" @open="openMenu" background-color="transparent"
                     text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
                     <template v-for="item in menus">

@@ -2,20 +2,20 @@
  * @Author: gq
  * @Date: 2023-01-07 12:48:29
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 13:28:13
+ * @LastEditTime: 2023-01-07 20:32:15
  * @Description: 智慧园区card组件
 -->
 <template>
     <div class="community-item-card">
-        <img src="@/assets/img/pic/pic08@2x.jpg" class="left-img" alt="">
+        <img :src="parkData.parkImg" class="left-img" alt="">
         <div class="community-item-content">
             <div>
-                <p class="community-item-title">万科时代之光</p>
-                <p class="community-item-location">沈阳市大东区 津桥街道 红星社区</p>
+                <p class="community-item-title">{{parkData.parkName}}</p>
+                <p class="community-item-location">{{parkData.cityName}} {{parkData.districtName}} {{parkData.streetName}}</p>
             </div>
             <div>
-                <p>大东区工农路203号</p>
-                <p><img src="@/assets/img/icon/Ic_trail2x.png" class="icon" alt=""> 41º46´ N，50º14´ W</p>
+                <p>{{parkData.address}}</p>
+                <p><img src="@/assets/img/icon/Ic_trail2x.png" class="icon" alt=""> {{parkData.longitude}} N，{{parkData.latitude}} W</p>
             </div>
             <div class="house" >
                 <img src="@/assets/img/icon/ic_plaza2x.png" alt="">
@@ -26,6 +26,12 @@
 </template>
 <script>
 export default {
+    props:{
+        parkData:{
+            typeof:Object,
+            default:()=>new Object()
+        }
+    },
     data() {
         return {
         }
@@ -37,7 +43,7 @@ export default {
     display: flex;
     height: 160px;
     cursor: pointer;
-
+    margin-bottom: 24px;
     .left-img {
         width: 260px;
         height: 160px;

@@ -2,49 +2,51 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 13:17:13
+ * @LastEditTime: 2023-01-07 21:40:22
  * @Description: 智慧园区
 -->
 <template>
     <div>
         <div>
-            <skDistrict />
-            <skIconButton></skIconButton>
+            <skDistrict @change="districtChange" />
+            <skIconButton @click="getData"></skIconButton>
         </div>
-        <div class="park-content-box">
+        <div class="park-content-box" v-if="detailData">
             <div class="content">
                 <h4 class="title-h4">行政区划</h4>
                 <div class="content-div-box">
-                    <pictureBox />
-                    <currentPosition />
+                    <pictureBox :imgList="imgList" />
+                    <currentPosition :detailData="detailData"
+                        :locationTitle="`${formData.cityName}${'-' + formData.districtName}${'-' + formData.streetName}`" />
                 </div>
                 <h4 class="title-h4">一标三实</h4>
                 <div class="content-div-box" style="justify-content: space-around;">
-                    <statCard title="标准地址" num="2.424" v-for="item in '1234'" />
+                    <statCard title="标准地址" :num="detailData.districtData.addressNum" src="ic_location@2x.png" />
+                    <statCard title="实有房屋" :num="detailData.districtData.housesNum" src="ic_house@2x.png" />
+                    <statCard title="实有人口" :num="detailData.districtData.populationNum" src="ic_person@2x.png" />
+                    <statCard title="实有单位" :num="detailData.districtData.companyNum" src="ic_corporation@2x.png" />
                 </div>
                 <h4 class="title-h4">群防群治</h4>
-                <div class="content-div-box">
+                <div class="content-div-box" style="justify-content: space-between;">
                     <ul class="occupation-box">
-                        <li>
-                            <div class="occupation-img-box" :style="{ background: 'red' }">
-                                <img src="@/assets/img/image/ic_volunteer@2x.png" alt="">
+                        <li v-for="item in professionList" :key="item.key">
+                            <div class="occupation-img-box" :style="{ background: item.background }">
+                                <img :src="require('@/assets/img/image/' + item.src)" alt="">
                             </div>
-                            <span style="font-size:16px;margin-left:12px">职业</span>
-                            <span>数字</span>
-                            <span>12%</span>
+                            <span style="font-size:16px;margin-left:12px">{{ item.name }}</span>
+                            <span>{{ detailData[item.key]}}</span>
+                            <!-- <span>12%</span> -->
                         </li>
-
                     </ul>
                     <div class="echart-box">
-
+                        <echart :chartData="chartData" :legendType="false" :height="'230px'"/>
                     </div>
                 </div>
-
             </div>
             <div class="community-table-box" style="border-radius:20px">
-                <sk-icon-input></sk-icon-input>
-                <div style="margin-top:12px">
-                    <communityItemCard/>
+                <sk-icon-input :value.async="parkName"></sk-icon-input>
+                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;">
+                    <communityItemCard v-for="item in parkList" :parkData="item" :key="item.id" />
 
                 </div>
             </div>
@@ -56,51 +58,124 @@ import pictureBox from '_c/park/pictureBox.vue';
 import currentPosition from '_c/park/currentPosition.vue';
 import statCard from "_c/park/statCard.vue";
 import communityItemCard from "_c/park/communityItemCard.vue";
+import echart from '_c/park/echart.vue'
+import { getParkData, getParkList } from "@/api/wisdomScenter";
 export default {
     name: "wisdomScenter-park",
     components: {
         pictureBox,
         currentPosition,
         statCard,
-        communityItemCard
+        communityItemCard,
+        echart
     },
     title: "智慧园区 > 智慧中心",
     data() {
         return {
-            cityoptions: [{
-                value: '选项1',
-                label: '黄金糕'
-            }, {
-                value: '选项2',
-                label: '双皮奶'
-            }, {
-                value: '选项3',
-                label: '蚵仔煎'
-            }, {
-                value: '选项4',
-                label: '龙须面'
-            }, {
-                value: '选项5',
-                label: '北京烤鸭'
-            }],
-            citycode: '',
-            qucode: '',
-            streecode: '',
 
+            formData: {
+                city: "",
+                cityName: "",
+                district: "",
+                districtName: "",
+                street: "",
+                streetName: "",
+            },
+            parkName: "",
+            parkList: [],
+            professionList: [
+                {
+                    background: "#A276FF",
+                    name: "网格员",
+                    src: "ic_net@2x.png",
+                    key: "gridNum",
+                }, {
+                    background: "#FF9B0B",
+                    name: "社区工作者",
+                    src: "ic_community@2x.png",
+                    key: "communityWorkerNum",
+                }, {
+                    background: "#FF1D1D",
+                    name: "平安志愿者",
+                    src: "ic_volunteer@2x.png",
+                    key: "volunteerNum",
+                }, {
+                    background: "#2482FD",
+                    name: "物业保安",
+                    src: "ic_security@2x.png",
+                    key: "securityNum",
+                }, {
+                    background: "#3CE1F6",
+                    name: "企事业职工",
+                    src: "ic_worker@2x.png",
+                    key: "enterpriseWorkersNum",
+                }, {
+                    background: "#00CB5A",
+                    name: "业主商户",
+                    src: "ic_worker@2x.png",//缺图片
+                    key: "merchantNum",
+                }, {
+                    background: "#007E16",
+                    name: "退伍军人",
+                    src: "ic_soldier@2x.png",
+                    key: "exSoldierNum",
+                }, {
+                    background: "#FF65E4",
+                    name: "党员",
+                    src: "ic_party@2x.png",
+                    key: "partyMemberNum",
+                }
+            ],
+            chartData: {
+                pieData: [
+                    {
+                        value: 113,
+                        name: '5.0分',
+                    },
+                    {
+                        value: 101,
+                        name: '4.0分',
+                    },
+                ],
+                pieTitle: '人数总计',
+                satisfaction: '90%',
+            },
+            detailData: null,
+            imgList: [],
         }
 
 
     },
-    created() {
 
-    },
     mounted() {
 
 
     },
     methods: {
-
-
+        districtChange(data) {
+            this.formData = data
+        },
+        getData() {
+            console.log(this.formData);
+            getParkData(this.formData).then(res => {
+                this.detailData = res.data;
+                //图片map转list
+                for (key in this.detailData.imgMap) {
+                    this.imgList.push({
+                        title: key,
+                        src: this.detailData.imgMap[key]
+                    })
+                }
+                this.chartData.pieData = this.professionList.map(item => {
+                    item.value=this.detailData[item.key]||0;
+                    return item;
+                })
+                console.log(this.chartData);
+            });
+            getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
+                this.parkList = res.data.result;
+            })
+        }
 
     }
 }
@@ -117,8 +192,13 @@ export default {
 }
 
 .occupation-box {
-    list-style:none;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    width: 690px;
+
     li {
+        width: 228px;
         height: 40px;
         color: #fff;
 
@@ -171,5 +251,6 @@ export default {
 .echart-box {
     width: 230px;
     height: 230px;
+    margin-right: 60px;
 }
 </style>
