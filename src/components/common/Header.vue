@@ -14,7 +14,7 @@
         <div class="rgt_title">
             <div class="logo">
                 <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
-                <div style="margin: 0 0 0 2vh;" class="tit_cl">{{ title }}</div>
+                <div style="margin: 0 0 0 36px;" class="tit_cl">{{ title }}</div>
             </div>
             <div class="header-right">
                 <div class="header-user-con">
@@ -132,7 +132,7 @@ export default {
     background: #282C38;
     display: flex;
     height: 100%;
-    padding-top: 14px;
+    padding-top: 20px;
     cursor: pointer;
 }
 
@@ -152,15 +152,20 @@ export default {
     width: 100%;
     background: rgba(30, 31, 37, 0.88);
     margin: 0 0 0 20px;
-    border-radius: 1.2vh;
+    height: 80px;
+    border-radius: 20px;
+    // border-radius: 1.2vh;
     overflow: hidden;
 }
 
 .title_nav {
     background: rgba(30, 31, 37, 0.88);
     width: 250px;
-    border-radius: 1.2vh;
+    height: 80px;
+    border-radius: 20px;
     /* line-height: 68px; */
+    display: flex;
+    flex-wrap: wrap;
     color: #fff;
     text-align: center;
 }
@@ -185,13 +190,13 @@ export default {
 
 .header-user-con {
     display: flex;
-    height: 70px;
+    height: 80px;
     align-items: center;
 }
 
 .btn-fullscreen {
     padding-top: 10px;
-    margin-right: 16px;
+    margin-right: 30px;
 
     img {
 
@@ -204,6 +209,7 @@ export default {
 
 .tit_cl {
     font-size: 16px;
+    line-height: 80px;
 }
 
 .btn-bell-badge {

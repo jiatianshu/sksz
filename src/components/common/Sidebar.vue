@@ -2,9 +2,9 @@
     <div class="lf_sidebar">
         <el-aside class="el-aside" width="aotu">
             <div class="sidebar">
-                <el-menu class="sidebar-el-menu" ref="menusRef" :default-active="onRoutes" :collapse="collapse"
-                    @close="closeMenu" @open="openMenu" background-color="transparent" text-color="#bfcbd9"
-                    active-text-color="#20a0ff" unique-opened router>
+                <el-menu class="sidebar-el-menu" ref="menusRef" :collapse-transition="false" :default-active="onRoutes"
+                    :collapse="collapse" @close="closeMenu" @open="openMenu" background-color="transparent"
+                    text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
                     <template v-for="item in menus">
                         <template v-if="item.subs">
                             <!-- title -->
@@ -14,9 +14,9 @@
                                         <img :src="item.icon" alt="" srcset="" class="img_icon">
                                         <span slot="title">{{ item.title }}
                                             <img src="@/assets/img/icon/ic_extend@2x.png" alt=""
-                                            :class="[item.showType ? 'active-menu' : '']" class="img-down">
+                                                :class="[item.showType ? 'active-menu' : '']" class="img-down">
                                         </span>
-                                       
+
                                     </div>
                                 </template>
                                 <!-- 子路由 -->
@@ -84,19 +84,23 @@ export default {
         }
     },
 
-    created() {
+    mounted() {
         // 通过 Event Bus 进行组件间通信，来折叠侧边栏
         bus.$on('collapse', msg => {
             this.collapse = msg;
             bus.$emit('collapse-content', msg);
         });
+        // this.openMenu(this.$route)
+        let menu = this.filterIndex(this.$route.path);
+        menu && this.openMenu(menu.index);
+
     },
     methods: {
         filterIndex(index) {
             let forFilter = (arr) => {
                 return arr.find(item => {
                     if (item.index == index) {
-                        if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
+                        // if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
                         return item
                     } else if (item.subs) {
                         return forFilter(item.subs);
@@ -110,17 +114,18 @@ export default {
          * @param {*} index
          */
         openMenu(index) {
-            this.$set(this.filterIndex(index), "showType", true);
-            this.$set(this.filterIndex(index), "active", true);
-
+            this.menus.forEach(item => {
+                item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
+                item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
+            });
         },
         /**
          * @description: 关闭菜单函数                                           
          * @param {*} index
          */
         closeMenu(index) {
-            this.filterIndex(index).showType = false;
-            this.filterIndex(index).active = false;
+            this.$set(this.filterIndex(index), "showType", false);
+            this.$set(this.filterIndex(index), "active", false);
         },
         // 侧边栏折叠
         collapseChage() {

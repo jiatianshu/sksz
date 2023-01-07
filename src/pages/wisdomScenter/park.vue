@@ -2,24 +2,13 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-05 21:27:35
+ * @LastEditTime: 2023-01-07 13:17:13
  * @Description: 智慧园区
 -->
 <template>
     <div>
         <div>
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择行政区">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择街道">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
+            <skDistrict />
             <skIconButton></skIconButton>
         </div>
         <div class="park-content-box">
@@ -54,6 +43,10 @@
             </div>
             <div class="community-table-box" style="border-radius:20px">
                 <sk-icon-input></sk-icon-input>
+                <div style="margin-top:12px">
+                    <communityItemCard/>
+
+                </div>
             </div>
         </div>
     </div>
@@ -62,12 +55,16 @@
 import pictureBox from '_c/park/pictureBox.vue';
 import currentPosition from '_c/park/currentPosition.vue';
 import statCard from "_c/park/statCard.vue";
+import communityItemCard from "_c/park/communityItemCard.vue";
 export default {
+    name: "wisdomScenter-park",
     components: {
         pictureBox,
         currentPosition,
-        statCard
+        statCard,
+        communityItemCard
     },
+    title: "智慧园区 > 智慧中心",
     data() {
         return {
             cityoptions: [{
@@ -113,12 +110,14 @@ export default {
     width: 500px;
     background: #1E1F25;
     padding: 24px 20px;
-    ::v-deep .input-with-select{
+
+    ::v-deep .input-with-select {
         width: 100%;
     }
 }
 
 .occupation-box {
+    list-style:none;
     li {
         height: 40px;
         color: #fff;
@@ -167,9 +166,7 @@ export default {
     }
 }
 
-.select {
-    margin-right: 16px;
-}
+
 
 .echart-box {
     width: 230px;

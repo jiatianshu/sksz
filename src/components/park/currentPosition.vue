@@ -24,9 +24,6 @@
     </div>
 </template>
 <script>
-import { request } from 'http';
-
-
 export default {
     data() {
         return {
@@ -83,6 +80,7 @@ export default {
         img {
             width: 148px;
             height: 148px;
+            
         }
         .img-text-box{
             text-align: center;
