@@ -105,6 +105,7 @@
           // ],
 
           legend: {
+            // show:false,
             itemWidth: 8,
             itemHeight: 8,
             icon: 'circle',
