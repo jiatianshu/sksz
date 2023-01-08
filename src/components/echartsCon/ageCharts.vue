@@ -150,7 +150,7 @@
                   fontSize: 12,
                 },
               },
-            },
+            }, 
           },
           tooltip: {
             show: true,
