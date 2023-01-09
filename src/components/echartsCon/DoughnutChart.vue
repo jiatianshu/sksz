@@ -1,5 +1,5 @@
 <template>
-  <div ref="treeChartCommon"  :style="{ height: '200px' }"></div>
+  <div ref="treeChartCommon" :style="{ height: '200px' }"></div>
 </template>
 
 <script>
@@ -8,8 +8,8 @@
     name: 'eChartss',
     props: {
       chartData: {
-        type: Object,
-        required: false,
+        // type: Object,
+        // required: false,
       },
     },
     data() {
@@ -17,12 +17,22 @@
         pieData: [],
       }
     },
+    watch: {
+      //*****监听的是请求数据后父组件传来的值，通过handler函数执行的数据改变后的具体方法
+      chartData: {
+        handler() {
+          this.showChart()
+        },
+        //深度监听，保证数据实时变化
+        deep: true,
+      },
+    },
     mounted() {
       this.showChart()
     },
     methods: {
       showChart() {
-        console.log(this.$echarts,"????")
+        console.log(this.$echarts, "????")
         // 基于准备好的dom，初始化echarts实例
         var myChart = this.$echarts.init(this.$refs.treeChartCommon)
         myChart.clear()
@@ -130,7 +140,7 @@
               })
               var p = ((value / total) * 100).toFixed(1) //求出百分比,保留2位小数
               // return `${name}  ${value}件  ${p}%`
-              return `{a|${name}}{b|${value}件}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
+              return `{a|${name}}{b|${value}}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
             },
             // 自定义图例文字样式
             textStyle: {

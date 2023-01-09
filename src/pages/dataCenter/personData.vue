@@ -24,17 +24,14 @@
                     <div class="per_num">人员总数</div>
                 </div>
             </div>
-            <div class="">
-                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+            <div class="center_cl">
+                <div id="persexChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_cl">
-                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
             <div class="center_rg_cl">
-                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
-            <div class="right_cl"></div>
+                <div id="perAgeChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
+                </div>
+            </div>>
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
@@ -74,9 +71,8 @@
     import { getperList, getstatisticsList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
-
-    import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";
+    import chartsoptions from "@/utils/echartsOption";
 
     export default {
         name: 'dataCenter-personData',
@@ -87,9 +83,11 @@
         title: "数据中心 > 人员数据",
         data() {
             return {
+                personsTotal: '',
                 chartData_1: {},
                 chartData_2: {},
-                chartData_3: {},
+                sextype:'性别',
+                agetype:'年龄',
                 tableData: [],
                 queryData: {
                     current: 1,
@@ -147,93 +145,55 @@
             // 人员数据统计
             getpersionData() {
                 getstatisticsList().then((res) => {
-                    console.log(res, 'sssss')
-                    var reslist = res.data.data
-                    if (res.data.code == 0) {
-                       this.personsTotal = reslist.personsTotal
+
+                    var reslist = res.data
+                    console.log(reslist.ageRange, 'sssss')
+                    if (res.code == 0) {
+                        this.personsTotal = reslist.personsTotal
+                        this.chartData_1.pieData = reslist.sexRange
+                        this.chartData_2.pieData = reslist.ageRange
+
                     }
+                    this.perSexChartData()
+                    this.perAgeChartData()
 
                 })
-            },
-            postSfmx() {
-                // api.postSfmx(this.cardId).then((res) => {
-                //     let arr = []
-                //     arr = res.data
-                //     arr.forEach(e => {
-                //         let dataone = {
-                //             year: e.month,
-                //             fcsl: e.fcsl,
-                //             avgWater3: e.avgWater3,
-                //             avgWater6: e.avgWater6,
-                //             avgWater12: e.avgWater12,
-                //         }
-                //         this.slxxList.push(dataone)
-                //     })
-                //     arr.forEach(e => {
-                //         let datatwo = {
-                //             year: e.month,
-                //             yssf: e.yssf,
-                //             sssf: e.sssf
-                //         }
-                //         this.ysssList.push(datatwo)
-                //     })
-                //     this.slxxmxEchart()
-                // })
             },
 
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
-            }
+            },
+            perSexChartData() {
+                let myChart = echarts.init(document.getElementById('persexChart'))
+                myChart.setOption(
+                    chartsoptions.perSexChart(this.chartData_1.pieData,this.sextype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
+            perAgeChartData() {
+                let myChart = echarts.init(document.getElementById('perAgeChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_2.pieData,this.agetype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
 
         },
         mounted() {
-            this.slxxmxEchart()
+            // this.slxxmxEchart()
             this.getListData()
-            this.getpersionData()
+            // this.getpersionData()
+
         },
         created() {
-
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                pieTitle: '服务响应时效',
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
+            this.getpersionData()
         },
     };
 </script>
@@ -245,14 +205,14 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
 
     .left_cl {
-        width: 16vh;
-        height: 16vh;
+        width: 148px;
+        height: 148px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
         background-image: url('../../assets/img/datacente/ic_card_polic2x.png');
         background-size: 100% 100%;
@@ -261,7 +221,7 @@
     .num_cl {
 
         color: #FFFFFF;
-        font-size: 3.6vh;
+        font-size: 32px;
         font-family: SegoeUI-Bold;
         text-align: center;
         font-weight: 700;
@@ -276,21 +236,21 @@
     }
 
     .per_num {
-        font-size: 2.4vh;
+        font-size: 16px;
     }
 
     .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
+        width: 400px;
+        height: 140px;
+        margin: 0 0 0 30px
     }
 
     .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
+        width: 700px;
+        height: 140px;
     }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 18px;
     }
 </style>

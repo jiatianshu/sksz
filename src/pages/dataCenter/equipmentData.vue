@@ -20,12 +20,12 @@
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{equipmentTotal}}</div>
                         <div class="per_num">设备总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">93.5%</div>
+                        <div class="num_cl">{{completionRate}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
@@ -61,7 +61,7 @@
     </div>
 </template>
 <script>
-    import { getEquipmentList } from '@/api/sjzx'
+    import { getEquipmentList,getsequipmanList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -76,9 +76,6 @@
         title: "数据中心 > 设备数据",
         data() {
             return {
-                chartData_1: {},
-                chartData_2: {},
-                chartData_3: {},
                 tableData: [],
                 queryData: {
                     current: 1,
@@ -103,6 +100,8 @@
                 citycode: '',
                 qucode: '',
                 streecode: '',
+                completionRate: '',
+                equipmentTotal: '',
             };
         },
         methods: {
@@ -133,6 +132,18 @@
 
                 })
             },
+            getsEqtatData() {
+                getsequipmanList().then((res) => {
+                    var reslist = res.data
+                    if (res.code == 0) {
+                        this.equipmentTotal = reslist.equipmentTotal
+                        this.completionRate = reslist.completionRate
+
+                    }
+
+                })
+
+            },
 
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
@@ -142,6 +153,7 @@
         },
         mounted() {
             this.getListData()
+            this.getsEqtatData()
         },
         created() {
 
@@ -195,7 +207,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -244,19 +256,9 @@
         font-weight: 600;
     }
 
-    .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
-    }
-
-    .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
-    }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 10px;
     }
 
     .cen_cl {

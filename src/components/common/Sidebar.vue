@@ -229,10 +229,9 @@ export default {
 }
 
 .collapse-btn {
-    /* // width: 5vh; */
-    height: 5vh;
+    height: 40px;
     margin: 20px 0 0 0;
-    border-radius: 1.2vh;
+    border-radius: 10px;
     /* // display: inline-block; */
     text-align: center;
     cursor: pointer;

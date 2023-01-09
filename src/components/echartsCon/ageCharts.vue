@@ -7,7 +7,7 @@
   export default {
     name: 'eChartss',
     props: {
-      chartData: {
+      chartDataAge: {
         type: Object,
         required: false,
       },
@@ -18,16 +18,27 @@
       }
     },
     mounted() {
-      this.showChart()
+      this.showChartage()
+      
+    },
+    watch: {
+      //*****监听的是请求数据后父组件传来的值，通过handler函数执行的数据改变后的具体方法
+      chartDataAge: {
+        handler() {
+          this.showChartage()
+        },
+        //深度监听，保证数据实时变化
+        deep: true,
+      },
     },
     methods: {
-      showChart() {
-        console.log(this.$echarts, "????")
+      showChartage() {
+        console.log(this.$echarts, "????age")
         // 基于准备好的dom，初始化echarts实例
-        var myChart = this.$echarts.init(this.$refs.ageChartCommon)
-        myChart.clear()
+        var myChartAge = this.$echarts.init(this.$refs.ageChartCommon)
+        myChartAge.clear()
 
-        this.pieData = this.chartData.pieData
+        this.pieData = this.chartDataAge.pieData
         const list = this.pieData
 
         // 指定图表的配置项和数据
@@ -49,7 +60,7 @@
             textAlign: 'center', // 标题始终和图表保持居中
           },
           // 设置圆环渐变色
-          color: ['#246CF9', '#30E0A1'],
+          color: ['#6922FF', '#0F67FF', '#00FFF9 ', '#30E0A1 ', '#FFC200'],
           // color: [
           //   new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
           //     // 右 下 左 上
@@ -130,7 +141,7 @@
               })
               var p = ((value / total) * 100).toFixed(1) //求出百分比,保留2位小数
               // return `${name}  ${value}件  ${p}%`
-              return `{a|${name}}{b|${value}件}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
+              return `{a|${name}}{b|${value}}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
             },
             // 自定义图例文字样式
             textStyle: {
@@ -199,7 +210,7 @@
                   style: {
                     // text: this.chartData.satisfaction,
                     text: '年龄',
-                    fontSize: 12,
+                    fontSize: 12, 
                     fill: '#fff', //文字的颜色
                     textVerticalAlign: 'middle',
                     textAlign: 'center',
@@ -258,11 +269,11 @@
           ],
         }
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option)
+        myChartAge.setOption(option)
 
         window.addEventListener('resize', function () {
           //浏览器大小调整echarts随之改变
-          myChart.resize()
+          myChartAge.resize()
         })
       },
     },

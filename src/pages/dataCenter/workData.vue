@@ -20,12 +20,12 @@
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{companyTotal}}</div>
                         <div class="per_num">范围总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">93.5%</div>
+                        <div class="num_cl">{{completionRate}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
@@ -36,7 +36,7 @@
 
             <div class="centert_cl">
                 <div class="cen_text">
-                    <div class="num_cl">9060</div>
+                    <div class="num_cl">{{staffTotal}}</div>
                     <div class="per_num">员工总数</div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
     </div>
 </template>
 <script>
-    import { getWorkList } from '@/api/sjzx'
+    import { getWorkList,getscompanList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -100,9 +100,6 @@
         title: "数据中心 > 单位数据",
         data() {
             return {
-                chartData_1: {},
-                chartData_2: {},
-                chartData_3: {},
                 tableData: [],
                 queryData: {
                     current: 1,
@@ -127,11 +124,13 @@
                 citycode: '',
                 qucode: '',
                 streecode: '',
+                companyTotal: '',
+                completionRate: '',
+                staffTotal: '',
             };
         },
         methods: {
             checkSearch() {
-                console.log(this.number, "aaaaaaaaa")
                 this.getListData()
             },
             yzxx(e) {
@@ -156,7 +155,20 @@
 
                 })
             },
+            getsComrstatData() {
+                getscompanList().then((res) => {
+                    var reslist = res.data
+                    if (res.code == 0) {
+                        this.companyTotal = reslist.companyTotal
+                        this.completionRate = reslist.completionRate
+                        this.staffTotal = reslist.staffTotal
 
+                    }
+
+                })
+
+            },
+            
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
@@ -165,49 +177,11 @@
         },
         mounted() {
             this.getListData()
+            this.getsComrstatData()
         },
         created() {
 
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
-        },
+       },
     };
 </script>
 
@@ -218,7 +192,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -275,19 +249,9 @@
         font-weight: 600;
     }
 
-    .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
-    }
-
-    .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
-    }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 10px;
     }
 
     .cen_cl {

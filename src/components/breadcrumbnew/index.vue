@@ -1,6 +1,6 @@
 <template>
     <div class="tagsnew" v-if="showTags">
-        <div style="margin: 0 0 0 2vh;">{{titme}}/{{name}}</div>
+        <div style="margin: 0 0 0 18px;">{{titme}}/{{name}}</div>
         <!-- <ul>
             <li class="tagsnew-li" v-for="(item, index) in tagsList" :key="index">
                 <router-link :to="item.path" class="tags-li-titlenew">
@@ -110,7 +110,6 @@ export default {
     /* overflow: hidden; */
     cursor: pointer;
     height: 68px;
-    font-size: 2vh;
     line-height: 68px;
     padding: 0 5px 0 12px;
     vertical-align: middle;

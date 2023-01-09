@@ -25,29 +25,26 @@
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{houseTotal}}</div>
                         <div class="per_num">房屋总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{layoutRange}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
                 </div>
 
             </div>
-            <div class="">
-                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+            <div class="center_rg_cl">
+                <div id="carPpEChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_cl">
-                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
             <div class="center_rg_cl">
-                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
+                <div id="carColChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
+                </div>
             </div>
-            <div class="right_cl"></div>
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
@@ -83,18 +80,13 @@
     </div>
 </template>
 <script>
-    import { getHouseList } from '@/api/sjzx'
-    import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
-    import ageCharts from '_c/echartsCon/ageCharts.vue'
+    import { getHouseList,getsHousetatList } from '@/api/sjzx'
+    import chartsoptions from "@/utils/echartsOption";
 
-    // import * as echarts from "echarts";
+    import * as echarts from "echarts";
 
     export default {
         name: 'dataCenter-houseData',
-        components: {
-            doughnutChart,
-            ageCharts
-        },
         title: "数据中心 > 房屋数据",
         data() {
             return {
@@ -106,6 +98,8 @@
                     current: 1,
                 },
                 total: 0,
+                typrblarea: '面积',
+                typrblayou: '户型',
                 cityoptions: [{
                 value: '选项1',
                 label: '黄金糕'
@@ -122,6 +116,8 @@
                 value: '选项5',
                 label: '北京烤鸭'
             }],
+            houseTotal: '',
+            layoutRange: '',
             citycode: '',
             qucode: '',
             streecode: '',
@@ -152,62 +148,58 @@
                         this.tableData = res.data.result
                         this.total = res.data.total
                     }
-
                 })
             },
+            getsHousetatData() {
+                getsHousetatList().then((res) => {
+                    var reslist = res.data
+                    console.log(reslist, 'varrrrr')
+                    if (res.code == 0) {
+                        this.houseTotal = reslist.houseTotal
+                        this.layoutRange = reslist.completionRate
+                        this.chartData_1.pieData = reslist.layoutRange
+                        this.chartData_2.pieData = reslist.areaRange
 
+                    }
+                    this.carPpEChartData()
+                    this.carColChartData()
+
+                })
+
+            },
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
-            }
+            },
+            carPpEChartData() {
+                let myChart = echarts.init(document.getElementById('carPpEChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_1.pieData,this.typrblayou)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
+            carColChartData() {
+                let myChart = echarts.init(document.getElementById('carColChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_2.pieData,this.typrblarea)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
 
         },
         mounted() {
             this.getListData()
+            this.getsHousetatData()
         },
         created() {
 
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                pieTitle: '服务响应时效',
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
-        },
+                },
     };
 </script>
 
@@ -218,7 +210,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 12px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -263,18 +255,18 @@
     }
 
     .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
+        width: 400px;
+        height: 140px;
+        margin: 0 0 0 30px
     }
 
     .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
+        width: 520px;
+        height: 140px;
     }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 18px;
     }
 
     .cen_cl {
