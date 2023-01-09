@@ -8,16 +8,19 @@
 <template>
     <div>
         <div>
-            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name" @keyup.enter.native="checkSearch"></sk-icon-input>
-            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum"  @keyup.enter.native="checkSearch" class="mr_20"></sk-icon-input>
-            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"  @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name"
+                @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum" @keyup.enter.native="checkSearch"
+                class="mr_20"></sk-icon-input>
+            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"
+                @keyup.enter.native="checkSearch"></sk-icon-input>
             <!-- <sk-icon-input :placeholder ='placeholder' :value.sync="num"></sk-icon-input> -->
             <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>
         <div class="title_cl">
             <div class="left_cl">
                 <div class="le_num">
-                    <div class="num_cl">98655</div>
+                    <div class="num_cl">{{personsTotal}}</div>
                     <div class="per_num">人员总数</div>
                 </div>
             </div>
@@ -68,7 +71,7 @@
     </div>
 </template>
 <script>
-    import { getperList } from '@/api/sjzx'
+    import { getperList, getstatisticsList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -134,10 +137,20 @@
 
                 }
                 getperList(data).then((res) => {
-                    console.log(res, 'sssss')
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                    }
+
+                })
+            },
+            // 人员数据统计
+            getpersionData() {
+                getstatisticsList().then((res) => {
+                    console.log(res, 'sssss')
+                    var reslist = res.data.data
+                    if (res.data.code == 0) {
+                       this.personsTotal = reslist.personsTotal
                     }
 
                 })
@@ -177,6 +190,7 @@
         mounted() {
             this.slxxmxEchart()
             this.getListData()
+            this.getpersionData()
         },
         created() {
 
@@ -279,6 +293,4 @@
     .mr_20 {
         margin: 0 2vh;
     }
-
- 
 </style>

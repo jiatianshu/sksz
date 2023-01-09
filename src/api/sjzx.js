@@ -8,6 +8,12 @@ export function getperList(obj) { //人员信息列表
         data: obj
     })
   }
+export function getstatisticsList() { //人员数据统计
+    return request({
+        url: '/smartpark/persons/statistics',
+        method: 'get',
+    })
+  }
 export function getCarList(obj) {   //车辆信息列表
     return request({
         url: '/smartpark/cars/getList',
