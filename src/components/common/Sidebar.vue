@@ -2,9 +2,9 @@
     <div class="lf_sidebar">
         <el-aside class="el-aside" width="aotu">
             <div class="sidebar">
-                <el-menu class="sidebar-el-menu" ref="menusRef"  :default-active="onRoutes"
-                    :collapse="collapse" @close="closeMenu" @open="openMenu" background-color="transparent"
-                    text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
+                <el-menu class="sidebar-el-menu" ref="menusRef" :default-active="onRoutes" :collapse="collapse"
+                    @close="closeMenu" @open="openMenu" background-color="transparent" text-color="#bfcbd9"
+                    active-text-color="#20a0ff" unique-opened router>
                     <template v-for="item in menus">
                         <template v-if="item.subs">
                             <!-- title -->
@@ -37,7 +37,8 @@
                                             </template>
                                         </el-menu-item>
                                     </el-submenu> -->
-                                    <el-menu-item :index="subItem.index">
+                                    <el-menu-item :index="subItem.index"
+                                        :class="onRoutes == subItem.index ? 'item-active' : ''">
                                         <template slot="title">
                                             <div>
                                                 <img :src="require(`@/assets/img/icon/${subItem.icon}`)"
@@ -144,6 +145,14 @@ export default {
     padding-top: 0px !important;
 }
 
+::v-deep .item-active {
+    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+    background-position: left!important;
+    color: #FFFFFF!important;
+    background-size: 120% 100%!important;
+    font-size:20px;
+}
+
 .active-menu {
     transform: rotate(180deg);
 }
@@ -156,10 +165,10 @@ export default {
 }
 
 ::v-deep .el-menu-item {
-    background: #1E1F25 !important;
+    background: #1E1F25;
     border-radius: 0px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    // border-bottom-left-radius: 20px;
+    // border-bottom-right-radius: 20px;
     height: 60px;
 }
 

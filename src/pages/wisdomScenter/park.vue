@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 21:40:22
+ * @LastEditTime: 2023-01-09 18:59:47
  * @Description: 智慧园区
 -->
 <template>
@@ -156,7 +156,6 @@ export default {
             this.formData = data
         },
         getData() {
-            console.log(this.formData);
             getParkData(this.formData).then(res => {
                 this.detailData = res.data;
                 //图片map转list
@@ -170,7 +169,6 @@ export default {
                     item.value=this.detailData[item.key]||0;
                     return item;
                 })
-                console.log(this.chartData);
             });
             getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
                 this.parkList = res.data.result;
