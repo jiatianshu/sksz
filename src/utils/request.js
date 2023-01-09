@@ -35,8 +35,9 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   response => {
-    const code = response.status
-    if (code == 200&&response.data.code==0) {
+    const code = response.status;
+    console.log(response,"response")
+    if (code == 200) {
       return response.data
     } else {
      
