@@ -2,11 +2,11 @@
  * @Author: gq
  * @Date: 2023-01-03 21:06:15
  * @LastEditors: gq
- * @LastEditTime: 2023-01-05 20:20:25
+ * @LastEditTime: 2023-01-09 20:20:00
  * @Description: 智慧园区-统计卡片
 -->
 <template>
-    <div class="stat-card-box">
+    <div class="stat-card-box" :class="size == 'small' ? 'small' : 'mini'">
         <img :src="require(`@/assets/img/icon/${src}`)" alt="">
         <div class="stat-text-box">
             <span>{{ title }}</span>
@@ -23,30 +23,43 @@ export default {
         //img路径
         src: {
             typeof: String,
-            default: "nosense_car@2x.png"
+          
         },
-        title:{
+        title: {
             typeof: String,
-            default:""
+            default: ""
         },
-        num:{
-            typeof: String||Number,
-            default:""
+        num: {
+            typeof: String || Number,
+            default: ""
+        },
+        //定义卡片尺寸
+        size: {
+            default: "small",
+            typeof: String
         }
     },
     data() {
-        return{
-            
+        return {
+
         }
     }
 }
 </script>
 <style scoped lang="scss">
-.stat-card-box {
+.small {
     width: 224px;
+}
+
+.mini {
+    width: 190px;
+}
+
+.stat-card-box {
+
     padding-left: 16px;
     height: 100px;
-    padding-top:20px;
+    padding-top: 20px;
     opacity: 0.88;
     border-radius: 12px;
     overflow: hidden;
@@ -57,15 +70,18 @@ export default {
         height: 69px;
         vertical-align: top;
     }
-    .stat-text-box{
+
+    .stat-text-box {
         margin-left: 12px;
         display: inline-block;
         color: #fff;
-        span{
-          font-size: 16px;
+
+        span {
+            font-size: 16px;
 
         }
-        div{
+
+        div {
             font-size: 28px;
         }
     }

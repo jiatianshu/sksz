@@ -2,19 +2,20 @@
  * @Author: gq
  * @Date: 2023-01-03 19:33:18
  * @LastEditors: gq
- * @LastEditTime: 2023-01-03 20:26:12
+ * @LastEditTime: 2023-01-07 18:29:35
  * @Description: 智慧园区-图片框
 -->
 
 <template>
     <div class="picture-box">
         <div class="img-box">
-            <img src="@/assets/img/pic/pic01@2x.jpg" alt="">
-            <div class="img-title">东大街</div>
+            <img :src="imgList[active] || ''" alt="">
+            <div class="img-title">{{ imgList[active]|| '' }}</div>
         </div>
         <ul class="picture-ul">
-            <li v-for="item in '1234'" :class="['active']">
-                <img src="@/assets/img/pic/pic01@2x.jpg" alt="">
+            <li :class="[index == active ? 'active' : '']" v-for="(item, index) in imgList" @click="() => active = index"
+                :key="item.src">
+                <img :src="item.src" alt="">
             </li>
 
         </ul>
@@ -22,9 +23,15 @@
 </template>
 <script>
 export default {
+    props: {
+        imgList: {
+            typeof: Array,
+            default: () => []
+        }
+    },
     data() {
         return {
-            
+            active: 0
         }
     },
 }
@@ -58,6 +65,7 @@ export default {
             padding-left: 20px;
         }
     }
+
     .picture-ul {
         margin-left: 12px;
         width: 80px;

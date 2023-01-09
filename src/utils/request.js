@@ -36,8 +36,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const code = response.status
-   
-    if (code == 200) {
+    if (code == 200&&response.data.code==0) {
       return response.data
     } else {
      
@@ -46,7 +45,7 @@ service.interceptors.response.use(
         error: 'warning'
       })
 
-
+      return new Promise().catch(response);
     }
   },
   error => {

@@ -22,6 +22,7 @@ import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
+import skDistrict from '_c/form/sk-district';
 
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
@@ -37,6 +38,7 @@ Vue.component("skIconInput",skIconInput);
 Vue.component("skIconButton",skIconButton);
 Vue.component("skPage",skPage);
 Vue.component("skTableButton",skTableButton);
+Vue.component("skDistrict",skDistrict);
 
 
 

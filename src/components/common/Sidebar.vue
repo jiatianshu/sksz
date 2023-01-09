@@ -14,9 +14,9 @@
                                         <img :src="item.icon" alt="" srcset="" class="img_icon">
                                         <span slot="title">{{ item.title }}
                                             <img src="@/assets/img/icon/ic_extend@2x.png" alt=""
-                                            :class="[item.showType ? 'active-menu' : '']" class="img-down">
+                                                :class="[item.showType ? 'active-menu' : '']" class="img-down">
                                         </span>
-                                       
+
                                     </div>
                                 </template>
                                 <!-- 子路由 -->
@@ -37,7 +37,8 @@
                                             </template>
                                         </el-menu-item>
                                     </el-submenu> -->
-                                    <el-menu-item :index="subItem.index">
+                                    <el-menu-item :index="subItem.index"
+                                        :class="onRoutes == subItem.index ? 'item-active' : ''">
                                         <template slot="title">
                                             <div>
                                                 <img :src="require(`@/assets/img/icon/${subItem.icon}`)"
@@ -84,19 +85,23 @@ export default {
         }
     },
 
-    created() {
+    mounted() {
         // 通过 Event Bus 进行组件间通信，来折叠侧边栏
         bus.$on('collapse', msg => {
             this.collapse = msg;
             bus.$emit('collapse-content', msg);
         });
+        // this.openMenu(this.$route)
+        let menu = this.filterIndex(this.$route.path);
+        menu && this.openMenu(menu.index);
+
     },
     methods: {
         filterIndex(index) {
             let forFilter = (arr) => {
                 return arr.find(item => {
                     if (item.index == index) {
-                        if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
+                        // if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
                         return item
                     } else if (item.subs) {
                         return forFilter(item.subs);
@@ -110,17 +115,18 @@ export default {
          * @param {*} index
          */
         openMenu(index) {
-            this.$set(this.filterIndex(index), "showType", true);
-            this.$set(this.filterIndex(index), "active", true);
-
+            this.menus.forEach(item => {
+                item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
+                item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
+            });
         },
         /**
          * @description: 关闭菜单函数                                           
          * @param {*} index
          */
         closeMenu(index) {
-            this.filterIndex(index).showType = false;
-            this.filterIndex(index).active = false;
+            this.$set(this.filterIndex(index), "showType", false);
+            this.$set(this.filterIndex(index), "active", false);
         },
         // 侧边栏折叠
         collapseChage() {
@@ -139,6 +145,14 @@ export default {
     padding-top: 0px !important;
 }
 
+::v-deep .item-active {
+    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+    background-position: left!important;
+    color: #FFFFFF!important;
+    background-size: 120% 100%!important;
+    font-size:20px;
+}
+
 .active-menu {
     transform: rotate(180deg);
 }
@@ -151,10 +165,10 @@ export default {
 }
 
 ::v-deep .el-menu-item {
-    background: #1E1F25 !important;
+    background: #1E1F25;
     border-radius: 0px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    // border-bottom-left-radius: 20px;
+    // border-bottom-right-radius: 20px;
     height: 60px;
 }
 

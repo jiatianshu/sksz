@@ -2,14 +2,14 @@
  * @Author: gq
  * @Date: 2023-01-03 20:29:11
  * @LastEditors: gq
- * @LastEditTime: 2023-01-05 20:16:14
+ * @LastEditTime: 2023-01-07 19:48:52
  * @Description: 智慧园区-当前位置
 -->
 <template>
     <div class="currentPosition-box">
         <p>当前位置:</p>
         <h4>
-            沈阳市-大东区
+            {{locationTitle}}
         </h4>
         <ul class="img-ul">
             <li v-for="item in imgList" :key="item.location">
@@ -24,24 +24,31 @@
     </div>
 </template>
 <script>
-import { request } from 'http';
-
-
 export default {
+    props:{
+        locationTitle:{
+            typeof:String,
+            default:""
+        },
+        detailData:{
+            typeof:Object,
+            default:()=>new Object()
+        }
+    },
     data() {
         return {
             imgList: [
                 {
                     src: "ic_card_sec.png",
-                    num: 90,
+                    num: this.detailData.parkNum,
                     location: "安防小区"
                 }, {
                     src: "ic_card_policestation@2x.png",
-                    num: 90,
+                    num: this.detailData.policeStationsNum,
                     location: "派出所"
                 }, {
-                    src: "ic_card_policestation@2x.png",
-                    num: 466,
+                    src: "ic_card_police2x.png",
+                    num: this.detailData.districtData.policeNum,
                     location: "警员"
                 }
             ]
@@ -83,6 +90,7 @@ export default {
         img {
             width: 148px;
             height: 148px;
+            
         }
         .img-text-box{
             text-align: center;

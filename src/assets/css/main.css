@@ -227,10 +227,10 @@ Bg .ql-container {
     border: none !important;
 }
 
-/* .el-submenu .el-menu-item:hover{
+.el-submenu .el-menu-item:hover{
     background: rgb(25, 36, 49) !important;
     border-radius: 1.2vh;
-} */
+}
 .el-menu .el-menu--inline:hover {
     /* background: rgb(25, 36, 49) !important; */
     border-radius: 1.2vh;
@@ -238,7 +238,7 @@ Bg .ql-container {
     border-top-right-radius: 1.2vh; */
 }
 
-.el-menu-item.is-active:hover {
+ /* .el-menu-item.is-active:hover {
     background: rgb(25, 36, 49) !important;
     border-radius: 1.2vh;
 }
@@ -257,8 +257,8 @@ Bg .ql-container {
 .el-menu-item {
     background: rgb(48, 65, 86) !important;
     border-radius: 1.2vh;
-    /* margin: 0 0 20px 0; */
-}
+   
+}  */
 
 .liclass {
     background: pink;

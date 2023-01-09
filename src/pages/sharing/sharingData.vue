@@ -83,7 +83,8 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total"  @page-change="pageChange"></sk-page>
+                <!-- :pageNum.sync="pageNum" -->
+                <sk-page :total="total"  @page-change="pageChange" ></sk-page>
             </div>
         </div>
     </div>
@@ -107,6 +108,7 @@
                     current: 1,
                 },
                 total: 0,
+                pageNum:1,
                 tabIndex: '',
                 activeName: 'first',
                 posoptions: [
@@ -175,7 +177,8 @@
                     console.log(res, 'sssss')
                     if (res.code == 0) {
                         this.tableData = res.data.result
-                        this.total = res.data.total
+                        this.total = res.data.total;
+                        this.pageNum=res.data.current;
                     }
 
                 })
