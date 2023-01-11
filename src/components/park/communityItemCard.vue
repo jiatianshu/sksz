@@ -2,11 +2,11 @@
  * @Author: gq
  * @Date: 2023-01-07 12:48:29
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 20:32:15
+ * @LastEditTime: 2023-01-11 19:34:47
  * @Description: 智慧园区card组件
 -->
 <template>
-    <div class="community-item-card">
+    <div class="community-item-card" @click="toDetail">
         <img :src="parkData.parkImg" class="left-img" alt="">
         <div class="community-item-content">
             <div>
@@ -34,6 +34,11 @@ export default {
     },
     data() {
         return {
+        }
+    },
+    methods:{
+        toDetail(){
+            this.$router.push({path:"/wisdomScenter/park-detail",query:{id:this.parkData.parkid}})
         }
     }
 }

@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-09 19:14:53
  * @LastEditors: gq
- * @LastEditTime: 2023-01-10 20:29:22
+ * @LastEditTime: 2023-01-11 19:51:21
  * @Description: 智慧园区详情页
 -->
 <template>
@@ -22,25 +22,25 @@
                         <img src="@/assets/img/image/xxxdddxx.png" alt="">
                         <p>人员监控</p>
                     </li>
-                    <li class="img-item">
-                        <img src="@/assets/img/image/ic_card_police2x.png" alt="">
-                        <p>2022-09-12 12:04:24</p>
+                    <li class="img-item" v-for="item in personList" :key="item.img">
+                        <img :src="item.img" alt="">
+                        <p>{{ item.createTime }}</p>
                     </li>
                 </ul>
                 <ul class="img-box-ul">
                     <li class="title-box">
                         <img src="@/assets/img/image/ic_monitor_car@2x.png" alt="">
-                        <p>人员监控</p>
+                        <p>车辆监控</p>
                     </li>
-                    <li class="img-item">
-                        <img src="@/assets/img/image/ic_card_police2x.png" alt="">
-                        <p>2022-09-12 12:04:24</p>
+                    <li class="img-item" v-for="item in carList" :key="item.img">
+                        <img :src="item.img" alt="">
+                        <p>{{ item.createTime }}</p>
                     </li>
                 </ul>
                 <ul class="img-box-ul">
                     <li class="title-box">
                         <img src="@/assets/img/image/ic_monitor_Key@2x.png" alt="">
-                        <p>人员监控</p>
+                        <p>周界监控</p>
                     </li>
                     <li class="img-item">
                         <img src="@/assets/img/image/ic_card_police2x.png" alt="">
@@ -95,14 +95,17 @@
 import houseCard from '_c/park/houseCard.vue';
 import policeCard from '_c/park/policeCard.vue';
 import statCard from '_c/park/statCard.vue';
+import {getParkInfo,getParkAbilityPreview} from '@/api/wisdomScenter'
 export default {
     name: "wisdomScenter-park-detail",
     title: "智慧中心 > 智慧园区 > 沈阳市",
+    backType:true,
     components: {
         policeCard,
         houseCard,
         statCard
     },
+    
     data() {
         return {
             statiList: [{
@@ -138,9 +141,30 @@ export default {
                 num: 0,
                 src: "ic_surround@2x.png"
             }
-            ]
+            ],
+            parkId:this.$route.query.id,
+            detailData:{},
+            personList:[],
+            carList:[],
 
         }
+    },
+    methods:{
+        getData(){
+            getParkInfo({parkid:this.parkId}).then(res=>{
+                this.detailData=res.data;
+            })
+        },
+        getParkAbilityPreview(){
+            getParkAbilityPreview({parkid:this.parkId}).then(res=>{
+                this.personList=res.data.faceCaptureList;
+                this.carList=res.data.carCaptureList;
+            })
+        }
+    },
+    mounted(){
+        this.getData();
+        this.getParkAbilityPreview();
     }
 }
 </script>
