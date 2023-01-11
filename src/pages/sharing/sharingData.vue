@@ -220,7 +220,6 @@
             },
             // 页数切换
             pageChange(val) {
-                debugger
                 console.log(this.queryData, "current", val, "aaaaaaaaaaaaaaaaaaaa")
                 this.$set(this.queryData, "current", val);
                 if (this.tabIndex == 0) {

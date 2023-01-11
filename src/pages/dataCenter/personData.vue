@@ -35,7 +35,7 @@
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column type="index" label="序号" align="center" width="100">
+                <el-table-column type="index" label="序号" align="center" width="">
                 </el-table-column>
                 <el-table-column prop="photo" label="头像" width="80">
                     <template slot-scope="scope">
@@ -50,7 +50,7 @@
                 </el-table-column>
                 <el-table-column prop="telephone" label="手机号" width="100">
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="600">
+                <el-table-column prop="address" label="操作" width="500">
                     <template slot-scope="scope" class="button_cl">
                         <sk-table-button @click="yzxx(scope.row)" title="业主信息"
                             icon="ic_personrole2x.png"></sk-table-button>
@@ -62,7 +62,7 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <sk-page :total="total" @current-change="pageChange"></sk-page>
             </div>
         </div>
     </div>
@@ -109,6 +109,7 @@
         methods: {
             checkSearch() {
                 console.log(this.name, "aaaaaaaaa")
+                this.queryData.current = 1
                 this.getListData()
             },
             yzxx(e) {
@@ -138,6 +139,7 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.queryData.current = res.data.current
                     }
 
                 })
@@ -161,6 +163,7 @@
             },
 
             pageChange(val) {
+          
                 this.$set(this.queryData, "current", val);
                 this.getListData();
             },

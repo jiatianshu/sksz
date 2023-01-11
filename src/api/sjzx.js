@@ -79,3 +79,11 @@ export function getEquipmentList(obj) {  //设备信息列表
         method: 'get',
     })
   }
+    //城市 行政区  街道 园区
+  export function getMenuList(obj) { //设备数据统计
+    return request({
+        url: '/policedata/sysdistrictmenu/getMenu?parentId='+obj,
+        method: 'get',
+    })
+  }
+
