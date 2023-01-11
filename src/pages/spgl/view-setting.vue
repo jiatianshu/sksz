@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="ever_cl">
-                        <img class="img_vid" src="../../assets/img/image/video_playing.png" alt="">
+                        <img class="img_vid" src="../../assets/img/image/video_online.png" alt="">
                         <div class="rgt_vidnum">
                             <div class="tit_vid">在线数量</div>
                             <div class="num_sp">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="ever_cl">
-                        <img class="img_vid" src="../../assets/img/image/video_playing.png" alt="">
+                        <img class="img_vid" src="../../assets/img/image/video_offlinelx.png" alt="">
                         <div class="rgt_vidnum">
                             <div class="tit_vid">离线视频</div>
                             <div lass="num_sp">
