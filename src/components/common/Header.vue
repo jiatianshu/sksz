@@ -7,12 +7,16 @@
         </div> -->
         <div>
             <div class="title_nav">
-                <img style="margin: auto;
-              " src="../../assets/img/image/logo.png" alt="" srcset="">
+                <img style="margin: auto;" src="../../assets/img/image/logo.png" alt="" srcset="">
             </div>
         </div>
         <div class="rgt_title">
+            
             <div class="logo">
+                <div class="back-box" v-show="backType">
+                    <img src="@/assets/img/image/ic_back@2x.png" @click="$router.go(-1)" alt="" >
+
+                </div>
                 <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
                 <div style="margin: 0 0 0 36px;" class="tit_cl">{{ title }}</div>
             </div>
@@ -80,13 +84,17 @@ export default {
         username() {
             let username = localStorage.getItem('ms_username');
             return username ? username : this.name;
+        },
+        backType(){
+          
+            return this.$route.meta.backType
         }
     },
     watch: {
         $route: {
             handler(newVal) {
                 this.title = newVal.meta.title;
-               
+
             },
             immediate: true
         }
@@ -115,18 +123,33 @@ export default {
         if (document.body.clientWidth < 1500) {
             this.collapseChage();
         }
-      
+
     }
 };
 </script>
 <style scoped lang="scss">
+.back-box {
+    padding-right: 26px;
+    border-right: 1px solid rgba(255,255,255,0.5);
+    height: 45px;
+    padding-left: 16px;
+    margin-top: 18px;
+    img {
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+    }
+}
+
 ::v-deep .el-badge__content {
     background: #FA2256;
     border: none;
 }
-::v-deep .el-dropdown{
+
+::v-deep .el-dropdown {
     display: flex;
 }
+
 .user-info-box {
     width: 250px;
     background: #282C38;
@@ -155,6 +178,8 @@ export default {
     height: 80px;
     border-radius: 20px;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
 }
 
 .title_nav {
@@ -177,7 +202,8 @@ export default {
 }
 
 .header .logo {
-    float: left;
+   display: flex;
+   
     /* width: 250px; */
     line-height: 70px;
 }

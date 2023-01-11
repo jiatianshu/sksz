@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-09 18:59:47
+ * @LastEditTime: 2023-01-11 19:32:07
  * @Description: 智慧园区
 -->
 <template>
@@ -159,7 +159,8 @@ export default {
             getParkData(this.formData).then(res => {
                 this.detailData = res.data;
                 //图片map转list
-                for (key in this.detailData.imgMap) {
+                for (let key in this.detailData.imgMap) {
+                 
                     this.imgList.push({
                         title: key,
                         src: this.detailData.imgMap[key]
@@ -210,14 +211,16 @@ export default {
 
     .occupation-img-box {
         height: 40px;
-        widows: 40px;
+        width: 40px;
         display: inline-block;
         border-radius: 10px;
-
+        
         img {
-            height: 40px;
-            widows: 40px;
+            height: 24px;
+            widows: 20px;
             vertical-align: middle;
+          margin-left: 8px;
+          margin-top: 6px;
         }
     }
 }

@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-04 22:08:39
+ * @LastEditTime: 2023-01-11 20:04:03
  * @Description: file content
  */
 
@@ -24,6 +24,7 @@ const modules = modulesFiles.keys().map((modulePath) => {
         component: value.default,
         meta:{
             title:value.default.title,
+            backType:value.default.backType,
         }
     }
 })

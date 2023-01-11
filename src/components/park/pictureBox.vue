@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-03 19:33:18
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 18:29:35
+ * @LastEditTime: 2023-01-11 19:33:27
  * @Description: 智慧园区-图片框
 -->
 
@@ -10,7 +10,7 @@
     <div class="picture-box">
         <div class="img-box">
             <img :src="imgList[active] || ''" alt="">
-            <div class="img-title">{{ imgList[active]|| '' }}</div>
+            <div class="img-title">{{ imgList[active].title|| '' }}</div>
         </div>
         <ul class="picture-ul">
             <li :class="[index == active ? 'active' : '']" v-for="(item, index) in imgList" @click="() => active = index"
