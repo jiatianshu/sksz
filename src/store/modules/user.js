@@ -8,7 +8,7 @@
 
 
 import { login } from '@/api/login'
-import { getTree } from '@/api/user'
+import { getTree,getTreeAll } from '@/api/user'
 
 const user = {
   state: {
@@ -47,6 +47,10 @@ const user = {
     SET_DISTRICT_TREE(state, data) {
       sessionStorage.setItem("userDistrictTree", JSON.stringify(data));
       state.userDistrictTree = data;
+    },
+    SET_DISTRICT_TREE_ALL(state, data) {
+      sessionStorage.setItem("userDistrictTreeAll", JSON.stringify(data));
+      state.userDistrictTreeAll = data;
     }
 
   },
@@ -65,6 +69,7 @@ const user = {
             refreshToken: res.refresh_token,
           });
           this.dispatch("getInfoTree");
+          this.dispatch("getInfoTreeAll");
 
           resolve()
         }).catch(error => {
@@ -78,7 +83,14 @@ const user = {
        
         this.commit('SET_DISTRICT_TREE', res.data[0].children);
       })
-    }
+    },
+    //获取用户行政区树
+    getInfoTreeAll() {
+      getTreeAll().then(res => {
+       
+        this.commit('SET_DISTRICT_TREE_ALL', res.data[0].children);
+      })
+    },
   }
 }
 

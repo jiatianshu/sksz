@@ -9,7 +9,7 @@
 <template>
     <div style="display:inline-block">
         <el-select v-model="form.city" class="select" placeholder="请选择城市" @change="cityChange" clearable>
-            <el-option v-for="item in districtList" :key="item.name" :label="item.name" :value="item.id">
+            <el-option v-for="item in districtListAll" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
         <el-select v-model="form.district" class="select" placeholder="请选择行政区" @change="areaChange" clearable>
@@ -37,9 +37,9 @@ export default {
         },
     },
     computed: {
-        districtList() {
+        districtListAll() {
 
-            return this.$store.getters.districtList;
+            return this.$store.getters.districtListAll;
         }
     },
     data() {
@@ -64,7 +64,7 @@ export default {
             this.form.district = "";
             this.form.street = "";
             if (value) {
-                let obj = this.districtList.find(item => item.id == value);
+                let obj = this.districtListAll.find(item => item.id == value);
                 this.areaOptions = obj.children;
                 this.form.cityName = obj.name;
             } else {
