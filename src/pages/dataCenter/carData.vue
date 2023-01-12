@@ -63,7 +63,9 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
@@ -92,6 +94,8 @@
                 queryData: {
                     current: 1,
                 },
+                current: 1,
+                size: 10,
                 total: 0,
                 carTotal: "",
                 colortype: "颜色",
@@ -103,6 +107,7 @@
         },
         methods: {
             checkSearch() {
+                this.current = 1
                 console.log(this.number, "aaaaaaaaa")
                 this.getListData()
             },
@@ -111,12 +116,11 @@
             },
 
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
                 var data = {
                     province: "", //省
                     city: "", //市
                     number: this.number, //号码
-                    current: this.queryData.current //当前页码
+                    current: this.current //当前页码
 
                 }
                 getCarList(data).then((res) => {
@@ -124,9 +128,15 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
+            },
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
             },
             getsCarstatData() {
                 getsCarstatList().then((res) => {

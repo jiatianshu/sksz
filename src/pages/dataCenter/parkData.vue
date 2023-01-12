@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
+            <!-- <el-select v-model="citycode" class="select" placeholder="请选择城市">
                 <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
             </el-select>
@@ -14,7 +14,9 @@
                 </el-option>
             </el-select>>
 
-            <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button>
+            <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button> -->
+            <skDistrict @change="districtChange" />
+            <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">
             <div class="left_cl">
@@ -90,7 +92,9 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
@@ -111,6 +115,17 @@
         title: "数据中心 > 园区数据",
         data() {
             return {
+                current: 1,
+                size: 10,
+                total: 0,
+                formData: {
+                    city: "",
+                    cityName: "",
+                    district: "",
+                    districtName: "",
+                    street: "",
+                    streetName: "",
+                },
                 chartData_1: {},
                 chartData_2: {},
                 chartData_3: {},
@@ -145,21 +160,31 @@
             };
         },
         methods: {
+            districtChange(data) {
+                console.log(data, "aaaaaaaaaaaaaaaaaa")
+                this.formData = data
+            },
+            //搜索
             checkSearch() {
-                console.log(this.number, "aaaaaaaaa")
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
+            //列表数据
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
+                console.log(this.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10021, //街道编码
-                    current: this.queryData.current //当前页码
+                    city: this.formData.city, //城市编码
+                    district: this.formData.district, //区编码
+                    street: this.formData.street, //街道编码
+                    current: this.current //当前页码
 
                 }
                 getParkList(data).then((res) => {
@@ -167,6 +192,7 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
@@ -198,7 +224,7 @@
         },
         created() {
 
-       },
+        },
     };
 </script>
 

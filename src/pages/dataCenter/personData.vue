@@ -62,7 +62,9 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @current-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
@@ -92,6 +94,8 @@
                 queryData: {
                     current: 1,
                 },
+                current: 1,
+                size: 10,
                 total: 0,
                 num: "",
                 slxxList: ['1048', '110', '1120', '4562'],
@@ -107,9 +111,14 @@
             };
         },
         methods: {
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
             checkSearch() {
                 console.log(this.name, "aaaaaaaaa")
-                this.queryData.current = 1
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
@@ -127,19 +136,18 @@
                 })
             },
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
                 var data = {
                     name: this.name, //姓名
                     telephone: this.tellnum, //手机号
                     idNumber: this.idnum, //身份证号
-                    current: this.queryData.current   //当前页码
+                    current: this.current   //当前页码
 
                 }
                 getperList(data).then((res) => {
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
-                        this.queryData.current = res.data.current
+                        this.current = res.data.current
                     }
 
                 })
