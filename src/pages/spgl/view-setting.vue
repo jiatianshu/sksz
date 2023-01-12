@@ -99,7 +99,8 @@
                 },
                 formdata: {
 
-                }
+                },
+                clickNum: '',
             };
         },
         components: {
@@ -125,7 +126,31 @@
                 })
             },
             handleNodeClick(data) {
+
                 console.log(data);
+                var videoAyy = {}
+                if (data.level == 6) {
+                    videoAyy = data
+                    this.clickNum++;
+                    var nowNum = this.clickNum % 4;
+                    console.log(videoAyy, 'videoAyyvideoAyy');
+                    console.log(nowNum, 'nowNumnowNumnowNumnowNum');
+
+                    this.getflvVideo('videoid' + nowNum, videoAyy.name);
+                    // $('#show_name' + nowNum).html(videoAyy.name);
+                    // if (e.url != '') {
+                    //     // $('#wxhShow' + nowNum).hide();
+                    //     this.getflvVideo('videoid' + nowNum, videoAyy.url);
+                    // } else {
+                    //     // $('#wxhShow' + nowNum).show();
+
+                    // }
+                    
+
+                }
+            },
+            getflvVideo(id, name) {
+                console.log(id, name, "????????????????")
             }
         },
         mounted() {
