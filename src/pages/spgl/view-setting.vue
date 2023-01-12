@@ -17,19 +17,29 @@
             </el-tree>
         </div>
         <div class="right_video">
-            <div class="up_con_box">
-                <div class="video_box">
-                    1001
+            <div>
+                <div class="up_con_box">
+                    <div class="video_box" v-for="(item,index) in videoList">
+                        <div class="video_cla" :id="'nameId'+(item,index)"> {{item.name}}{{item.id}}</div>
+                        <video id="videoid1" class="" controls preload="auto" poster="" data-setup="{}" autoplay="autoplay" style="width: 100%;height: 90%;">
+                            <source :src="item.name" type="rtmp/flv" style="width:100%" />
+                        </video>
+                    </div>
                 </div>
-                <div class="video_box">
-                    1001
-                </div>
-                <div class="video_box">
-                    1001
-                </div>
-                <div class="video_box">
-                    1001
-                </div>
+                <!-- <div class="up_con_box" >
+                    <div class="video_box" v-show="videoList.length==1">
+                        暂无数据1
+                    </div>
+                    <div class="video_box" v-show="videoList.length==2">
+                        暂无数据2
+                    </div>
+                    <div class="video_box" v-show="videoList.length==3">
+                        暂无数据3
+                    </div>
+                    <div class="video_box" v-if="videoList.length<3">
+                        暂无数据4
+                    </div>
+                </div> -->
             </div>
             <div class="down_right">
                 <div class="num_flex">
@@ -93,6 +103,13 @@
         data() {
             return {
                 treeList: [],
+                dataList: [],
+                videoList: [
+                    { name: '暂无数据1', value: '00000' },
+                    { name: '暂无数据2', value: '1111' },
+                    { name: '暂无数据3', value: '2222' },
+                    { name: '暂无数据4', value: '3333' },
+                ],
                 defaultProps: {
                     children: 'children',
                     label: 'name'
@@ -100,7 +117,7 @@
                 formdata: {
 
                 },
-                clickNum: '',
+                clickNum: -1,
             };
         },
         components: {
@@ -133,19 +150,13 @@
                     videoAyy = data
                     this.clickNum++;
                     var nowNum = this.clickNum % 4;
-                    console.log(videoAyy, 'videoAyyvideoAyy');
-                    console.log(nowNum, 'nowNumnowNumnowNumnowNum');
 
+                    this.dataList.splice(nowNum, 1, videoAyy)
+                    console.log(this.dataList, '111111111111111111');
+
+                    this.videoList.splice(nowNum, 1, videoAyy)
                     this.getflvVideo('videoid' + nowNum, videoAyy.name);
-                    // $('#show_name' + nowNum).html(videoAyy.name);
-                    // if (e.url != '') {
-                    //     // $('#wxhShow' + nowNum).hide();
-                    //     this.getflvVideo('videoid' + nowNum, videoAyy.url);
-                    // } else {
-                    //     // $('#wxhShow' + nowNum).show();
 
-                    // }
-                    
 
                 }
             },
@@ -172,6 +183,8 @@
         width: 370px;
         height: 886px;
         margin: 0 14px 0 0;
+        overflow-y: auto;
+        
     }
 
     .right_video {
@@ -287,6 +300,7 @@
         background: #1E1F25;
         margin: 0 0 20px 0;
         border-radius: 8px;
+        color: #fff;
     }
 
     .down_right {
@@ -349,5 +363,11 @@
     .rgt_vidnum {
         /* margin: auto 0 0 24px; */
         margin: auto 0 auto 24px;
+    }
+    /* 1,滚动条 */
+    ::-webkit-scrollbar {
+      width: 2px;          /* 纵向滚动条 宽度 */
+      background: rgb(15, 5, 6);   /* 整体背景 */
+      border-radius: 10px;  /* 整体 圆角 */
     }
 </style>
