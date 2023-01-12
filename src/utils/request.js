@@ -37,7 +37,6 @@ service.interceptors.response.use(
   response => {
     const code = response.status;
     let config = response.config;
-    console.log(response, "response")
     if (code == 200 && config.url.indexOf('auth/oauth/token') > 0) {
       return response.data
     } else if (code == 200 && response.data.code == 0) {

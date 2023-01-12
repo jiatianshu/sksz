@@ -2,21 +2,25 @@
  * @Author: gq
  * @Date: 2023-01-07 11:54:38
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 19:36:38
+ * @LastEditTime: 2023-01-12 21:08:01
  * @Description: 地区联动组件
 -->
 
 <template>
     <div style="display:inline-block">
-        <el-select v-model="form.city" class="select" placeholder="请选择城市" @change="cityChange" clearable>
+
+        <el-select v-model="form.city" class="select" :disabled="districtList.length <= 1" placeholder="请选择城市"
+            @change="cityChange" clearable>
             <el-option v-for="item in districtList" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
-        <el-select v-model="form.district" class="select" placeholder="请选择行政区" @change="areaChange" clearable>
+       
+        <el-select v-model="form.district" class="select"  :disabled="areaOptions.length <= 1" placeholder="请选择行政区" @change="areaChange" clearable>
             <el-option v-for="item in areaOptions" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
-        <el-select v-model="form.street" class="select" placeholder="请选择街道" @change="streetChange" clearable>
+        <el-select v-model="form.street" class="select" :disabled="streetOptions&&streetOptions.length <= 1" placeholder="请选择街道"
+            @change="streetChange" clearable>
             <el-option v-for="item in streetOptions" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
@@ -42,6 +46,9 @@ export default {
             return this.$store.getters.districtList;
         }
     },
+    mounted() {
+        this.initArea()
+    },
     data() {
         return {
             form: {
@@ -58,6 +65,27 @@ export default {
         }
     },
     methods: {
+        initArea() {
+            let city = this.districtList[0];
+
+            if (city) {
+                this.form.city = city.id;
+                this.form.cityName = city.name;
+
+                if (city.children && city.children[0]) {
+                    this.areaOptions = city.children;
+                    this.form.district = this.areaOptions[0].id;
+                    this.form.districtName = this.areaOptions[0].name;
+                    if (this.areaOptions[0].children) {
+                        this.streetOptions = this.areaOptions[0].children;
+                        this.form.street = this.streetOptions[0].id;
+                        this.form.streetName = this.streetOptions[0].name;
+                    }
+                }
+            }
+            this.$emit("change", this.form);
+            this.$emit("submit");
+        },
         cityChange(value) {
             this.form.districtName = "";
             this.form.streetName = "";
@@ -104,5 +132,10 @@ export default {
 <style scoped lang="scss">
 .select {
     margin-right: 16px;
+}
+
+::v-deep .el-input.is-disabled .el-input__inner {
+    background: #1E1F25;
+    border: 1px solid rgb(60, 66, 84);
 }
 </style>

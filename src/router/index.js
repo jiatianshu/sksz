@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-11 20:04:03
+ * @LastEditTime: 2023-01-12 21:40:06
  * @Description: file content
  */
 
@@ -13,7 +13,13 @@ import vuex from '@/store/index';
 
 
 const modulesFiles = require.context('@/pages', true, /\.vue$/)
-
+//解决路由跳转报错问题
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location, onResolve, onReject) {
+	if (onResolve || onReject)
+	return originalPush.call(this, location, onResolve, onReject)
+	return originalPush.call(this, location).catch((err) => err)
+}
 const modules = modulesFiles.keys().map((modulePath) => {
     const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1');
     const value = modulesFiles(modulePath)
@@ -63,7 +69,6 @@ let router = new Router({
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     let token = vuex.getters.token;
-    console.log(token,"token")
     if (to.path == "/login") {
         vuex.commit("CLEAR_TOKEN");
         next();

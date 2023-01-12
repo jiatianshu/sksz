@@ -2,13 +2,14 @@
  * @Author: gq
  * @Date: 2022-12-30 23:53:03
  * @LastEditors: gq
- * @LastEditTime: 2023-01-03 18:52:30
+ * @LastEditTime: 2023-01-12 21:34:39
  * @Description: icon-input输入框
 -->
 <template>
-    <el-input :placeholder="placeholder" :value="value"   @input="$emit('update:value', $event)"
+   
+    <el-input :placeholder="placeholder"  :value="value" @input="$emit('update:value', $event)"  @keyup.enter.native="$emit('search')"
         class="input-with-select">
-        <el-button slot="prepend" @keyup.enter.native="$emit('keyup.enter.native')" @click="$emit('click')" :icon="icon"></el-button>
+        <el-button slot="prepend" @click="$emit('click')" :icon="icon"></el-button>
     </el-input>
 
 </template>
@@ -16,7 +17,7 @@
 export default {
     props: {
         value: {
-            default: ""
+            
         },
         icon: {
 
@@ -26,6 +27,18 @@ export default {
             default: "输入搜索内容…"
         }
     },
+    computed:{
+        bindValue:{
+            get(){
+                return this.value;
+            },
+            set(val){
+             
+                this.$emit('update:value',val )
+            }
+        }
+    },
+ 
     data() {
         return {
 

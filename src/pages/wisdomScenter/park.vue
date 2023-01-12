@@ -2,13 +2,13 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-12 19:07:30
+ * @LastEditTime: 2023-01-12 21:36:48
  * @Description: 智慧园区
 -->
 <template>
     <div>
         <div>
-            <skDistrict @change="districtChange" />
+            <skDistrict @change="districtChange" @submit="getData" />
             <skIconButton @click="getData"></skIconButton>
         </div>
         <div class="park-content-box" v-if="detailData">
@@ -39,15 +39,14 @@
                         </li>
                     </ul>
                     <div class="echart-box">
-                        <echart :chartData="chartData" :legendType="false" :height="'230px'"/>
+                        <echart :chartData="chartData" :legendType="false" :height="'230px'" />
                     </div>
                 </div>
             </div>
             <div class="community-table-box" style="border-radius:20px">
-                <sk-icon-input :value.async="parkName"></sk-icon-input>
+                <sk-icon-input :value.sync="parkName" @search="getParkList"></sk-icon-input>
                 <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;height: 700px;">
                     <communityItemCard v-for="item in parkList" :parkData="item" :key="item.id" />
-
                 </div>
             </div>
         </div>
@@ -70,6 +69,7 @@ export default {
         echart
     },
     title: "智慧园区 > 智慧中心",
+
     data() {
         return {
 
@@ -152,6 +152,11 @@ export default {
 
     },
     methods: {
+        getParkList() {
+            getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
+                this.parkList = res.data.result;
+            })
+        },
         districtChange(data) {
             this.formData = data
         },
@@ -160,20 +165,19 @@ export default {
                 this.detailData = res.data;
                 //图片map转list
                 for (let key in this.detailData.imgMap) {
-                 
+
                     this.imgList.push({
                         title: key,
                         src: this.detailData.imgMap[key]
                     })
                 }
                 this.chartData.pieData = this.professionList.map(item => {
-                    item.value=this.detailData[item.key]||0;
+                    item.value = this.detailData[item.key] || 0;
                     return item;
                 })
             });
-            getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
-                this.parkList = res.data.result;
-            })
+            this.getParkList();
+
         }
 
     }
@@ -214,13 +218,13 @@ export default {
         width: 40px;
         display: inline-block;
         border-radius: 10px;
-        
+
         img {
             height: 24px;
             widows: 20px;
             vertical-align: middle;
-          margin-left: 8px;
-          margin-top: 6px;
+            margin-left: 8px;
+            margin-top: 6px;
         }
     }
 }
@@ -236,6 +240,7 @@ export default {
 .park-content-box {
     margin-top: 12px;
     display: flex;
+    justify-content: space-between;
 
     .content {
         // padding-right: 60px;
