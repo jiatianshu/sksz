@@ -7,9 +7,15 @@
  */
 import request from "@/utils/request";
 
-export function getTree(obj) { //获取用户行政区树
+export function getTree(obj) { //获取用户行政区树  --权限判断
     return request({
         url: '/policedata/sysdistrictmenu/getTreeByRole',
+        method: 'get',
+    })
+  }
+export function getTreeAll(obj) { //获取用户行政区树 == 全部  不分权限
+    return request({
+        url: '/policedata/sysdistrictmenu/getTree',
         method: 'get',
     })
   }

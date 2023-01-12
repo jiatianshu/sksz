@@ -1,18 +1,22 @@
 <template>
     <div>
         <div>
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="citycode" class="select" placeholder="请选择城市" @change="cityChange" clearable>
+                <el-option v-for="item in cityoptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
             </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择行政区">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="districcode" class="select" placeholder="请选择行政区" @change="districChange" clearable>
+                <el-option v-for="item in districtptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
             </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择街道">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="streecode" class="select" placeholder="请选择街道" @change="streeChange" clearable>
+                <el-option v-for="item in streeoptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
-            </el-select>>
+            </el-select>
+            <el-select v-model="parkcode" class="select" placeholder="请选择园区" @change="parkChange" clearable>
+                <el-option v-for="item in parkptions" :key="item.code" :label="item.name" :value="item.name">
+                </el-option>
+            </el-select>
 
             <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button>
         </div>
@@ -20,12 +24,12 @@
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{equipmentTotal}}</div>
                         <div class="per_num">设备总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">93.5%</div>
+                        <div class="num_cl">{{completionRate}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
@@ -55,13 +59,15 @@
 
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { getEquipmentList } from '@/api/sjzx'
+    import { getEquipmentList,getsequipmanList,getMenuList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -76,38 +82,72 @@
         title: "数据中心 > 设备数据",
         data() {
             return {
-                chartData_1: {},
-                chartData_2: {},
-                chartData_3: {},
                 tableData: [],
-                queryData: {
-                    current: 1,
-                },
-                total: 0,
-                cityoptions: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
                 citycode: '',
                 qucode: '',
                 streecode: '',
+                completionRate: '',
+                equipmentTotal: '',
+                current: 1,
+                size: 10,
+                total: 0,
+                cityoptions: [], //沈阳市
+                districtptions: [], //行政区
+                streeoptions: [], //街道
+                parkptions: [], //小区
+                citycode: '',
+                districcode: '',
+                streecode: '',
+                parkcode: '',
+                codeData: '10000',
             };
         },
         methods: {
+               // 获取城市
+               getCityData() {
+             
+                getMenuList(this.codeData).then((res) => {
+                    this.cityoptions = res.data
+
+                })
+            },
+            //c选择城市
+            cityChange(a) {
+                this.districcode = ''
+                this.streecode = ''
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.districtptions = res.data
+
+                })
+
+            },
+            // 选中行政区
+            districChange(a) {
+                this.streecode = ''
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.streeoptions = res.data
+
+                })
+
+            },
+            // 选中街道
+            streeChange(a) {
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.parkptions = res.data
+
+                })
+
+            },
+            // 选中园区
+            parkChange(a) {
+
+            },
+            //点击搜索
             checkSearch() {
-                console.log(this.number, "aaaaaaaaa")
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
@@ -115,13 +155,13 @@
             },
 
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10016, //街道编码
-                    parkName: "勘察", //园区名
-                    current: this.queryData.current //当前页码
+                    city: this.citycode, //城市编码
+                    district: this.districcode, //区编码
+                    street: this.streecode, //街道编码
+                    // parkName: "勘察", //园区名
+                    parkName: this.parkcode, //园区名
+                    current: this.current //当前页码
 
                 }
                 getEquipmentList(data).then((res) => {
@@ -129,62 +169,39 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
             },
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
+            getsEqtatData() {
+                getsequipmanList().then((res) => {
+                    var reslist = res.data
+                    if (res.code == 0) {
+                        this.equipmentTotal = reslist.equipmentTotal
+                        this.completionRate = reslist.completionRate
 
-            pageChange(val) {
-                this.$set(this.queryData, "current", val);
-                this.getListData();
-            }
+                    }
+
+                })
+
+            },
+
 
         },
         mounted() {
             this.getListData()
+            this.getsEqtatData()
+            this.getCityData()
         },
         created() {
 
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
-        },
+      },
     };
 </script>
 
@@ -195,7 +212,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -244,19 +261,9 @@
         font-weight: 600;
     }
 
-    .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
-    }
-
-    .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
-    }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 10px;
     }
 
     .cen_cl {

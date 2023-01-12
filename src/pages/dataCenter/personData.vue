@@ -8,34 +8,34 @@
 <template>
     <div>
         <div>
-            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name" @keyup.enter.native="checkSearch"></sk-icon-input>
-            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum"  @keyup.enter.native="checkSearch" class="mr_20"></sk-icon-input>
-            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"  @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-input :placeholder='nameplaceholder' :value.sync="name"
+                @keyup.enter.native="checkSearch"></sk-icon-input>
+            <sk-icon-input :placeholder='idnumplaceholder' :value.sync="idnum" @keyup.enter.native="checkSearch"
+                class="mr_20"></sk-icon-input>
+            <sk-icon-input :placeholder='telplaceholder' :value.sync="tellnum"
+                @keyup.enter.native="checkSearch"></sk-icon-input>
             <!-- <sk-icon-input :placeholder ='placeholder' :value.sync="num"></sk-icon-input> -->
             <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>
         <div class="title_cl">
             <div class="left_cl">
                 <div class="le_num">
-                    <div class="num_cl">98655</div>
+                    <div class="num_cl">{{personsTotal}}</div>
                     <div class="per_num">人员总数</div>
                 </div>
             </div>
-            <div class="">
-                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+            <div class="center_cl">
+                <div id="persexChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_cl">
-                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
             <div class="center_rg_cl">
-                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
-            <div class="right_cl"></div>
+                <div id="perAgeChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
+                </div>
+            </div>>
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column type="index" label="序号" align="center" width="100">
+                <el-table-column type="index" label="序号" align="center" width="">
                 </el-table-column>
                 <el-table-column prop="photo" label="头像" width="80">
                     <template slot-scope="scope">
@@ -50,7 +50,7 @@
                 </el-table-column>
                 <el-table-column prop="telephone" label="手机号" width="100">
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="600">
+                <el-table-column prop="address" label="操作" width="500">
                     <template slot-scope="scope" class="button_cl">
                         <sk-table-button @click="yzxx(scope.row)" title="业主信息"
                             icon="ic_personrole2x.png"></sk-table-button>
@@ -62,18 +62,19 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { getperList } from '@/api/sjzx'
+    import { getperList, getstatisticsList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
-
-    import chartsoptions from "@/utils/echartsOption";
     import * as echarts from "echarts";
+    import chartsoptions from "@/utils/echartsOption";
 
     export default {
         name: 'dataCenter-personData',
@@ -84,13 +85,17 @@
         title: "数据中心 > 人员数据",
         data() {
             return {
+                personsTotal: '',
                 chartData_1: {},
                 chartData_2: {},
-                chartData_3: {},
+                sextype:'性别',
+                agetype:'年龄',
                 tableData: [],
                 queryData: {
                     current: 1,
                 },
+                current: 1,
+                size: 10,
                 total: 0,
                 num: "",
                 slxxList: ['1048', '110', '1120', '4562'],
@@ -106,8 +111,14 @@
             };
         },
         methods: {
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
             checkSearch() {
                 console.log(this.name, "aaaaaaaaa")
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
@@ -125,101 +136,75 @@
                 })
             },
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
                 var data = {
                     name: this.name, //姓名
                     telephone: this.tellnum, //手机号
                     idNumber: this.idnum, //身份证号
-                    current: this.queryData.current   //当前页码
+                    current: this.current   //当前页码
 
                 }
                 getperList(data).then((res) => {
-                    console.log(res, 'sssss')
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
             },
-            postSfmx() {
-                // api.postSfmx(this.cardId).then((res) => {
-                //     let arr = []
-                //     arr = res.data
-                //     arr.forEach(e => {
-                //         let dataone = {
-                //             year: e.month,
-                //             fcsl: e.fcsl,
-                //             avgWater3: e.avgWater3,
-                //             avgWater6: e.avgWater6,
-                //             avgWater12: e.avgWater12,
-                //         }
-                //         this.slxxList.push(dataone)
-                //     })
-                //     arr.forEach(e => {
-                //         let datatwo = {
-                //             year: e.month,
-                //             yssf: e.yssf,
-                //             sssf: e.sssf
-                //         }
-                //         this.ysssList.push(datatwo)
-                //     })
-                //     this.slxxmxEchart()
-                // })
+            // 人员数据统计
+            getpersionData() {
+                getstatisticsList().then((res) => {
+
+                    var reslist = res.data
+                    console.log(reslist.ageRange, 'sssss')
+                    if (res.code == 0) {
+                        this.personsTotal = reslist.personsTotal
+                        this.chartData_1.pieData = reslist.sexRange
+                        this.chartData_2.pieData = reslist.ageRange
+
+                    }
+                    this.perSexChartData()
+                    this.perAgeChartData()
+
+                })
             },
 
             pageChange(val) {
+          
                 this.$set(this.queryData, "current", val);
                 this.getListData();
-            }
+            },
+            perSexChartData() {
+                let myChart = echarts.init(document.getElementById('persexChart'))
+                myChart.setOption(
+                    chartsoptions.perSexChart(this.chartData_1.pieData,this.sextype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
+            perAgeChartData() {
+                let myChart = echarts.init(document.getElementById('perAgeChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_2.pieData,this.agetype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
 
         },
         mounted() {
-            this.slxxmxEchart()
+            // this.slxxmxEchart()
             this.getListData()
+            // this.getpersionData()
+
         },
         created() {
-
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                pieTitle: '服务响应时效',
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
+            this.getpersionData()
         },
     };
 </script>
@@ -231,14 +216,14 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
 
     .left_cl {
-        width: 16vh;
-        height: 16vh;
+        width: 148px;
+        height: 148px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
         background-image: url('../../assets/img/datacente/ic_card_polic2x.png');
         background-size: 100% 100%;
@@ -247,7 +232,7 @@
     .num_cl {
 
         color: #FFFFFF;
-        font-size: 3.6vh;
+        font-size: 32px;
         font-family: SegoeUI-Bold;
         text-align: center;
         font-weight: 700;
@@ -262,23 +247,21 @@
     }
 
     .per_num {
-        font-size: 2.4vh;
+        font-size: 16px;
     }
 
     .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
+        width: 400px;
+        height: 140px;
+        margin: 0 0 0 30px
     }
 
     .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
+        width: 700px;
+        height: 140px;
     }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 18px;
     }
-
- 
 </style>

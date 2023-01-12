@@ -1,31 +1,19 @@
 <template>
     <div>
         <div>
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择行政区">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择街道">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>>
-
-            <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button>
+            <skDistrict @change="districtChange" />
+            <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{companyTotal}}</div>
                         <div class="per_num">范围总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">93.5%</div>
+                        <div class="num_cl">{{completionRate}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
@@ -36,7 +24,7 @@
 
             <div class="centert_cl">
                 <div class="cen_text">
-                    <div class="num_cl">9060</div>
+                    <div class="num_cl">{{staffTotal}}</div>
                     <div class="per_num">员工总数</div>
                 </div>
             </div>
@@ -79,13 +67,14 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                    layout="prev, pager, next" :total="total"></el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { getWorkList } from '@/api/sjzx'
+    import { getWorkList, getscompanList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -100,14 +89,22 @@
         title: "数据中心 > 单位数据",
         data() {
             return {
-                chartData_1: {},
-                chartData_2: {},
-                chartData_3: {},
+                current: 1,
+                size: 10,
+                total: 0,
                 tableData: [],
                 queryData: {
                     current: 1,
                 },
                 total: 0,
+                formData: {
+                    city: "",
+                    cityName: "",
+                    district: "",
+                    districtName: "",
+                    street: "",
+                    streetName: "",
+                },
                 cityoptions: [{
                     value: '选项1',
                     label: '黄金糕'
@@ -127,24 +124,36 @@
                 citycode: '',
                 qucode: '',
                 streecode: '',
+                companyTotal: '',
+                completionRate: '',
+                staffTotal: '',
             };
         },
         methods: {
+            districtChange(data) {
+                console.log(data, "aaaaaaaaaaaaaaaaaa")
+                this.formData = data
+            },
+
             checkSearch() {
-                console.log(this.number, "aaaaaaaaa")
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
             getListData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10021, //街道编码
-                    current: this.queryData.current //当前页码
+                    city: this.formData.city, //城市编码
+                    district: this.formData.district, //区编码
+                    street: this.formData.street, //街道编码
+                    current: this.current //当前页码
 
                 }
                 getWorkList(data).then((res) => {
@@ -152,9 +161,23 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
+            },
+            getsComrstatData() {
+                getscompanList().then((res) => {
+                    var reslist = res.data
+                    if (res.code == 0) {
+                        this.companyTotal = reslist.companyTotal
+                        this.completionRate = reslist.completionRate
+                        this.staffTotal = reslist.staffTotal
+
+                    }
+
+                })
+
             },
 
             pageChange(val) {
@@ -165,48 +188,10 @@
         },
         mounted() {
             this.getListData()
+            this.getsComrstatData()
         },
         created() {
 
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
         },
     };
 </script>
@@ -218,7 +203,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -275,19 +260,9 @@
         font-weight: 600;
     }
 
-    .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
-    }
-
-    .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
-    }
 
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 10px;
     }
 
     .cen_cl {

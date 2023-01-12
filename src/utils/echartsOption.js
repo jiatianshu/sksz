@@ -1,61 +1,105 @@
 // echart option 配置
 //配置饼图
-import * as echarts from 'echarts';
-export function pieEChart(data, name) {
+
+//数据中心--多图例配置echarts 环形图
+export function currencyChart(data,name) {
+    console.log(data,'data')
+    console.log(name,'name')
+    const list = data
     //数据
     return {
-        color: ['#246CF9', '#30E0A1'],
-        textStyle: {
-            color: '#fff'
-        },
-        tooltip: {
-            trigger: 'item'
+        color: ['#246CF9', '#30E0A1', '#FFC200','#6922FF', '#0F67FF', '#00FFF9 ','#5393E7'],
+        //标题
+        title: {
+            // text: this.chartData.pieTitle,
+            x: 'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: 'bottom', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            textStyle: {
+                fontFamily: 'Microsoft YaHei',
+                fontSize: 14,
+                fontWeight: 'normal',
+                color: '#fff',
+            },
+            left: '25%',
+            top: '80%',
+            textAlign: 'center', // 标题始终和图表保持居中
         },
 
         legend: {
             itemWidth: 8,
             itemHeight: 8,
-            textStyle: {
-                color: '#fff'
-            },
             icon: 'circle',
             x: 'right',
             y: 'center',
-            orient: 'vertical',
-            align: 'left',
-            left: '80%',
-            top: '30%',
-            itemGap: 10,
-            padding: [0, 0, 0, 0],
-            // formatter: function (name) {
-            //     //该函数用于设置图例显示后的百分比
-            //     var total = 0
-            //     var value
-            //     list.forEach((item) => {
-            //       total += item.value
-            //       if (item.name === name) {
-            //         value = item.value
-            //       }
-            //     })
-            //     var p = ((value / total) * 100).toFixed(1) //求出百分比,保留2位小数
-            //     // return `${name}  ${value}件  ${p}%`
-            //     return `{a|${name}}{b|${value}件}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
-            //   },
-        },
+            orient: 'vertical', //设置图例排列纵向显示
+            align: 'left', //设置图例中文字位置在icon标识符的右侧
+            left: '30%',
+            top: '10%',
+            itemGap: 10, //设置图例之间的间距
+            padding: [0, 0, 0, 0], //设置图例与圆环图之间的间距
 
+            formatter: function (name) {
+                //该函数用于设置图例显示后的百分比
+                var total = 0
+                var value = 1
+                list.forEach((item) => {
+                    total += parseInt(item.value)
+                    if (item.name === name) {
+                        value = item.value
+                    }
+                })
+                var p = ((value / total) * 100).toFixed(1) //求出百分比,保留2位小数
+                // return `${name}  ${value}件  ${p}%`
+                return `{a|${name}}{b|${value}}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
+            },
+            // 自定义图例文字样式
+            textStyle: {
+                rich: {
+                    a: {
+                        color: '#fff',
+                        padding: [0, 10, 0, 0],
+                        fontSize: 12,
+                    },
+                    b: {
+                        color: '#fff',
+                        padding: [0, 10, 0, 0],
+                        fontSize: 12,
+                    },
+                    c: {
+                        color: '#fff',
+                        fontSize: 12,
+                    },
+                },
+            },
+        },
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            // show: true,   //default true
+            showDelay: 0,//显示延时，添加显示延时可以避免频繁切换
+            hideDelay: 50,//隐藏延时
+            transitionDuration: 0,//动画变换时长
+            backgroundColor: 'rgba(60,66,84,0.5)',//背景颜色（此时为默认色）
+            borderRadius: 6,//边框圆角
+            padding: 10,    // [5, 10, 15, 20] 内边距
+            textStyle: {
+                color: '#fff',
+                fontSize: 12,
+            }
+        },
         graphic: [
             // 设置圆环内文字始终在圆环的正中间
             {
                 type: 'group',
-                left: '50%',
-                top: '42%',
+                left: '15%',
+                top: '40%',
                 bounding: 'raw',
                 children: [
                     {
                         type: 'text',
                         style: {
-                            text: '性别',
                             // text: this.chartData.satisfaction,
+                            text: name,
                             fontSize: 12,
                             fill: '#fff', //文字的颜色
                             textVerticalAlign: 'middle',
@@ -66,14 +110,14 @@ export function pieEChart(data, name) {
             },
             {
                 type: 'group',
-                left: '50%',
-                top: '60%',
+                left: '15%',
+                top: '56%',
                 bounding: 'raw',
                 children: [
                     {
                         type: 'text',
                         style: {
-                            text: '区间',
+                            text: '比例',
                             fontSize: 12,
                             fill: '#fff', //文字的颜色
                             textVerticalAlign: 'middle',
@@ -85,411 +129,208 @@ export function pieEChart(data, name) {
         ],
         calculable: true,
         series: [
+
             {
+
                 name: '',
                 type: 'pie',
-                // radius: ['65%', '70%'],
-                label: {
-                    // color: color,
-                    show: true,
-                    formatter: '{b} \n\n {c} ',
-                    // fontSize: '100%',
-                    position: 'center'
-                },
+                radius: ['60%', '90%'], //饼图的半径，数组的第一项是内半径，第二项是外半径。支持设置成百分比，相对于容器高宽中较小的一项的一半。可以将内半径设大显示成圆环图, 设置内半径和外半径，形成环状
+                center: ['15%', '50%'], //饼图的中心(圆心)坐标，数组的第一项是横坐标，第二项是纵坐标。支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度。这里的center一旦设置, 则 graphic/legend 里的内容位置也要相应进行调整
+                // roseType: 'radius', //扇形
                 itemStyle: {
                     normal: {
                         label: {
                             show: false,
                         },
                         labelLine: {
-                            show: false,
+                            show: true,
                         },
                     },
+                    emphasis: {
+                        shadowColor: 'rgba(4, 116, 0, 0.3)',
+                        shadowBlur: 10,
+                        // label: {
+                        //   show: true,
+                        // },
+                    },
                 },
-                radius: ['60%', '90%'],
-                avoidLabelOverlap: false,
-
-                emphasis: {
-                    label: {
-                        show: false,
-                        // fontSize: 40,
-                        fontWeight: 'bold',
-                    }
-                },
-                labelLine: {
-                    show: false
-                },
-                data: [
-                    // { value: data, name: name },
-                    { value: 1048, name: '男性' },
-                    { value: 735, name: '女性' },
-                ]
-            }
-        ]
-
-    }
-}
-
-export function barEChart(data, color) {
-    return {
-        color: color,
-        tooltip: {
-            formatter: (params) => {
-
-                let html = params.seriesName + '<br>' + params.marker + "" + params.name + "：" + ((params.data.fcsl) / 10000).toFixed(2) + '万立方米'
-
-                return html
-            }
-        },
-        dataset: {
-            source: data
-        },
-        dataZoom: [
-            {
-                show: true,
-                // start: 94,
-                // end: 100
-                height: 20,
-                textStyle: {
-                    color: '#fff'
-                },
-                right: '15%',
-            },
-            {
-                type: 'inside',
-                height: 15,
-                textStyle: {
-                    color: '#fff'
-                },
-                showDataShadow: false,
-
+                data: data,
             },
         ],
-        xAxis: {
-            type: 'category',
-            axisLine: {
-                lineStyle: {
-                    color: '#fff',
-                }
-            },
-            axisLabel: { //坐标轴刻度标签的相关设置。
-                //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                //	margin:15,
-                textStyle: {
-                    color: '#fff', fontSize: '100%',
-                }
-            },
-            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        grid: {
-            left: '18%',
-            right: '15%',
-            containLabel: false
-        },
-        yAxis: [{
-            axisLine: {
-                lineStyle: {
-                    color: '#fff',
-                }
-            },
-            axisLabel: { //坐标轴刻度标签的相关设置。
-                //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                //	margin:15,
-                textStyle: {
-                    color: '#fff', fontSize: '100%',
-                },
-                formatter: function (value) {
-                    value = value / 10000 + '万'
-                    return value
-                },
-                rotate: 45,
-            },
-            type: 'value',
-            name: '计量水量',
-        }],
-        series: [{
-            name: '计量水量',
-            type: 'bar',
 
-        },]
-    }
 
-}
 
-export function bardEChart(data, color) {
-    return {
-        color: color,
-        tooltip: {
-            formatter: (params) => {
-                let html = ''
-                if (params.seriesName == "应收") {
-                    html = params.seriesName + '<br>' + params.marker + "" + params.name + "：" + ((params.data.yssf) / 10000).toFixed(2) + '万元'
-                }
-                if (params.seriesName == "实收") {
-                    html = params.seriesName + '<br>' + params.marker + "" + params.name + "：" + ((params.data.sssf) / 10000).toFixed(2) + '万元'
-                }
-                return html
-            }
-        },
-        dataset: {
-            source: data
-        },
-        dataZoom: [
-            {
-                show: true,
-                // start: 94,
-                // end: 100
-                height: 20,
-                textStyle: {
-                    color: '#fff'
-                },
-                right: '15%',
-            },
-            {
-                type: 'inside',
-                height: 15,
-                textStyle: {
-                    color: '#fff'
-                },
-                showDataShadow: false,
-
-            },
-        ],
-        xAxis: {
-            type: 'category',
-            axisLine: {
-                lineStyle: {
-                    color: '#fff',
-                }
-            },
-            axisLabel: { //坐标轴刻度标签的相关设置。
-                //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                //	margin:15,
-                textStyle: {
-                    color: '#fff', fontSize: '100%',
-                }
-            },
-            // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        grid: {
-            left: '18%',
-            right: '15%',
-            containLabel: false
-        },
-        yAxis: [{
-            axisLine: {
-                lineStyle: {
-                    color: '#fff',
-                }
-            },
-            axisLabel: { //坐标轴刻度标签的相关设置。
-                //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                //	margin:15,
-                textStyle: {
-                    color: '#fff', fontSize: '100%',
-                },
-                formatter: function (value) {
-                    value = value / 10000 + '万'
-                    return value
-                },
-                rotate: 45,
-            },
-            type: 'value',
-            name: '万元',
-        }],
-        series: [{
-            name: '应收',
-            type: 'bar',
-            color: '#056403'
-        }, {
-            name: '实收',
-            type: 'bar',
-            color: '#009900'
-        },]
     }
 }
-export function lineEChart(data, list) {
-    let danweiseries = [];
-    let lagenddata = [];
-    let danwei = [];
-    console.log(data, "sss")
-    list.forEach(item => {
-        danwei = {
-            name: item,
-            type: 'line',
-            areaStyle: {},
-        }
-        danweiseries.push(danwei)
-        lagenddata.push(item)
 
-    })
+
+
+
+//数据中心--人员数据--性别比例
+export function perSexChart(data,name) {
+    const list = data
     //数据
     return {
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
-                }
-            },
-
-        },
-        legend: {
-            data: lagenddata,
+        color: ['#246CF9', '#30E0A1'],
+        //标题
+        title: {
+            // text: this.chartData.pieTitle,
+            x: 'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: 'bottom', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
             textStyle: {
+                fontFamily: 'Microsoft YaHei',
+                fontSize: 14,
+                fontWeight: 'normal',
                 color: '#fff',
             },
-            inactiveColor: '#898a8b45',
-            itemWidth: 10,
-            itemHeight: 10,
+            left: '25%',
+            top: '80%',
+            textAlign: 'center', // 标题始终和图表保持居中
         },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        dataset: {
-            // dimensions: ['yf', 'zzs', 'zxg', 'zshk', 'zgjz', 'zgjzx', 'zls', 'zpw', 'zjz'],
 
-            source: data
-
-        },
-        xAxis: [
-            {
-                type: 'category',
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff',
-                    }
-                },
-                axisLabel: { //坐标轴刻度标签的相关设置。
-                    //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                    //	margin:15,
-                    textStyle: {
-                        color: '#fff', fontSize: '100%'
-                    },
-                    formatter: '{value}'
-                },
-                boundaryGap: false,
-                // data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff',
-                    }
-                },
-                axisLabel: { //坐标轴刻度标签的相关设置。
-                    //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                    //	margin:15,
-                    textStyle: {
-                        color: '#fff', fontSize: '100%'
-                    }
-                },
-
-            }
-        ],
-        series: danweiseries
-    }
-
-}
-
-export function mxlineEChart(data, list) {
-    console.log(list, "555")
-    let danweiseries = [];
-    let lagenddata = [];
-    let danwei = [];
-    list.forEach(item => {
-        danwei = {
-            name: item,
-            type: 'line',
-            areaStyle: {},
-        }
-        danweiseries.push(danwei)
-        lagenddata.push(item)
-    })
-    //数据
-    return {
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
-                }
-            }
-        },
         legend: {
-            data: lagenddata,
+            itemWidth: 8,
+            itemHeight: 8,
+            icon: 'circle',
+            x: 'right',
+            y: 'center',
+            orient: 'vertical', //设置图例排列纵向显示
+            align: 'left', //设置图例中文字位置在icon标识符的右侧
+            left: '30%',
+            top: '30%',
+            itemGap: 10, //设置图例之间的间距
+            padding: [0, 0, 0, 0], //设置图例与圆环图之间的间距
+
+            formatter: function (name) {
+                console.log(name,'name?')
+                //该函数用于设置图例显示后的百分比
+                var total = 0
+                var value = 1
+                list.forEach((item) => {
+                    console.log(item.value,"itemvalue")
+                    total += parseInt(item.value)
+                    if (item.name === name) {
+                        value = item.value
+                    }
+                })
+                console.log(value,"value")
+                console.log(total,"total")
+                var p = ((value / total) * 100).toFixed(1) //求出百分比,保留2位小数
+                console.log(p,"ppppppppppppppp")
+                // return `${name}  ${value}件  ${p}%`
+                return `{a|${name}}{b|${value}}{c|${p}%}` //返回出图例所显示的内容是名称+百分比
+            },
+            // 自定义图例文字样式
+            textStyle: {
+                rich: {
+                    a: {
+                        color: '#fff',
+                        padding: [0, 10, 0, 0],
+                        fontSize: 12,
+                    },
+                    b: {
+                        color: '#fff',
+                        padding: [0, 10, 0, 0],
+                        fontSize: 12,
+                    },
+                    c: {
+                        color: '#fff',
+                        fontSize: 12,
+                    },
+                },
+            },
+        },
+        tooltip: {
+            show: true,
+            trigger: 'item',
+            // show: true,   //default true
+            showDelay: 0,//显示延时，添加显示延时可以避免频繁切换
+            hideDelay: 50,//隐藏延时
+            transitionDuration: 0,//动画变换时长
+            backgroundColor: 'rgba(60,66,84,0.5)',//背景颜色（此时为默认色）
+            borderRadius: 6,//边框圆角
+            padding: 10,    // [5, 10, 15, 20] 内边距
             textStyle: {
                 color: '#fff',
-            },
-            inactiveColor: '#898a8b45',
-            itemWidth: 10,
-            itemHeight: 10,
+                fontSize: 12,
+            }
         },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        dataset: {
-            // dimensions: ['yf', 'zzs', 'zxg', 'zshk', 'zgjz', 'zgjzx', 'zls', 'zpw', 'zjz'],
-
-            source: data
-
-        },
-        xAxis: [
+        graphic: [
+            // 设置圆环内文字始终在圆环的正中间
             {
-                type: 'category',
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff',
-                    }
-                },
-                axisLabel: { //坐标轴刻度标签的相关设置。
-                    //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                    //	margin:15,
-                    textStyle: {
-                        color: '#fff', fontSize: '100%'
+                type: 'group',
+                left: '15%',
+                top: '40%',
+                bounding: 'raw',
+                children: [
+                    {
+                        type: 'text',
+                        style: {
+                            // text: this.chartData.satisfaction,
+                            text: name,
+                            fontSize: 12,
+                            fill: '#fff', //文字的颜色
+                            textVerticalAlign: 'middle',
+                            textAlign: 'center',
+                        },
                     },
-                    formatter: '{value}'
-                },
-                boundaryGap: false,
-                // data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-            }
-        ],
-        yAxis: [
+                ],
+            },
             {
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff',
-                    }
-                },
-                axisLabel: { //坐标轴刻度标签的相关设置。
-                    //		interval: 0,//设置为 1，表示『隔一个标签显示一个标签』
-                    //	margin:15,
-                    textStyle: {
-                        color: '#fff', fontSize: '100%'
-                    }
-                },
-
-            }
+                type: 'group',
+                left: '15%',
+                top: '56%',
+                bounding: 'raw',
+                children: [
+                    {
+                        type: 'text',
+                        style: {
+                            text: '比例',
+                            fontSize: 12,
+                            fill: '#fff', //文字的颜色
+                            textVerticalAlign: 'middle',
+                            textAlign: 'center',
+                        },
+                    },
+                ],
+            },
         ],
-        series: danweiseries
+        calculable: true,
+        series: [
+
+            {
+
+                name: '',
+                type: 'pie',
+                radius: ['60%', '90%'], //饼图的半径，数组的第一项是内半径，第二项是外半径。支持设置成百分比，相对于容器高宽中较小的一项的一半。可以将内半径设大显示成圆环图, 设置内半径和外半径，形成环状
+                center: ['15%', '50%'], //饼图的中心(圆心)坐标，数组的第一项是横坐标，第二项是纵坐标。支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度。这里的center一旦设置, 则 graphic/legend 里的内容位置也要相应进行调整
+                // roseType: 'radius', //扇形
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false,
+                        },
+                        labelLine: {
+                            show: true,
+                        },
+                    },
+                    emphasis: {
+                        shadowColor: 'rgba(4, 116, 0, 0.3)',
+                        shadowBlur: 10,
+                        // label: {
+                        //   show: true,
+                        // },
+                    },
+                },
+                data: data,
+            },
+        ],
+
+
+
     }
-
-
-
 }
+
 
 export default {
-    pieEChart, barEChart, bardEChart, lineEChart, mxlineEChart
-}
+    currencyChart,perSexChart}

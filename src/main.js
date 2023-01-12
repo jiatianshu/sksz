@@ -24,6 +24,9 @@ import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
 import skDistrict from '_c/form/sk-district';
 
+import skgetTreedistrict from '_c/form/sk-getTreedistrict';
+
+
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
@@ -39,6 +42,7 @@ Vue.component("skIconButton",skIconButton);
 Vue.component("skPage",skPage);
 Vue.component("skTableButton",skTableButton);
 Vue.component("skDistrict",skDistrict);
+Vue.component("skgetTreedistrict",skgetTreedistrict);
 
 
 

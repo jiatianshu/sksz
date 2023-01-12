@@ -177,7 +177,6 @@ export default {
     margin: 0 0 0 20px;
     height: 80px;
     border-radius: 20px;
-    // border-radius: 1.2vh;
     overflow: hidden;
     display: flex;
     justify-content: space-between;

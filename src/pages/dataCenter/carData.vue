@@ -16,29 +16,26 @@
             <div class="left_cl">
                 <div class="le_num">
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{carTotal}}</div>
                         <div class="per_num">房屋总数</div>
                     </div>
                     <div class="cen_cl"></div>
                     <div class="left_fw">
-                        <div class="num_cl">98655</div>
+                        <div class="num_cl">{{completionRate}}</div>
                         <div class="per_num">信息完善率</div>
                     </div>
 
                 </div>
 
             </div>
-            <div class="">
-                <div id="slxxmxEChart" style=" padding-top: 10px; left: 1vmin; height: 100%;">
+            <div class="center_rg_cl">
+                <div id="carPpEChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_cl">
-                <doughnutChart :chartData="chartData_1" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
-            </div>
             <div class="center_rg_cl">
-                <ageCharts :chartData="chartData_2" style=" padding-top: 10px; left: 2vmin; height: 100%;" />
+                <div id="carColChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
+                </div>
             </div>
-            <div class="right_cl"></div>
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
@@ -66,17 +63,20 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { getCarList } from '@/api/sjzx'
+    import { getCarList, getsCarstatList } from '@/api/sjzx'
+    import chartsoptions from "@/utils/echartsOption";
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
-    // import * as echarts from "echarts";
+    import * as echarts from "echarts";
 
     export default {
         name: 'dataCenter-carData',
@@ -94,13 +94,20 @@
                 queryData: {
                     current: 1,
                 },
+                current: 1,
+                size: 10,
                 total: 0,
+                carTotal: "",
+                colortype: "颜色",
+                brandtype: "品牌",
+                completionRate: "",
                 number: "",
                 carplaceholder: "请输入车牌号",
             };
         },
         methods: {
             checkSearch() {
+                this.current = 1
                 console.log(this.number, "aaaaaaaaa")
                 this.getListData()
             },
@@ -109,75 +116,78 @@
             },
 
             getListData() {
-                console.log(this.queryData.current, "yyyyy")
                 var data = {
                     province: "", //省
                     city: "", //市
                     number: this.number, //号码
-                    current: this.queryData.current //当前页码
+                    current: this.current //当前页码
 
                 }
                 getCarList(data).then((res) => {
-                    console.log(res, 'sssss')
+
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
+            },
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
+            getsCarstatData() {
+                getsCarstatList().then((res) => {
+                    var reslist = res.data
+                    console.log(reslist, 'varrrrr')
+                    if (res.code == 0) {
+                        this.carTotal = reslist.carTotal
+                        this.completionRate = reslist.completionRate
+                        this.chartData_1.pieData = reslist.brandRange
+                        this.chartData_2.pieData = reslist.colourRange
+
+                    }
+                    this.carPpEChartData()
+                    this.carColChartData()
+
+                })
+
             },
 
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
-            }
+            },
+            carPpEChartData() {
+                let myChart = echarts.init(document.getElementById('carPpEChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_1.pieData,this.brandtype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
+            carColChartData() {
+                let myChart = echarts.init(document.getElementById('carColChart'))
+                myChart.setOption(
+                    chartsoptions.currencyChart(this.chartData_2.pieData,this.colortype)
+                )
+                window.addEventListener('resize', function () {
+                    //浏览器大小调整echarts随之改变
+                    myChart.resize()
+                })
+            },
 
         },
         mounted() {
             this.getListData()
+            this.getsCarstatData()
         },
         created() {
 
-            this.chartData_1 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                ],
-                pieTitle: '服务响应时效',
-                satisfaction: '90%',
-            }
-            this.chartData_2 = {
-                pieData: [
-                    {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
-                    {
-                        value: 89,
-                        name: '3.0分',
-                    },
-                    {
-                        value: 82,
-                        name: '2.0分',
-                    },
-                    {
-                        value: 35,
-                        name: '1.0分',
-                    },
-                ],
-                pieTitle: '服务人员态度',
-                satisfaction: '80%',
-            }
         },
     };
 </script>
@@ -189,7 +199,7 @@
 
     .title_cl {
         display: flex;
-        margin: 2vh 0 0 0;
+        margin: 18px 0 0 0;
         color: #FFFFFF;
     }
 
@@ -226,24 +236,13 @@
         text-align: center;
         font-weight: 600;
     }
-    .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
-    }
 
-    .center_cl {
-        width: 40vh;
-        height: 16vh;
-        margin: 0 0 0 4vh
-    }
-    .mr_20 {
-        margin: 0 2vh;
-    }
 
     .center_rg_cl {
-        width: 70vh;
-        height: 16vh;
+        width: 520px;
+        height: 140px;
     }
+
     .cen_cl {
         width: 1px;
         height: 48px;
@@ -251,13 +250,16 @@
         border: 1px solid rgba(255, 255, 255, 1);
         margin: 6px 10px 0 10px;
     }
+
     .mr_20 {
-        margin: 0 2vh;
+        margin: 0 18px;
     }
+
     .left_fw {
         width: 100px;
     }
+
     .select {
-    margin-right: 16px;
-}
+        margin-right: 16px;
+    }
 </style>
