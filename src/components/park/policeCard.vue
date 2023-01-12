@@ -2,33 +2,33 @@
  * @Author: gq
  * @Date: 2023-01-09 19:21:46
  * @LastEditors: gq
- * @LastEditTime: 2023-01-09 20:00:08
+ * @LastEditTime: 2023-01-12 19:06:07
  * @Description: 警察card组件
 -->
 <template>
     <div class="policeCard-box">
         <p class="title">
             <img src="@/assets/img/image/ic_policelogo@2x.png" alt="">
-            大东区津桥街道红星社区派出所
+            {{ detailData.branchName }}{{ detailData.orgName }}
         </p>
         <div class="policeCard-content-box">
-            <img src="@/assets/img/image/ic_policelogo@2x.png" alt="">
+            <img :src="detailData.photo" alt="">
             <ul>
                 <li>
                     <span class="name">姓名</span>
-                    <span class="value">xxxxxxx</span>
+                    <span class="value">{{ detailData.policeName }}</span>
                 </li>
                 <li>
                     <span class="name">警号</span>
-                    <span class="value">xxxxxxx</span>
+                    <span class="value">{{ detailData.policeNo }}</span>
                 </li>
                 <li>
                     <span class="name">联系电话</span>
-                    <span class="value">xxxxxx</span>
+                    <span class="value">{{ detailData.telephone }}</span>
                 </li>
                 <li>
                     <span class="name">负责社区</span>
-                    <span class="value">xxxxxx</span>
+                    <span class="value">{{ detailData.roomName }}</span>
                 </li>
             </ul>
 
@@ -45,6 +45,12 @@
 
 <script>
 export default {
+    props: {
+        detailData: {
+            default: {},
+            typeof: Object,
+        }
+    },
     data() {
         return {
 
@@ -126,6 +132,9 @@ export default {
             .value {
                 color: #004BAD;
                 margin-left: 12px;
+                width: 120px;
+                display: inline-block;
+                vertical-align: text-top;
             }
         }
     }

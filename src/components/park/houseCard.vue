@@ -2,20 +2,20 @@
  * @Author: gq
  * @Date: 2023-01-09 19:19:37
  * @LastEditors: gq
- * @LastEditTime: 2023-01-09 20:06:11
+ * @LastEditTime: 2023-01-12 18:49:06
  * @Description: 小区名片组件
 -->
 <template>
     <div class="houseCard-box">
-        <img :src="imgSrc" class="house-img" alt="">
+        <img :src="detailData.parkImg" class="house-img" alt="">
         <div class="text-box">
             <div class="text-content">
-                <p class="title">title</p>
-                <p>地区</p>
+                <p class="title">{{ detailData.parkName }}}</p>
+                <p>{{ `${detailData.cityName} ${detailData.districtName}  ${detailData.streetName}` }} </p>
             </div>
             <div>
-                <p>地址</p>
-                <p><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> 经纬度</p>
+                <p>{{detailData.address}}</p>
+                <p><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> {{ detailData.longitude }} N,{{ detailData. latitude}} W</p>
             </div>
         </div>
 
@@ -25,9 +25,9 @@
 <script>
 export default {
     props: {
-        imgSrc: {
-            default: "",
-            typeof: String,
+        detailData: {
+            default: {},
+            typeof: Object,
         }
     },
     data() {

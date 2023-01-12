@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-11 19:32:07
+ * @LastEditTime: 2023-01-12 19:07:30
  * @Description: 智慧园区
 -->
 <template>
@@ -45,7 +45,7 @@
             </div>
             <div class="community-table-box" style="border-radius:20px">
                 <sk-icon-input :value.async="parkName"></sk-icon-input>
-                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;">
+                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;height: 700px;">
                     <communityItemCard v-for="item in parkList" :parkData="item" :key="item.id" />
 
                 </div>

@@ -2,14 +2,14 @@
  * @Author: gq
  * @Date: 2023-01-09 19:14:53
  * @LastEditors: gq
- * @LastEditTime: 2023-01-11 19:51:21
+ * @LastEditTime: 2023-01-12 19:02:18
  * @Description: 智慧园区详情页
 -->
 <template>
     <div>
         <div class="card-box">
-            <houseCard />
-            <policeCard />
+            <houseCard :detailData="detailData" />
+            <policeCard :detailData="detailData" />
         </div>
         <div class="statistics-box">
             <statCard :title="item.title" :num="item.num" size="mini" :src="item.src" v-for="item in statiList"
@@ -79,7 +79,7 @@
                 </div>
                 <div class="ganzhi-box">
                     <p>全域感知</p>
-                    <div >
+                    <div>
                         <img src="@/assets/img/image/button_pressed.png" alt="">
                     </div>
                 </div>
@@ -95,74 +95,89 @@
 import houseCard from '_c/park/houseCard.vue';
 import policeCard from '_c/park/policeCard.vue';
 import statCard from '_c/park/statCard.vue';
-import {getParkInfo,getParkAbilityPreview} from '@/api/wisdomScenter'
+import { getParkInfo, getParkAbilityPreview } from '@/api/wisdomScenter'
 export default {
     name: "wisdomScenter-park-detail",
     title: "智慧中心 > 智慧园区 > 沈阳市",
-    backType:true,
+    backType: true,
     components: {
         policeCard,
         houseCard,
         statCard
     },
-    
+
     data() {
         return {
             statiList: [{
                 title: "标准地址",
                 num: 0,
-                src: "ic_location@2x.png"
+                src: "ic_location@2x.png",
+                key: "standard",
             }, {
                 title: "实有房屋",
                 num: 0,
+                key: "realHouse",
                 src: "ic_house@2x.png"
             }, {
                 title: "实有人口",
                 num: 0,
+                key: "realPopulation",
                 src: "ic_person@2x.png"
             }, {
                 title: "实有单位",
                 num: 0,
+                key: "realCompany",
                 src: "ic_corporation@2x.png"
             }, {
                 title: "智能监控",
                 num: 0,
+                key: "equipmentCount",
                 src: "ic_monitor@2x.png"
             }, {
                 title: "人脸识别",
                 num: 0,
+                key: "faceCaptureCount",
                 src: "ic_face@2x.png"
             }, {
                 title: "车辆识别",
                 num: 0,
+                key: "carCaptureCount",
                 src: "ic_car@2x.png"
             }, {
                 title: "周界监控",
                 num: 0,
-                src: "ic_surround@2x.png"
+                src: "ic_surround@2x.png",
+                key:"暂无"
             }
             ],
-            parkId:this.$route.query.id,
-            detailData:{},
-            personList:[],
-            carList:[],
+            parkId: this.$route.query.id,
+            detailData: {},
+            personList: [],
+            carList: [],
 
         }
     },
-    methods:{
-        getData(){
-            getParkInfo({parkid:this.parkId}).then(res=>{
-                this.detailData=res.data;
+    methods: {
+        getData() {
+            getParkInfo({ parkid: this.parkId }).then(res => {
+                this.detailData = res.data;
+                this.statiList.forEach(item => {
+                    
+                    this.detailData[item.key] && (item.num = this.detailData[item.key]);
+                })
             })
         },
-        getParkAbilityPreview(){
-            getParkAbilityPreview({parkid:this.parkId}).then(res=>{
-                this.personList=res.data.faceCaptureList;
-                this.carList=res.data.carCaptureList;
+        getParkAbilityPreview() {
+            getParkAbilityPreview({ parkid: this.parkId }).then(res => {
+                this.statiList.forEach(item=>{
+                    res.data[item.key]&&(item.num=res.data[item.key]);
+                })
+                this.personList = res.data.faceCaptureList;
+                this.carList = res.data.carCaptureList;
             })
         }
     },
-    mounted(){
+    mounted() {
         this.getData();
         this.getParkAbilityPreview();
     }
@@ -316,16 +331,19 @@ export default {
         height: 200px;
         border-radius: 14px;
         padding: 20px 40px;
-        div{
+
+        div {
             display: flex;
             justify-content: center;
         }
-        img{
+
+        img {
             margin-top: 10px;
             width: 130px;
             height: 80px;
-           
+
         }
+
         p {
             font-size: 20px;
             color: #FFFFFF;

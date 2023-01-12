@@ -36,11 +36,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const code = response.status;
-    console.log(response,"response")
-    if (code == 200) {
+    let config = response.config;
+    console.log(response, "response")
+    if (code == 200 && config.url.indexOf('auth/oauth/token') > 0) {
+      return response.data
+    } else if (code == 200 && response.data.code == 0) {
       return response.data
     } else {
-     
       Message({
         message: response.msg || '接口请求失败',
         error: 'warning'
@@ -51,7 +53,7 @@ service.interceptors.response.use(
   },
   error => {
     let code = 0
-    console.log(error.response.data)
+
     try {
       code = error.response.data.code
     } catch (e) {
