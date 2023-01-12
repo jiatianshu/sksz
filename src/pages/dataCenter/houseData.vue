@@ -17,7 +17,6 @@
                 <el-option v-for="item in parkptions" :key="item.code" :label="item.name" :value="item.name">
                 </el-option>
             </el-select>
-            <!-- <skDistrict @change="districtChange" /> -->
 
             <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>

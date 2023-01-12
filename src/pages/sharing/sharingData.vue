@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="top_cl">
-                <el-select v-model="citycode" class="select" placeholder="公安">
+                <el-select v-model="posDatqa" class="select" placeholder="公安">
                     <el-option v-for="item in posoptions" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
@@ -12,20 +12,24 @@
                 </el-tabs>
             </div>
 
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="citycode" class="select" placeholder="请选择城市" @change="cityChange" clearable>
+                <el-option v-for="item in cityoptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
             </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择行政区">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="districcode" class="select" placeholder="请选择行政区" @change="districChange" clearable>
+                <el-option v-for="item in districtptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
             </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择街道">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-select v-model="streecode" class="select" placeholder="请选择街道" @change="streeChange" clearable>
+                <el-option v-for="item in streeoptions" :key="item.code" :label="item.name" :value="item.code">
                 </el-option>
-            </el-select>>
+            </el-select>
+            <el-select v-model="parkcode" class="select" placeholder="请选择园区" @change="parkChange" clearable>
+                <el-option v-for="item in parkptions" :key="item.code" :label="item.name" :value="item.name">
+                </el-option>
+            </el-select>
 
-            <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button>
+            <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>
 
         <div class="table-box">
@@ -83,14 +87,16 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <!-- :pageNum.sync="pageNum" -->
-                <sk-page :total="total"  @page-change="pageChange" ></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                layout="prev, pager, next" :total="total">
+            </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
     import { getshareist, getshareCarist } from '@/api/gxzx'
+    import {  getMenuList } from '@/api/sjzx'
 
     export default {
         name: 'dataCenter-houseData',
@@ -110,34 +116,82 @@
                 total: 0,
                 pageNum:1,
                 tabIndex: '',
+                posDatqa: '',
                 activeName: 'first',
                 posoptions: [
                     { value: '01', label: '公安' }
                 ],
-                cityoptions: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                cityoptions: [],
                 citycode: '',
                 qucode: '',
                 streecode: '',
+                current: 1,
+                size: 10,
+                total: 0,
+                cityoptions: [], //沈阳市
+                districtptions: [], //行政区
+                streeoptions: [], //街道
+                parkptions: [], //小区
+                codeData: '10000',
+                citycode: '',
+                districcode: '',
+                streecode: '',
+                parkcode: '',
             };
         },
         methods: {
+               // 获取城市
+               getCityData() {
+                var data = {
+                    parentId: this.codeData  //辽宁省code
+                }
+                getMenuList(this.codeData).then((res) => {
+                    this.cityoptions = res.data
+
+                })
+            },
+            //c选择城市
+            cityChange(a) {
+                this.districcode = ''
+                this.streecode = ''
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.districtptions = res.data
+
+                })
+
+            },
+            // 选中行政区
+            districChange(a) {
+                this.streecode = ''
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.streeoptions = res.data
+
+                })
+
+            },
+            // 选中街道
+            streeChange(a) {
+                this.parkcode = ''
+                getMenuList(a).then((res) => {
+                    this.parkptions = res.data
+
+                })
+
+            },
+            // 选中园区
+            parkChange(a) {
+
+            },
+            //搜索
             checkSearch() {
-                console.log(this.number, "aaaaaaaaa")
+                this.current = 1
+                this.getPerData()
+            },
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
                 this.getPerData()
             },
             yzxx(e) {
@@ -147,11 +201,12 @@
             getPerData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10016, //街道编码
-                    parkName: "勘察", //园区名
-                    current: this.queryData.current //当前页码
+                    city: this.citycode, //城市编码
+                    district: this.districcode, //区编码
+                    street: this.streecode, //街道编码
+                    // parkName: "勘察", //园区名
+                    parkName: this.parkcode, //园区名
+                    current: this.current //当前页码
 
                 }
                 getshareist(data).then((res) => {
@@ -159,38 +214,21 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
             },
-            getPerData() {
-                console.log(this.queryData.current, "yyyyy")
-                var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10016, //街道编码
-                    parkName: "勘察", //园区名
-                    current: this.queryData.current //当前页码
-
-                }
-                getshareist(data).then((res) => {
-                    console.log(res, 'sssss')
-                    if (res.code == 0) {
-                        this.tableData = res.data.result
-                        this.total = res.data.total;
-                        this.pageNum=res.data.current;
-                    }
-
-                })
-            },
+      
             getCarData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10016, //街道编码
-                    parkName: "勘察", //园区名
-                    current: this.queryData.current //当前页码
+                    city: this.citycode, //城市编码
+                    district: this.districcode, //区编码
+                    street: this.streecode, //街道编码
+                    // parkName: "勘察", //园区名
+                    parkName: this.parkcode, //园区名
+                    current: this.current //当前页码
 
                 }
                 getshareCarist(data).then((res) => {
@@ -198,6 +236,7 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
@@ -210,10 +249,12 @@
 
                 if (this.tabIndex == 0) {
                     //人员
+                    this.current =1
                     this.getPerData()
 
                 } else if (this.tabIndex == 1) {
                     //车辆
+                    this.current =1
                     this.getCarData()
                 }
 
@@ -234,6 +275,7 @@
         },
         mounted() {
             this.getPerData()
+            this.getCityData()
         },
         created() {
 

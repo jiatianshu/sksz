@@ -1,20 +1,8 @@
 <template>
     <div>
         <div>
-            <el-select v-model="citycode" class="select" placeholder="请选择城市">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择行政区">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select v-model="qucode" class="select" placeholder="请选择街道">
-                <el-option v-for="item in cityoptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-            </el-select>>
-
-            <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button>
+            <skDistrict @change="districtChange" />
+            <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">
             <div class="left_cl">
@@ -79,13 +67,14 @@
                 </el-table-column>
             </el-table>
             <div style="height:52px;padding-top: 8px;text-align: right;">
-                <sk-page :total="total" @page-change="pageChange"></sk-page>
+                <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
+                    layout="prev, pager, next" :total="total"></el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { getWorkList,getscompanList } from '@/api/sjzx'
+    import { getWorkList, getscompanList } from '@/api/sjzx'
     import doughnutChart from '_c/echartsCon/DoughnutChart.vue'
     import ageCharts from '_c/echartsCon/ageCharts.vue'
 
@@ -100,11 +89,22 @@
         title: "数据中心 > 单位数据",
         data() {
             return {
+                current: 1,
+                size: 10,
+                total: 0,
                 tableData: [],
                 queryData: {
                     current: 1,
                 },
                 total: 0,
+                formData: {
+                    city: "",
+                    cityName: "",
+                    district: "",
+                    districtName: "",
+                    street: "",
+                    streetName: "",
+                },
                 cityoptions: [{
                     value: '选项1',
                     label: '黄金糕'
@@ -130,20 +130,30 @@
             };
         },
         methods: {
+            districtChange(data) {
+                console.log(data, "aaaaaaaaaaaaaaaaaa")
+                this.formData = data
+            },
+
             checkSearch() {
+                this.current = 1
                 this.getListData()
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-
+            handleCurrentChange(num) {
+                console.log(num, "mmmmmmmmmm")
+                this.current = num
+                this.getListData()
+            },
             getListData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
-                    city: 10001, //城市编码
-                    district: 10003, //区编码
-                    street: 10021, //街道编码
-                    current: this.queryData.current //当前页码
+                    city: this.formData.city, //城市编码
+                    district: this.formData.district, //区编码
+                    street: this.formData.street, //街道编码
+                    current: this.current //当前页码
 
                 }
                 getWorkList(data).then((res) => {
@@ -151,6 +161,7 @@
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
+                        this.current = res.data.current
                     }
 
                 })
@@ -168,7 +179,7 @@
                 })
 
             },
-            
+
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
@@ -181,7 +192,7 @@
         },
         created() {
 
-       },
+        },
     };
 </script>
 
