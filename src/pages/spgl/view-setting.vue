@@ -21,7 +21,8 @@
                 <div class="up_con_box">
                     <div class="video_box" v-for="(item,index) in videoList">
                         <div class="video_cla" :id="'nameId'+(item,index)"> {{item.name}}{{item.id}}</div>
-                        <video id="videoid1" class="" controls preload="auto" poster="" data-setup="{}" autoplay="autoplay" style="width: 100%;height: 90%;">
+                        <video id="videoid1" class="" controls preload="auto" poster="" data-setup="{}"
+                            autoplay="autoplay" style="width: 100%;height: 90%;">
                             <source :src="item.name" type="rtmp/flv" style="width:100%" />
                         </video>
                     </div>
@@ -95,13 +96,15 @@
 
 </template>
 <script>
-
+    import flvjs from 'flv.js'
+    // import flvjs from "flv.js/dist/flv.min.js"
     import { getEquipmentTree, getstatiData } from '@/api/spgl'
     export default {
         name: "view-setting",
         title: "视频中心 > 视频管理",
         data() {
             return {
+                flvPlayer: null,
                 treeList: [],
                 dataList: [],
                 videoList: [
@@ -124,6 +127,11 @@
 
         },
         methods: {
+            play() {
+
+                this.flvPlayer.play();
+
+            },
             getlist() {
                 getEquipmentTree().then((res) => {
                     if (res.code == 0) {
@@ -167,6 +175,61 @@
         mounted() {
             this.getlist()
             this.getNumdata()
+            if (flvjs.isSupported()) {
+
+                let videoElement = document.getElementById('videoElement'); //获取video的dom元素
+
+
+
+                if (videoElement) {//添加一些必要的属性
+
+                    videoElement.muted = true
+
+                    videoElement.controls = true;
+
+                }
+
+                let flvPlayer = flvjs.createPlayer({
+
+                    type: 'flv',
+
+                    isLive: true,
+
+                    hasAudio: false,
+
+                    url: 'flv视频地址'// 自己的flv视频流
+
+                });
+
+                if (flvPlayer) {
+
+                    flvPlayer.attachMediaElement(videoElement);
+
+                    flvPlayer.load()
+
+                    let playPromise = flvPlayer.play()
+
+                    if (playPromise) {
+
+                        playPromise.then(() => {
+
+                            setTimeout(() => {
+
+                                flvPlayer.play()
+
+                            }, flvPlayer.lazyLoadMaxDuration * 1000)
+
+                        }).catch((e) => {
+
+                            flvPlayer.play()
+
+                        })
+
+                    }
+
+                }
+
+            }
         },
         created() {
 
@@ -184,7 +247,7 @@
         height: 886px;
         margin: 0 14px 0 0;
         overflow-y: auto;
-        
+
     }
 
     .right_video {
@@ -364,10 +427,14 @@
         /* margin: auto 0 0 24px; */
         margin: auto 0 auto 24px;
     }
+
     /* 1,滚动条 */
     ::-webkit-scrollbar {
-      width: 2px;          /* 纵向滚动条 宽度 */
-      background: rgb(15, 5, 6);   /* 整体背景 */
-      border-radius: 10px;  /* 整体 圆角 */
+        width: 2px;
+        /* 纵向滚动条 宽度 */
+        background: rgb(15, 5, 6);
+        /* 整体背景 */
+        border-radius: 10px;
+        /* 整体 圆角 */
     }
 </style>
