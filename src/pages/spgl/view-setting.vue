@@ -474,6 +474,7 @@
     }
 
     .bof_cl_videonone {
+        width: 40%;
         position: relative;
         top: -66%;
         left: 45%;
