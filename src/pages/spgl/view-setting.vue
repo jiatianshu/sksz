@@ -163,18 +163,21 @@
 
                         console.log(res.data, "?????????????????")
 
-                        var arr = res.data
-                        this.videoList.splice(nowNum, 1, arr)
-                        console.log(this.videoList, '111111111111111111');
-                        this.playVideo()
+                        // var arr = res.data
+                        // this.videoList.splice(nowNum, 1, arr)
+                        // console.log(this.videoList, '111111111111111111');
+                        // this.playVideo()
 
                     })
-                    // var arr = {
-                    //     name: "东门", //设备名称
-                    //     sort: 1, //排序
-                    //     videoURL: "ws://61.161.232.226:15062/sms/21017900002000001258/ws-flv/hls/21011421001188200000_21011421001328200008.flv", //播流地址
-                    //     equipmentId: "1" //设备ID
-                    // }
+                    var arr = {
+                        name: "东门", //设备名称
+                        sort: 1, //排序
+                        videoURL: "ws://61.161.232.226:15062/sms/21017900002000001258/ws-flv/hls/21011421001188200000_21011421001328200008.flv", //播流地址
+                        equipmentId: "1" //设备ID
+                    }
+                    this.videoList.splice(nowNum, 1, arr)
+                        console.log(this.videoList, '111111111111111111');
+                        this.playVideo()
 
 
                 }
@@ -459,5 +462,28 @@
         height: 100%;
         width: 100%;
         border-radius: 10px;
+    }
+
+    .video_box_evcl {
+        width: 590px;
+        height: 375px;
+        background: #1E1F25;
+        margin: 0 0 20px 0;
+        border-radius: 10px;
+        color: #fff;
+    }
+
+    .bof_cl_videonone {
+        position: relative;
+        top: -66%;
+        left: 45%;
+        z-index: 1000;
+
+    }
+
+    .up_con_box_video {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: wrap;
     }
 </style>

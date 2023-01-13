@@ -395,6 +395,7 @@ Bg .ql-container {
     border-radius: 4px;
     background-color: #1E1F25 !important;
 }
+
 .el-pagination.is-background .btn-next,
 .el-pagination.is-background .btn-prev,
 .el-pagination.is-background .el-pager li {
@@ -408,28 +409,29 @@ Bg .ql-container {
     background: rgba(16, 142, 233, 0.20) !important;
     border: none;
 }
-.bof_cl_videonone {
-    position: relative;
-    top: -66%;
-    left: 45%;
-    z-index: 1000;
 
-}
-.video_box_evcl {
-    width: 590px;
-    height: 375px;
-    background: #1E1F25;
-    margin: 0 0 20px 0;
-    border-radius: 10px;
-    color: #fff;
-}
-.up_con_box_video {
-    display: flex;
-    justify-content: space-between;
-    flex-flow: wrap;
-}
+
+
 .video_div_cl {
     height: 100%;
     width: 100%;
     border-radius: 10px;
+}
+
+.el-dialog__body {
+    height: 700px;
+}
+.el-dialog__wrapper .el-dialog{
+    background: #726e6f42!important;
+    color: #fff!important;
+    position: relative;
+    margin: 0 auto 0.26rem;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+    box-shadow: 0 1px 3pxrgba(0,0,0,.3);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.el-dialog__title{
+    color: #fff!important;
 }

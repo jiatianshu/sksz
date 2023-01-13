@@ -37,3 +37,10 @@ export function getParkList(data) {
         data
     })
   }
+export function getVideoData(data) {
+    return request({
+        url: '/im/video/playPark',
+        method: 'get',
+        params:data
+    })
+  }
