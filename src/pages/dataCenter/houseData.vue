@@ -47,20 +47,20 @@
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column type="index" label="序号" align="center" width="100">
+                <el-table-column type="index" label="序号" align="center" w>
                 </el-table-column>
 
                 <el-table-column prop="houseName" label="房号" width="">
                 </el-table-column>
                 <!-- <el-table-column prop="brand" label="类型" width="">
                 </el-table-column> -->
-                <el-table-column prop="parkName" label="园区" width="140">
+                <el-table-column prop="parkName" label="园区" > 
                 </el-table-column>
                 <el-table-column prop="acreage" label="面积" width="">
                 </el-table-column>
                 <el-table-column prop="laytout" label="户型" width="">
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="580">
+                <el-table-column prop="address" label="操作" width="800">
                     <template slot-scope="scope" class="button_cl">
                         <sk-table-button @click="yzxx(scope.row)" title="业主信息"
                             icon="ic_personrole2x.png"></sk-table-button>

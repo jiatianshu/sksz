@@ -16,32 +16,27 @@
                 </span>
             </el-tree>
         </div>
+        <!-- 视频流开始 -->
         <div class="right_video">
             <div>
-                <div class="up_con_box">
-                    <div class="video_box" v-for="(item,index) in videoList">
-                        <div class="video_cla" :id="'nameId'+(item,index)"> {{item.name}}{{item.id}}</div>
-                        <video id="videoid1" class="" controls preload="auto" poster="" data-setup="{}"
+                <div class="up_con_box_video">
+                    <div class="video_box_evcl" v-for="(item,index) in videoList" :key="index">
+
+                        <video muted :id="`videoElement${index}`" class="video_div_cl" style="">
+                        </video>
+                        <div class="bof_cl_videonone" v-if="item.value ==0">
+                            <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
+                        </div>
+                        <!-- <video :id="`videoElement${index}`" class="" controls preload="auto" poster="" data-setup="{}"
                             autoplay="autoplay" style="width: 100%;height: 90%;">
                             <source :src="item.name" type="rtmp/flv" style="width:100%" />
-                        </video>
+                        </video> -->
+
                     </div>
                 </div>
-                <!-- <div class="up_con_box" >
-                    <div class="video_box" v-show="videoList.length==1">
-                        暂无数据1
-                    </div>
-                    <div class="video_box" v-show="videoList.length==2">
-                        暂无数据2
-                    </div>
-                    <div class="video_box" v-show="videoList.length==3">
-                        暂无数据3
-                    </div>
-                    <div class="video_box" v-if="videoList.length<3">
-                        暂无数据4
-                    </div>
-                </div> -->
+
             </div>
+            <!-- 视频流结束 -->
             <div class="down_right">
                 <div class="num_flex">
                     <div class="ever_cl">
@@ -97,8 +92,7 @@
 </template>
 <script>
     import flvjs from 'flv.js'
-    // import flvjs from "flv.js/dist/flv.min.js"
-    import { getEquipmentTree, getstatiData } from '@/api/spgl'
+    import { getEquipmentTree, getstatiData, getplayVideo } from '@/api/spgl'
     export default {
         name: "view-setting",
         title: "视频中心 > 视频管理",
@@ -108,10 +102,10 @@
                 treeList: [],
                 dataList: [],
                 videoList: [
-                    { name: '暂无数据1', value: '00000' },
-                    { name: '暂无数据2', value: '1111' },
-                    { name: '暂无数据3', value: '2222' },
-                    { name: '暂无数据4', value: '3333' },
+                    { name: '暂无数据', value: '0' },
+                    { name: '暂无数据', value: '0' },
+                    { name: '暂无数据', value: '0' },
+                    { name: '暂无数据', value: '0' },
                 ],
                 defaultProps: {
                     children: 'children',
@@ -127,11 +121,12 @@
 
         },
         methods: {
-            play() {
 
-                this.flvPlayer.play();
+            // play() {
 
-            },
+            //     this.flvPlayer.play();
+
+            // },
             getlist() {
                 getEquipmentTree().then((res) => {
                     if (res.code == 0) {
@@ -158,78 +153,115 @@
                     videoAyy = data
                     this.clickNum++;
                     var nowNum = this.clickNum % 4;
+                    // this.dataList.splice(nowNum, 1, videoAyy)
 
-                    this.dataList.splice(nowNum, 1, videoAyy)
-                    console.log(this.dataList, '111111111111111111');
+                    //根据id 取视频流
+                    var data = {
+                        equipmentId: videoAyy.id
+                    }
+                    getplayVideo(data).then((res) => {
 
-                    this.videoList.splice(nowNum, 1, videoAyy)
-                    this.getflvVideo('videoid' + nowNum, videoAyy.name);
+                        console.log(res.data, "?????????????????")
+
+                        var arr = res.data
+                        this.videoList.splice(nowNum, 1, arr)
+                        console.log(this.videoList, '111111111111111111');
+                        this.playVideo()
+
+                    })
+                    // var arr = {
+                    //     name: "东门", //设备名称
+                    //     sort: 1, //排序
+                    //     videoURL: "ws://61.161.232.226:15062/sms/21017900002000001258/ws-flv/hls/21011421001188200000_21011421001328200008.flv", //播流地址
+                    //     equipmentId: "1" //设备ID
+                    // }
 
 
                 }
             },
-            getflvVideo(id, name) {
-                console.log(id, name, "????????????????")
-            }
+            playVideo() {
+                this.vloading = true;
+                this.videoList.forEach((item, index) => {
+                    if (flvjs.isSupported()) {
+
+                        let player = null;
+                        let videoElement = document.getElementById("videoElement" + index);
+                        player = flvjs.createPlayer({
+                            type: "flv", //=> 媒体类型 flv 或 mp4
+                            isLive: true, //=> 是否为直播流
+                            hasAudio: true, //=> 是否开启声音
+                            url: item.videoURL, //=> 视频流地址
+                        });
+                        player.attachMediaElement(videoElement); //=> 绑DOM
+                        player.load();
+                        player.play();
+                    } else {
+                        this.$message.error("不支持flv格式视频");
+                    }
+                    this.vloading = false;
+                });
+            },
+
         },
         mounted() {
             this.getlist()
             this.getNumdata()
-            if (flvjs.isSupported()) {
+            // this.playVideo(); //视频加载
+            // if (flvjs.isSupported()) {
 
-                let videoElement = document.getElementById('videoElement'); //获取video的dom元素
+            //     let videoElement = document.getElementById('videoElement'); //获取video的dom元素
 
 
 
-                if (videoElement) {//添加一些必要的属性
+            //     if (videoElement) {//添加一些必要的属性
 
-                    videoElement.muted = true
+            //         videoElement.muted = true
 
-                    videoElement.controls = true;
+            //         videoElement.controls = true;
 
-                }
+            //     }
 
-                let flvPlayer = flvjs.createPlayer({
+            //     let flvPlayer = flvjs.createPlayer({
 
-                    type: 'flv',
+            //         type: 'flv',
 
-                    isLive: true,
+            //         isLive: true,
 
-                    hasAudio: false,
+            //         hasAudio: false,
 
-                    url: 'flv视频地址'// 自己的flv视频流
+            //         url: 'flv视频地址'// 自己的flv视频流
 
-                });
+            //     });
 
-                if (flvPlayer) {
+            //     if (flvPlayer) {
 
-                    flvPlayer.attachMediaElement(videoElement);
+            //         flvPlayer.attachMediaElement(videoElement);
 
-                    flvPlayer.load()
+            //         flvPlayer.load()
 
-                    let playPromise = flvPlayer.play()
+            //         let playPromise = flvPlayer.play()
 
-                    if (playPromise) {
+            //         if (playPromise) {
 
-                        playPromise.then(() => {
+            //             playPromise.then(() => {
 
-                            setTimeout(() => {
+            //                 setTimeout(() => {
 
-                                flvPlayer.play()
+            //                     flvPlayer.play()
 
-                            }, flvPlayer.lazyLoadMaxDuration * 1000)
+            //                 }, flvPlayer.lazyLoadMaxDuration * 1000)
 
-                        }).catch((e) => {
+            //             }).catch((e) => {
 
-                            flvPlayer.play()
+            //                 flvPlayer.play()
 
-                        })
+            //             })
 
-                    }
+            //         }
 
-                }
+            //     }
 
-            }
+            // }
         },
         created() {
 
@@ -351,21 +383,6 @@
         display: flex;
     }
 
-    .up_con_box {
-        display: flex;
-        justify-content: space-between;
-        flex-flow: wrap;
-    }
-
-    .video_box {
-        width: 590px;
-        height: 375px;
-        background: #1E1F25;
-        margin: 0 0 20px 0;
-        border-radius: 8px;
-        color: #fff;
-    }
-
     .down_right {
         width: 1200px;
         height: 112px;
@@ -436,5 +453,11 @@
         /* 整体背景 */
         border-radius: 10px;
         /* 整体 圆角 */
+    }
+
+    .video_div_cl {
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
     }
 </style>

@@ -408,3 +408,28 @@ Bg .ql-container {
     background: rgba(16, 142, 233, 0.20) !important;
     border: none;
 }
+.bof_cl_videonone {
+    position: relative;
+    top: -66%;
+    left: 45%;
+    z-index: 1000;
+
+}
+.video_box_evcl {
+    width: 590px;
+    height: 375px;
+    background: #1E1F25;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+    color: #fff;
+}
+.up_con_box_video {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+}
+.video_div_cl {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}

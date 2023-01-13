@@ -262,4 +262,5 @@
     .select {
         margin-right: 16px;
     }
+  
 </style>

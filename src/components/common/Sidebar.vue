@@ -150,7 +150,7 @@ export default {
     background-position: left!important;
     color: #FFFFFF!important;
     background-size: 120% 100%!important;
-    font-size:20px;
+    font-size:18px;
 }
 
 .active-menu {
@@ -167,9 +167,10 @@ export default {
 ::v-deep .el-menu-item {
     background: #1E1F25;
     border-radius: 0px;
-    // border-bottom-left-radius: 20px;
-    // border-bottom-right-radius: 20px;
+    /* // border-bottom-left-radius: 20px;
+    // border-bottom-right-radius: 20px; */
     height: 60px;
+    line-height: 60px;
 }
 
 .sidebar {
