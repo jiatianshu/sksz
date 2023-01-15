@@ -1,15 +1,15 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">沈勘数智服务系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                <el-form-item prop="username" style="margin: 0 0 20px 0;">
+                    <el-input v-model="param.username" placeholder="请输入账号">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
-                <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="param.password"
+                <el-form-item prop="password" style="margin: 0 0 20px 0;">
+                    <el-input type="password" placeholder="请输入密码" v-model="param.password"
                         @keyup.enter.native="submitForm()">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
@@ -53,6 +53,7 @@
                             .dispatch('Login', user)
                             .then(() => {
                                 this.$message.success('登录成功');
+                                sessionStorage.setItem("username",  this.param.username,);
                                 this.$router.push('/').catch(()=>{});
                             })
                     } else {
@@ -105,7 +106,7 @@
 
     .login-btn button {
         width: 100%;
-        height: 36px;
+        height: 40px;
         margin-bottom: 10px;
     }
 

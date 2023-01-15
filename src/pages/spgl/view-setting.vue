@@ -163,21 +163,21 @@
 
                         console.log(res.data, "?????????????????")
 
-                        // var arr = res.data
-                        // this.videoList.splice(nowNum, 1, arr)
-                        // console.log(this.videoList, '111111111111111111');
-                        // this.playVideo()
-
-                    })
-                    var arr = {
-                        name: "东门", //设备名称
-                        sort: 1, //排序
-                        videoURL: "ws://61.161.232.226:15062/sms/21017900002000001258/ws-flv/hls/21011421001188200000_21011421001328200008.flv", //播流地址
-                        equipmentId: "1" //设备ID
-                    }
-                    this.videoList.splice(nowNum, 1, arr)
+                        var arr = res.data
+                        this.videoList.splice(nowNum, 1, arr)
                         console.log(this.videoList, '111111111111111111');
                         this.playVideo()
+
+                    })
+                    // var arr = {
+                    //     name: "东门", //设备名称
+                    //     sort: 1, //排序
+                    //     videoURL: "ws://61.161.232.226:15062/sms/21017900002000001258/ws-flv/hls/21011421001188200000_21011421001328200008.flv", //播流地址
+                    //     equipmentId: "1" //设备ID
+                    // }
+                    // this.videoList.splice(nowNum, 1, arr)
+                    //     console.log(this.videoList, '111111111111111111');
+                    //     this.playVideo()
 
 
                 }

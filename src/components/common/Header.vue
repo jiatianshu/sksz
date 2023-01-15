@@ -36,14 +36,14 @@
                         </div>
                         <!-- 用户名下拉菜单 -->
                         <el-dropdown class="user-name" trigger="click" @command="handleCommand">
-                            <div style="width:120px">
+                            <div style="width:120px ;margin: 10px 0 0 0;" >
                                 <span class="el-name-link">
                                     {{ username }}
                                 </span>
                                 <br>
-                                <span style="font-size: 12px;color: #757B8C;">
+                                <!-- <span style="font-size: 12px;color: #757B8C;">
                                     {{ email }}
-                                </span>
+                                </span> -->
                             </div>
                             <div style="font-size:30px;color: #757B8C;">
                                 ...
@@ -84,7 +84,9 @@ export default {
         username() {
             try {
                 console.log(this.$store.getters.user,"this.$store.getters.user")
-                return this.$store.getters.user.userName
+                console.log(sessionStorage.getItem("username"),"usernameusernameusername")
+                // return this.$store.getters.user.userName
+                return sessionStorage.getItem("username")
             } catch (e) {
                 return "欢迎登录"
             }

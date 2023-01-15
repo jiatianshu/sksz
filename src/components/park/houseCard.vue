@@ -10,7 +10,7 @@
         <img :src="detailData.parkImg" class="house-img" alt="">
         <div class="text-box">
             <div class="text-content">
-                <p class="title">{{ detailData.parkName }}}</p>
+                <p class="title">{{ detailData.parkName }}</p>
                 <p>{{ `${detailData.cityName} ${detailData.districtName}  ${detailData.streetName}` }} </p>
             </div>
             <div>
