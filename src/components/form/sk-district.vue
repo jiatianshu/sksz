@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-07 11:54:38
  * @LastEditors: gq
- * @LastEditTime: 2023-01-12 21:08:01
+ * @LastEditTime: 2023-01-15 18:46:01
  * @Description: 地区联动组件
 -->
 
@@ -14,13 +14,14 @@
             <el-option v-for="item in districtList" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
-       
-        <el-select v-model="form.district" class="select"  :disabled="areaOptions.length <= 1" placeholder="请选择行政区" @change="areaChange" clearable>
+
+        <el-select v-model="form.district" class="select" :disabled="areaOptions.length <= 1" placeholder="请选择行政区"
+            @change="areaChange" clearable>
             <el-option v-for="item in areaOptions" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
-        <el-select v-model="form.street" class="select" :disabled="streetOptions&&streetOptions.length <= 1" placeholder="请选择街道"
-            @change="streetChange" clearable>
+        <el-select v-model="form.street" class="select" :disabled="streetOptions && streetOptions.length <= 1"
+            placeholder="请选择街道" @change="streetChange" clearable>
             <el-option v-for="item in streetOptions" :key="item.name" :label="item.name" :value="item.id">
             </el-option>
         </el-select>
@@ -67,13 +68,18 @@ export default {
     methods: {
         initArea() {
             let city = this.districtList[0];
-
+            let user = this.$store.getters.user;
             if (city) {
                 this.form.city = city.id;
                 this.form.cityName = city.name;
 
                 if (city.children && city.children[0]) {
                     this.areaOptions = city.children;
+                    if (user.userId == '1') {
+                        this.$emit("change", this.form);
+                        this.$emit("submit");
+                        return
+                    }
                     this.form.district = this.areaOptions[0].id;
                     this.form.districtName = this.areaOptions[0].name;
                     if (this.areaOptions[0].children) {

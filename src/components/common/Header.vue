@@ -11,10 +11,10 @@
             </div>
         </div>
         <div class="rgt_title">
-            
+
             <div class="logo">
                 <div class="back-box" v-show="backType">
-                    <img src="@/assets/img/image/ic_back@2x.png" @click="$router.go(-1)" alt="" >
+                    <img src="@/assets/img/image/ic_back@2x.png" @click="$router.go(-1)" alt="">
 
                 </div>
                 <!-- <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
@@ -73,7 +73,7 @@ export default {
             tabtitle: '',
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
+
             email: "xxxxxxxx@qq.com",
             message: 2,
             tagsList: [],
@@ -82,11 +82,15 @@ export default {
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
-            return username ? username : this.name;
+            try {
+                console.log(this.$store.getters.user,"this.$store.getters.user")
+                return this.$store.getters.user.userName
+            } catch (e) {
+                return "欢迎登录"
+            }
         },
-        backType(){
-          
+        backType() {
+
             return this.$route.meta.backType
         }
     },
@@ -130,10 +134,11 @@ export default {
 <style scoped lang="scss">
 .back-box {
     padding-right: 26px;
-    border-right: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
     height: 45px;
     padding-left: 16px;
     margin-top: 18px;
+
     img {
         width: 36px;
         height: 36px;
@@ -202,8 +207,8 @@ export default {
 }
 
 .header .logo {
-   display: flex;
-   
+    display: flex;
+
     /* width: 250px; */
     line-height: 70px;
 }
