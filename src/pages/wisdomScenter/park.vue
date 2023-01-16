@@ -54,226 +54,228 @@
     </div>
 </template>
 <script>
-import pictureBox from '_c/park/pictureBox.vue';
-import currentPosition from '_c/park/currentPosition.vue';
-import statCard from "_c/park/statCard.vue";
-import communityItemCard from "_c/park/communityItemCard.vue";
-import echart from '_c/park/echart.vue'
-import { getParkData, getParkList } from "@/api/wisdomScenter";
-export default {
-    name: "wisdomScenter-park",
-    components: {
-        pictureBox,
-        currentPosition,
-        statCard,
-        communityItemCard,
-        echart
-    },
-    title: "智慧园区 > 智慧中心",
+    import pictureBox from '_c/park/pictureBox.vue';
+    import currentPosition from '_c/park/currentPosition.vue';
+    import statCard from "_c/park/statCard.vue";
+    import communityItemCard from "_c/park/communityItemCard.vue";
+    import echart from '_c/park/echart.vue'
+    import { getParkData, getParkList } from "@/api/wisdomScenter";
+    export default {
+        name: "wisdomScenter-park",
+        components: {
+            pictureBox,
+            currentPosition,
+            statCard,
+            communityItemCard,
+            echart
+        },
+        title: "智慧园区 > 智慧中心",
 
-    data() {
-        return {
+        data() {
+            return {
 
-            formData: {
-                city: "",
-                cityName: "",
-                district: "",
-                districtName: "",
-                street: "",
-                streetName: "",
-            },
-            parkName: "",
-            parkList: [],
-            professionList: [
-                {
-                    background: "#A276FF",
-                    name: "网格员",
-                    src: "ic_net@2x.png",
-                    key: "gridNum",
-                }, {
-                    background: "#FF9B0B",
-                    name: "社区工作者",
-                    src: "ic_community@2x.png",
-                    key: "communityWorkerNum",
-                }, {
-                    background: "#FF1D1D",
-                    name: "平安志愿者",
-                    src: "ic_volunteer@2x.png",
-                    key: "volunteerNum",
-                }, {
-                    background: "#2482FD",
-                    name: "物业保安",
-                    src: "ic_security@2x.png",
-                    key: "securityNum",
-                }, {
-                    background: "#3CE1F6",
-                    name: "企事业职工",
-                    src: "ic_worker@2x.png",
-                    key: "enterpriseWorkersNum",
-                }, {
-                    background: "#00CB5A",
-                    name: "业主商户",
-                    src: "ic_worker@2x.png",//缺图片
-                    key: "merchantNum",
-                }, {
-                    background: "#007E16",
-                    name: "退伍军人",
-                    src: "ic_soldier@2x.png",
-                    key: "exSoldierNum",
-                }, {
-                    background: "#FF65E4",
-                    name: "党员",
-                    src: "ic_party@2x.png",
-                    key: "partyMemberNum",
-                }
-            ],
-            chartData: {
-                pieData: [
+                formData: {
+                    city: "",
+                    cityName: "",
+                    district: "",
+                    districtName: "",
+                    street: "",
+                    streetName: "",
+                },
+                parkName: "",
+                parkList: [],
+                professionList: [
                     {
-                        value: 113,
-                        name: '5.0分',
-                    },
-                    {
-                        value: 101,
-                        name: '4.0分',
-                    },
+                        background: "#A276FF",
+                        name: "网格员",
+                        src: "ic_net@2x.png",
+                        key: "gridNum",
+                    }, {
+                        background: "#FF9B0B",
+                        name: "社区工作者",
+                        src: "ic_community@2x.png",
+                        key: "communityWorkerNum",
+                    }, {
+                        background: "#FF1D1D",
+                        name: "平安志愿者",
+                        src: "ic_volunteer@2x.png",
+                        key: "volunteerNum",
+                    }, {
+                        background: "#2482FD",
+                        name: "物业保安",
+                        src: "ic_security@2x.png",
+                        key: "securityNum",
+                    }, {
+                        background: "#3CE1F6",
+                        name: "企事业职工",
+                        src: "ic_worker@2x.png",
+                        key: "enterpriseWorkersNum",
+                    }, {
+                        background: "#00CB5A",
+                        name: "业主商户",
+                        src: "ic_worker@2x.png",//缺图片
+                        key: "merchantNum",
+                    }, {
+                        background: "#007E16",
+                        name: "退伍军人",
+                        src: "ic_soldier@2x.png",
+                        key: "exSoldierNum",
+                    }, {
+                        background: "#FF65E4",
+                        name: "党员",
+                        src: "ic_party@2x.png",
+                        key: "partyMemberNum",
+                    }
                 ],
-                pieTitle: '90%',
-                satisfaction: '人数总计',
-            },
-            detailData: null,
-            imgList: [],
-        }
+                chartData: {
+                    pieData: [
+                        {
+                            value: 113,
+                            name: '5.0分',
+                        },
+                        {
+                            value: 101,
+                            name: '4.0分',
+                        },
+                    ],
+                    pieTitle: 0,
+                    satisfaction: '人数总计',
+                },
+                detailData: null,
+                imgList: [],
+            }
 
 
-    },
-
-    mounted() {
-
-
-    },
-    methods: {
-        getParkList() {
-            getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
-                this.parkList = res.data.result;
-            })
         },
-        districtChange(data) {
-            this.formData = data
-        },
-        getData() {
-            getParkData(this.formData).then(res => {
-                this.detailData = res.data;
-                this.imgList.length = 0;
-                //图片map转list
-                for (let key in this.detailData.imgMap) {
 
-                    this.imgList.push({
-                        title: key,
-                        src: this.detailData.imgMap[key]
-                    })
-                }
-                this.chartData.pieData = this.professionList.map(item => {
-                    item.value = this.detailData[item.key] || 0;
-                    return item;
+        mounted() {
+
+
+        },
+        methods: {
+            getParkList() {
+                getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
+                    this.parkList = res.data.result;
                 })
-            });
-            this.getParkList();
+            },
+            districtChange(data) {
+                this.formData = data
+            },
+            getData() {
+                getParkData(this.formData).then(res => {
+                    this.detailData = res.data;
+                    this.imgList.length = 0;
+                    //图片map转list
+                    for (let key in this.detailData.imgMap) {
+
+                        this.imgList.push({
+                            title: key,
+                            src: this.detailData.imgMap[key]
+                        })
+                    }
+                    this.chartData.pieData = this.professionList.map(item => {
+                        item.value = this.detailData[item.key] || 0;
+                        this.chartData.pieTitle += parseInt(item.value);
+                        return item;
+                    })
+                  
+                });
+                this.getParkList();
+
+            }
 
         }
-
     }
-}
 </script>
 <style scoped lang="scss">
-.community-table-box {
-    width: 500px;
-    background: #1E1F25;
-    padding: 24px 20px;
-    height: 800px;
+    .community-table-box {
+        width: 500px;
+        background: #1E1F25;
+        padding: 24px 20px;
+        height: 800px;
 
-    ::v-deep .input-with-select {
-        width: 100%;
+        ::v-deep .input-with-select {
+            width: 100%;
+        }
+
+        .community-table-item-box {
+            margin-top: 12px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 670px;
+        }
     }
 
-    .community-table-item-box {
-        margin-top: 12px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        height: 670px;
-    }
-}
+    .occupation-box {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        width: 690px;
 
-.occupation-box {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    width: 690px;
+        li {
+            width: 228px;
+            height: 40px;
+            color: #fff;
 
-    li {
-        width: 228px;
-        height: 40px;
-        color: #fff;
+            .occupation-img-box {
+                img {
+                    vertical-align: sub;
+                }
+            }
 
-        .occupation-img-box {
-            img {
-                vertical-align: sub;
+
+            span {
+                margin-right: 14px;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 32px;
             }
         }
 
+        .occupation-img-box {
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            border-radius: 10px;
 
-        span {
-            margin-right: 14px;
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 32px;
+            img {
+                height: 24px;
+                widows: 20px;
+                vertical-align: middle;
+                margin-left: 8px;
+                margin-top: 6px;
+            }
         }
     }
 
-    .occupation-img-box {
-        height: 40px;
-        width: 40px;
-        display: inline-block;
-        border-radius: 10px;
+    .title-h4 {
+        font-family: PingFangSC-Semibold;
+        font-size: 20px;
+        color: #FFFFFF;
+        font-weight: 600;
+        margin: 12px 0;
+    }
 
-        img {
-            height: 24px;
-            widows: 20px;
-            vertical-align: middle;
-            margin-left: 8px;
-            margin-top: 6px;
+    .park-content-box {
+        /* margin-top: 12px; */
+        display: flex;
+        justify-content: space-between;
+
+        .content {
+            // padding-right: 60px;
+
+            .content-div-box {
+                margin-bottom: 12px;
+                display: flex;
+            }
         }
     }
-}
 
-.title-h4 {
-    font-family: PingFangSC-Semibold;
-    font-size: 20px;
-    color: #FFFFFF;
-    font-weight: 600;
-    margin: 12px 0;
-}
 
-.park-content-box {
-    /* margin-top: 12px; */
-    display: flex;
-    justify-content: space-between;
 
-    .content {
-        // padding-right: 60px;
-
-        .content-div-box {
-            margin-bottom: 12px;
-            display: flex;
-        }
+    .echart-box {
+        width: 230px;
+        height: 230px;
+        margin-right: 60px;
     }
-}
-
-
-
-.echart-box {
-    width: 230px;
-    height: 230px;
-    margin-right: 60px;
-}
 </style>
