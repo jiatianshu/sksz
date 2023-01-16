@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <skDistrict @change="districtChange" />
+            <skgetTreedistrict @change="districtChange" />
             <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">

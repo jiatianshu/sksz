@@ -15,7 +15,7 @@
             </el-select>>
 
             <sk-icon-button style="margin-left:0px" @click="checkSearch"></sk-icon-button> -->
-            <skDistrict @change="districtChange" />
+            <skgetTreedistrict @change="districtChange" />
             <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">
