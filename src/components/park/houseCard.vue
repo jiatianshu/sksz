@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-09 19:19:37
  * @LastEditors: gq
- * @LastEditTime: 2023-01-12 18:49:06
+ * @LastEditTime: 2023-01-16 22:18:30
  * @Description: 小区名片组件
 -->
 <template>
@@ -15,7 +15,7 @@
             </div>
             <div>
                 <p>{{detailData.address}}</p>
-                <p><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> {{ detailData.longitude }} N,{{ detailData. latitude}} W</p>
+                <p><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> {{ detailData.longitude |location}} N,{{ detailData. latitude|location}} W</p>
             </div>
         </div>
 

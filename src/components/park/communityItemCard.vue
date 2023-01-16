@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-07 12:48:29
  * @LastEditors: gq
- * @LastEditTime: 2023-01-11 19:34:47
+ * @LastEditTime: 2023-01-16 22:17:00
  * @Description: 智慧园区card组件
 -->
 <template>
@@ -15,7 +15,7 @@
             </div>
             <div>
                 <p>{{parkData.address}}</p>
-                <p><img src="@/assets/img/icon/Ic_trail2x.png" class="icon" alt=""> {{parkData.longitude}} N，{{parkData.latitude}} W</p>
+                <p><img src="@/assets/img/icon/Ic_trail2x.png" class="icon" alt=""> {{ parkData.longitude|location}} N，{{parkData.latitude|location}} W</p>
             </div>
             <div class="house" >
                 <img src="@/assets/img/icon/ic_plaza2x.png" alt="">
