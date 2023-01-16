@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-01-03 20:29:11
  * @LastEditors: gq
- * @LastEditTime: 2023-01-07 19:48:52
+ * @LastEditTime: 2023-01-16 21:59:27
  * @Description: 智慧园区-当前位置
 -->
 <template>
@@ -12,10 +12,10 @@
             {{locationTitle}}
         </h4>
         <ul class="img-ul">
-            <li v-for="item in imgList" :key="item.location">
+            <li v-for="(item,index) in imgList" :key="item.location">
                 <img :src="require(`@/assets/img/image/${item.src}`)" alt="">
                 <div class="img-text-box">
-                    <p class="img-text-num">{{ item.num }}</p>
+                    <p class="img-text-num">{{ numList[index]}}</p>
                     <p class="img-text-location">{{ item.location }}</p>
                 </div>
             </li>
@@ -30,9 +30,9 @@ export default {
             typeof:String,
             default:""
         },
-        detailData:{
-            typeof:Object,
-            default:()=>new Object()
+        numList:{
+            typeof:Array,
+            default:()=>[]
         }
     },
     data() {
@@ -40,15 +40,15 @@ export default {
             imgList: [
                 {
                     src: "ic_card_sec.png",
-                    num: this.detailData.parkNum,
+                    
                     location: "安防小区"
                 }, {
                     src: "ic_card_policestation@2x.png",
-                    num: this.detailData.policeStationsNum,
+                   
                     location: "派出所"
                 }, {
                     src: "ic_card_police2x.png",
-                    num: this.detailData.districtData.policeNum,
+                    
                     location: "警员"
                 }
             ]

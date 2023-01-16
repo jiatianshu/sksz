@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-12 21:36:48
+ * @LastEditTime: 2023-01-16 22:29:23
  * @Description: 智慧园区
 -->
 <template>
@@ -16,7 +16,8 @@
                 <h4 class="title-h4">行政区划</h4>
                 <div class="content-div-box">
                     <pictureBox :imgList="imgList" />
-                    <currentPosition :detailData="detailData"
+                    <currentPosition
+                        :numList="[detailData.parkNum, detailData.policeStationsNum, detailData.districtData.policeNum]"
                         :locationTitle="`${formData.cityName}${'-' + formData.districtName}${'-' + formData.streetName}`" />
                 </div>
                 <h4 class="title-h4">一标三实</h4>
@@ -45,7 +46,7 @@
             </div>
             <div class="community-table-box" style="border-radius:20px">
                 <sk-icon-input :value.sync="parkName" @search="getParkList"></sk-icon-input>
-                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;height: 670px;">
+                <div class="community-table-item-box">
                     <communityItemCard v-for="item in parkList" :parkData="item" :key="item.id" />
                 </div>
             </div>
@@ -137,8 +138,8 @@ export default {
                         name: '4.0分',
                     },
                 ],
-                pieTitle: '人数总计',
-                satisfaction: '90%',
+                pieTitle: '90%',
+                satisfaction: '人数总计',
             },
             detailData: null,
             imgList: [],
@@ -163,6 +164,7 @@ export default {
         getData() {
             getParkData(this.formData).then(res => {
                 this.detailData = res.data;
+                this.imgList.length = 0;
                 //图片map转list
                 for (let key in this.detailData.imgMap) {
 
@@ -188,9 +190,17 @@ export default {
     width: 500px;
     background: #1E1F25;
     padding: 24px 20px;
+    height: 800px;
 
     ::v-deep .input-with-select {
         width: 100%;
+    }
+
+    .community-table-item-box {
+        margin-top: 12px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 670px;
     }
 }
 
@@ -204,6 +214,13 @@ export default {
         width: 228px;
         height: 40px;
         color: #fff;
+
+        .occupation-img-box {
+            img {
+                vertical-align: sub;
+            }
+        }
+
 
         span {
             margin-right: 14px;
