@@ -45,7 +45,7 @@
             </div>
             <div class="community-table-box" style="border-radius:20px">
                 <sk-icon-input :value.sync="parkName" @search="getParkList"></sk-icon-input>
-                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;height: 700px;">
+                <div style="margin-top:12px; overflow-x: hidden;overflow-y: auto;height: 670px;">
                     <communityItemCard v-for="item in parkList" :parkData="item" :key="item.id" />
                 </div>
             </div>
@@ -238,7 +238,7 @@ export default {
 }
 
 .park-content-box {
-    margin-top: 12px;
+    /* margin-top: 12px; */
     display: flex;
     justify-content: space-between;
 

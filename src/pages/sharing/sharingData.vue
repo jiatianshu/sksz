@@ -86,7 +86,7 @@
 
                 </el-table-column>
             </el-table>
-            <div style="height:52px;padding-top: 8px;text-align: right;">
+            <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
                 layout="prev, pager, next" :total="total">
             </el-pagination>

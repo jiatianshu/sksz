@@ -18,8 +18,54 @@
         </div>
         <!-- 视频流开始 -->
         <div class="right_video">
-            <div>
-                <div class="up_con_box_video">
+            <div class="up_con_box_video">
+                <div class="video_box_evcl">
+                    <div class="video_div_cl">
+                        <video id="videoid0" v-show="show_video0" class="video_div_cl" muted>
+                            <source :src="videoid1Urll" type="rtmp/flv" />
+                        </video>
+                    </div>
+                    <div class="bof_cl_videonone" v-show="!show_video0">
+                        <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
+                    </div>
+
+                </div>
+                <div class="video_box_evcl">
+                    <div class="video_div_cl">
+                        <video id="videoid1" class="video_div_cl" muted v-show="show_video1">
+                            <source :src="videoid1Url2" type="rtmp/flv" />
+                        </video>
+                    </div>
+                    <div class="bof_cl_videonone" v-show="!show_video1">
+                        <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
+                    </div>
+
+                </div>
+                <div class="video_box_evcl">
+                    <div class="video_div_cl">
+                        <video id="videoid2" class="video_div_cl" muted v-show="show_video2">
+                            <source :src="videoid1Url3" type="rtmp/flv" />
+                        </video>
+                    </div>
+                    <div class="bof_cl_videonone" v-show="!show_video2">
+                        <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
+                    </div>
+
+                </div>
+                <div class="video_box_evcl">
+                    <div class="video_div_cl">
+                        <video id="videoid3" class="video_div_cl" muted v-show="show_video3">
+                            <!-- <video id="videoid3" class="video_div_cl" controls preload="auto" poster="" data-setup="{}"
+                        autoplay="autoplay" style="position:absolute;top:0"> -->
+                            <source :src="videoid1Url4" type="rtmp/flv" />
+                        </video>
+                    </div>
+                    <div class="bof_cl_videonone" v-show="!show_video3">
+                        <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
+                    </div>
+
+                </div>
+                <!-- <div class="up_con_box_video">
                     <div class="video_box_evcl" v-for="(item,index) in videoList" :key="index">
 
                         <video muted :id="`videoElement${index}`" class="video_div_cl" style="">
@@ -27,13 +73,13 @@
                         <div class="bof_cl_videonone" v-if="item.value ==0">
                             <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
                         </div>
-                        <!-- <video :id="`videoElement${index}`" class="" controls preload="auto" poster="" data-setup="{}"
+                        <video :id="`videoElement${index}`" class="" controls preload="auto" poster="" data-setup="{}"
                             autoplay="autoplay" style="width: 100%;height: 90%;">
                             <source :src="item.name" type="rtmp/flv" style="width:100%" />
-                        </video> -->
+                        </video>
 
                     </div>
-                </div>
+                </div> -->
 
             </div>
             <!-- 视频流结束 -->
@@ -99,8 +145,17 @@
         data() {
             return {
                 flvPlayer: null,
+                show_video0: false,
+                show_video1: false,
+                show_video2: false,
+                show_video3: false,
                 treeList: [],
                 dataList: [],
+                flvPlayerList: [],
+                videoid1Url4: '',
+                videoid1Url3: '',
+                videoid1Url2: '',
+                videoid1Urll: '',
                 videoList: [
                     { name: '暂无数据', value: '0' },
                     { name: '暂无数据', value: '0' },
@@ -161,12 +216,38 @@
                     }
                     getplayVideo(data).then((res) => {
 
-                        console.log(res.data, "?????????????????")
+                        // console.log(res.data, "?????????????????")
 
                         var arr = res.data
-                        this.videoList.splice(nowNum, 1, arr)
-                        console.log(this.videoList, '111111111111111111');
-                        this.playVideo()
+                        var aaa = 'videoid' + nowNum
+                        console.log(aaa, "aaaaaaaaaaaaaaa")
+                        if (aaa == 'videoid0') {
+                            this.show_video0 = true
+
+                        }
+                        if (aaa == 'videoid1') {
+                            this.show_video1 = true
+
+                        }
+                        if (aaa == 'videoid2') {
+                            this.show_video2 = true
+
+                        }
+                        if (aaa == 'videoid3') {
+                            this.show_video3 = true
+
+                        }
+                        if (arr.videoURL != '') {
+                            // $('#wxhShow' + nowNum).hide();
+                            this.getflvVideo('videoid' + nowNum, arr.videoURL);
+
+
+                        } else {
+                            // $('#wxhShow' + nowNum).show();
+                        }
+                        // this.videoList.splice(nowNum, 1, arr)
+                        // console.log(this.videoList, '111111111111111111');
+                        // this.playVideo()
 
                     })
                     // var arr = {
@@ -180,6 +261,43 @@
                     //     this.playVideo()
 
 
+                }
+            },
+            getflvVideo(id, url) {
+                if (flvjs.isSupported()) {
+                    let videoElement = document.getElementById(id)
+                    console.log()
+                    let flvPlayer = flvjs.createPlayer(
+                        {
+                            type: 'flv',
+                            isLive: true,
+                            hasAudio: false,
+                            url: url
+                        },
+                        {
+                            fixAudioTimestampGap: false
+                        }
+                    )
+
+
+                    // // 在 this.player.load() 之后增加如下代码, 初始化 _remuxer 
+                    // let controller = this.player._transmuxer._controller
+                    // controller._remuxer = {
+                    //     flushStashedSamples: function () {
+                    //         console.log("flushStashedSamples")
+                    //     }
+                    // }
+                    // ;(window.onload = function () {
+                    // console.log(flvPlayer.attachMediaElement, 'flv对象')
+                    flvPlayer.attachMediaElement(videoElement)
+                    flvPlayer.load()
+                    setTimeout(() => {
+                        flvPlayer.play()
+                    }, 200)
+
+                    // }),
+                    //
+                    this.flvPlayerList.push(flvPlayer)
                 }
             },
             playVideo() {
@@ -209,6 +327,7 @@
         mounted() {
             this.getlist()
             this.getNumdata()
+
             // this.playVideo(); //视频加载
             // if (flvjs.isSupported()) {
 
@@ -279,7 +398,7 @@
     .left_tree {
         background: rgba(30, 31, 37, 0.88);
         width: 370px;
-        height: 886px;
+        height: 806px;
         margin: 0 14px 0 0;
         overflow-y: auto;
 
@@ -466,9 +585,9 @@
 
     .video_box_evcl {
         width: 590px;
-        height: 375px;
+        height: 335px;
         background: #1E1F25;
-        margin: 0 0 20px 0;
+        margin: 0 0 12px 0;
         border-radius: 10px;
         color: #fff;
     }

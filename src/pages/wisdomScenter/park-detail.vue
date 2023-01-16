@@ -97,7 +97,7 @@
 
                             <video muted :id="`videoids${index}`" class="video_div_cl" style="">
                             </video>
-                            <div class="bof_cl_videonone" v-if="item.value ==0">
+                            <div class="bof_cl_videonone" v-if="item.videoURL ==''">
                                 <img class="img_video" src="../../assets/img/image/Iconly_Bulk_Play.png" alt="">
                             </div>
 
@@ -214,10 +214,10 @@
                 this.dialogVisible = true
 
 
-                getVideoData({ parkid: this.parkId }).then((res) => {
+                getVideoData({ parkId: this.parkId }).then((res) => {
                     if (res.code == 0) {
                         this.videoList = res.data
-                        this.videoList = arr
+                        // this.videoList = arr
                         setTimeout(() => {
                             this.playVideo()
 

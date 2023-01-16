@@ -72,7 +72,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div style="height:52px;padding-top: 8px;text-align: right;">
+            <div class="el_page_cl">
                 <!-- <sk-page :total="total" :current-page='current' @page-change="pageChange"></sk-page> -->
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
                     layout="prev, pager, next" :total="total">
@@ -270,14 +270,14 @@
 
     .title_cl {
         display: flex;
-        margin: 12px 0 0 0;
+        margin: 6px 0 0 0;
         color: #FFFFFF;
     }
 
 
     .left_cl {
         width: 308px;
-        height: 148px;
+        height: 136px;
         border-radius: 20px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
         background-image: url('../../assets/img/datacente/ic_card_bighome2x.png');
@@ -296,7 +296,7 @@
     }
 
     .le_num {
-        margin: 60px auto 0 auto;
+        margin: 50px auto 0 auto;
         width: 100%;
         display: flex;
         justify-content: center;

@@ -58,7 +58,7 @@
                 </el-table-column>
 
             </el-table>
-            <div style="height:52px;padding-top: 8px;text-align: right;">
+            <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
                 layout="prev, pager, next" :total="total">
             </el-pagination>
@@ -212,14 +212,14 @@
 
     .title_cl {
         display: flex;
-        margin: 18px 0 0 0;
+        margin: 6px 0 0 0;
         color: #FFFFFF;
     }
 
 
     .left_cl {
         width: 308px;
-        height: 148px;
+        height: 136px;
         border-radius: 20px;
         background-image: url('../../assets/img/datacente/ic_card_pic2x.png');
         background-size: 100% 100%;
@@ -243,7 +243,7 @@
     }
 
     .le_num {
-        margin: 60px auto 0 auto;
+        margin: 50px auto 0 auto;
         width: 100%;
         display: flex;
         justify-content: center;

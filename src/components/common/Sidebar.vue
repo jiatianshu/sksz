@@ -150,7 +150,9 @@ export default {
     background-position: left!important;
     color: #FFFFFF!important;
     background-size: 120% 100%!important;
-    font-size:18px;
+    font-size:16px;
+    font-weight: bold;
+    font-family:"微软雅黑";
 }
 
 .active-menu {
@@ -166,6 +168,7 @@ export default {
 
 ::v-deep .el-menu-item {
     background: #1E1F25;
+    /* color: #757b8c; */
     border-radius: 0px;
     /* // border-bottom-left-radius: 20px;
     // border-bottom-right-radius: 20px; */
@@ -185,7 +188,8 @@ export default {
     /* // padding-top: 10px; */
     padding-bottom: 10px;
     height: auto;
-
+    font-weight: bold;
+    color: #757b8c !important;
 }
 
 .menu-item-box {
@@ -231,7 +235,7 @@ export default {
 
 .collapse-btn {
     height: 40px;
-    margin: 20px 0 0 0;
+    margin: 8px 0 0 0;
     border-radius: 10px;
     /* // display: inline-block; */
     text-align: center;

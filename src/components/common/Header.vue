@@ -23,16 +23,16 @@
             <div class="header-right">
                 <div class="header-user-con">
                     <!-- 全屏显示 -->
-                    <div class="btn-fullscreen">
+                    <!-- <div class="btn-fullscreen">
                         <el-badge :value="12" class="item">
                             <img src="@/assets/img/icon/ic_bell_outline2x.png" alt="">
                         </el-badge>
-                    </div>
+                    </div> -->
 
 
                     <div class="user-info-box">
                         <div class="user-avator">
-                            <img src="../../assets/img/img.jpg" />
+                            <img src="../../assets/img/image/face01.png" />
                         </div>
                         <!-- 用户名下拉菜单 -->
                         <el-dropdown class="user-name" trigger="click" @command="handleCommand">
@@ -184,8 +184,10 @@ export default {
     margin: 0 0 0 20px;
     height: 80px;
     border-radius: 20px;
+    font-weight: 600;
     overflow: hidden;
     display: flex;
+    font-size: 20px;
     justify-content: space-between;
 }
 

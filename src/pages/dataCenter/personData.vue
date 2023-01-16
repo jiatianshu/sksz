@@ -61,7 +61,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div style="height:52px;padding-top: 8px;text-align: right;">
+            <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
                 layout="prev, pager, next" :total="total">
             </el-pagination>
@@ -216,14 +216,14 @@
 
     .title_cl {
         display: flex;
-        margin: 18px 0 0 0;
+        margin: 6px 0 0 0;
         color: #FFFFFF;
     }
 
 
     .left_cl {
         width: 148px;
-        height: 148px;
+        height: 136px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
         background-image: url('../../assets/img/datacente/ic_card_polic2x.png');
         background-size: 100% 100%;

@@ -64,7 +64,8 @@ a {
 .content {
     /* width: auto; */
     /* height: 100%; */
-    padding: 10px;
+    padding: 0px;
+    /* padding: 10px; */
     /* overflow-y: hidden; */
     box-sizing: border-box;
 }
@@ -205,8 +206,8 @@ Bg .ql-container {
 
 .el-submenu {
     list-style: none !important;
-    margin: 0 0 20px 0 !important;
-    border-radius: 1.2vh !important;
+    margin: 0 0 12px 0 !important;
+    border-radius: 12px !important;
     padding-left: 0 !important;
     background: rgba(30, 31, 37, 0.88);
 }
@@ -421,17 +422,58 @@ Bg .ql-container {
 .el-dialog__body {
     height: 700px;
 }
-.el-dialog__wrapper .el-dialog{
-    background: #726e6f42!important;
-    color: #fff!important;
+
+.el-dialog__wrapper .el-dialog {
+    background: #2c2b2be8  !important;
+    color: #fff !important;
     position: relative;
     margin: 0 auto 0.26rem;
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
-    box-shadow: 0 1px 3pxrgba(0,0,0,.3);
+    box-shadow: 0 1px 3pxrgba(0, 0, 0, .3);
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.el-dialog__title{
+.el-dialog__headerbtn .el-dialog__close{
     color: #fff!important;
+}
+
+.el-dialog__title {
+    color: #fff !important;
+}
+
+.el-form-item__error {
+    margin: 3px 0 0 0;
+}
+
+.el-table__body-wrapper {
+    color: #fff !important;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    color: #409EFF !important;
+    background: rgba(36, 130, 253, 0.2) !important;
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+    color: #fff !important;
+    font-size: 12px !important;
+}
+
+.el-table .el-table__row {
+    height: 40px !important;
+}
+
+.el_page_cl {
+    height: 46px;
+    padding-top: 8px;
+    text-align: right;
+}
+
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .el-pager li {
+    line-height: 24px!important;
 }

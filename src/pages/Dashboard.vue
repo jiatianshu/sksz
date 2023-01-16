@@ -168,9 +168,10 @@
         width: 100%;
         height: 300px;
     }
-    .img_cl{
+
+    .img_cl {
         position: absolute;
-    left: 40%;
-    top: 28%;
+        left: 46%;
+        top: 38%;
     }
 </style>

@@ -1,14 +1,16 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">沈勘数智服务系统</div>
+            <div class="ms-title">
+                <img class="img_class_logo" src="../assets/img/image/logologin.png" alt="">
+            </div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username" style="margin: 0 0 20px 0;">
+                <el-form-item prop="username" style="margin: 0 0 24px 0;">
                     <el-input v-model="param.username" placeholder="请输入账号">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
-                <el-form-item prop="password" style="margin: 0 0 20px 0;">
+                <el-form-item prop="password" style="margin: 0 0 24px 0;">
                     <el-input type="password" placeholder="请输入密码" v-model="param.password"
                         @keyup.enter.native="submitForm()">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
@@ -78,7 +80,7 @@
 
     .ms-title {
         width: 100%;
-        line-height: 50px;
+        /* line-height: 50px; */
         text-align: center;
         font-size: 20px;
         color: #fff;
@@ -108,11 +110,19 @@
         width: 100%;
         height: 40px;
         margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: bold;
     }
 
     .login-tips {
         font-size: 12px;
         line-height: 30px;
         color: #fff;
+    }
+    .img_class_logo{
+        width: 120px;
+        height: 120px;
+    }
+    .el-button{
     }
 </style>

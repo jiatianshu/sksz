@@ -61,9 +61,10 @@ export default {
 </script>
 <style scoped>
 .wrapper {
-    padding: 20px;
+    padding: 10px 20px 6px 0;
     position: relative;
     z-index: 99;
+    font-family:"Microsoft YaHei,Tahoma";
 }
 .img-back{
     background: url('././../../assets/img/image/bg01.jpg') no-repeat;
