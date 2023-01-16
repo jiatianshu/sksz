@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run serve",
-    "serve": "vue-cli-service serve",
-    "build-dev":"vue-cli-service build",
+    "serve": "vue-cli-service serve --port 5099",
+    "build-dev":"vue-cli-service build --port 5099",
 
     "build": "vue-cli-service build"
   },
