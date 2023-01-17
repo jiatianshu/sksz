@@ -40,7 +40,7 @@
                 <div id="carPpEChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_rg_cl">
+            <div class="center_rg_cl2">
                 <div id="carColChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <template slot-scope="scope" class="button_cl">
                         <sk-table-button @click="yzxx(scope.row)" title="业主信息"
                             icon="ic_personrole2x.png"></sk-table-button>
-                        <sk-table-button title="业主信息" icon="ic_housenumber2x.png"></sk-table-button>
+                       
                         <sk-table-button title="房主信息" icon="ic_rentrole2x.png"></sk-table-button>
                         <sk-table-button title="租户信息" icon="ic_rentrole2x.png"></sk-table-button>
                         <sk-table-button title="平面图" icon="ic_rentrole2x.png"></sk-table-button>
@@ -309,7 +309,7 @@
         height: 22px; */
         /* font-family: PingFangSC-Semibold; */
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         text-align: center;
         font-weight: 600;
     }
@@ -321,7 +321,13 @@
     }
 
     .center_rg_cl {
-        width: 520px;
+        width: 460px;
+        height: 140px;
+        margin: 0 0 0 140px;
+    }
+
+    .center_rg_cl2 {
+        width: 460px;
         height: 140px;
     }
 

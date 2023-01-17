@@ -84,9 +84,9 @@
                 </el-table-column>
                 <el-table-column prop="address" label="操作" width="400">
                     <template slot-scope="scope" class="button_cl">
-                        <sk-table-button @click="yzxx(scope.row)" title="业主信息"
+                        <sk-table-button @click="yzxx(scope.row)" title="业主数据"
                             icon="ic_personrole2x.png"></sk-table-button>
-                        <sk-table-button title="业主数据" icon="ic_housenumber2x.png"></sk-table-button>
+                    
                         <sk-table-button title="设备数据" icon="ic_rentrole2x.png"></sk-table-button>
                     </template>
                 </el-table-column>
@@ -269,7 +269,7 @@
     }
 
     .cen_text {
-        margin: 60px 0 0 0;
+        margin: 50px 0 0 0;
     }
 
     .num_cl {
@@ -297,7 +297,7 @@
         height: 22px; */
         /* font-family: PingFangSC-Semibold; */
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         text-align: center;
         font-weight: 600;
     }

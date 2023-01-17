@@ -46,7 +46,7 @@
                 <el-table-column prop="equipmentName" label="设备名称" width="">
                 </el-table-column>
 
-                <el-table-column prop="parkName" label="园区名称" width="">
+                <el-table-column prop="parkName" label="设备名称" width="">
                 </el-table-column>
                 <el-table-column prop="deviceNo" label="设备编号" width="">
                 </el-table-column>
@@ -228,7 +228,7 @@
 
 
     .cen_text {
-        margin: 60px 0 0 0;
+        margin: 50px 0 0 0;
     }
 
     .num_cl {
@@ -256,7 +256,7 @@
         height: 22px; */
         /* font-family: PingFangSC-Semibold; */
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         text-align: center;
         font-weight: 600;
     }

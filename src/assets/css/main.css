@@ -477,3 +477,6 @@ Bg .ql-container {
 .el-pagination.is-background .el-pager li {
     line-height: 24px!important;
 }
+.el-drawer__body {
+    background: #181818!important;
+}

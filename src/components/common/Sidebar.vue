@@ -175,6 +175,14 @@ export default {
     height: 60px;
     line-height: 60px;
 }
+.el-submenu .el-menu-item:hover {
+    background: rgb(25, 36, 49) !important;
+    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+    background-position: left!important;
+    color: #FFFFFF!important;
+    background-size: 120% 100%!important;
+    border-radius: 1.2vh;
+}
 
 .sidebar {
     overflow: scroll;
@@ -190,6 +198,16 @@ export default {
     height: auto;
     font-weight: bold;
     color: #757b8c !important;
+}
+::v-deep .el-submenu__title:hover {
+    background: rgb(25, 36, 49) !important;
+    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+    background-position: left!important;
+    color: #FFFFFF!important;
+    background-size: 120% 100%!important;
+    border-radius: 1.2vh;
+    /* border-top-left-radius: 1.2vh;
+    border-top-right-radius: 1.2vh; */
 }
 
 .menu-item-box {

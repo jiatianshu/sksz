@@ -82,7 +82,11 @@ export default {
         }
 
         div {
+            // margin: 2px 0 0 0;
             font-size: 28px;
+            font-weight: 800;
+            font-family: Arial, Helvetica, sans-serif;
+
         }
     }
 }

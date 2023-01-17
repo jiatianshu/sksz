@@ -144,7 +144,7 @@
             {
               type: 'group',
               left: '50%',
-              top: '42%',
+              top: '48%',
               bounding: 'raw',
               children: [
                 {
@@ -153,7 +153,7 @@
                     // text: this.chartData.satisfaction,
                     text: this.chartData.pieTitle,
                     fontSize: 36,
-                    // fontWeight:Blob,
+                    fontWeight:700,
                     fill: '#fff', //文字的颜色
                     textVerticalAlign: 'middle',
                     textAlign: 'center',
@@ -164,7 +164,7 @@
             {
               type: 'group',
               left: '50%',
-              top: '58%',
+              top: '62%',
               bounding: 'raw',
               children: [
                 {

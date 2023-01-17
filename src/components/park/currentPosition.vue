@@ -96,11 +96,12 @@ export default {
             text-align: center;
             position: absolute;
             color: #fff;
-            top: 50px;
+            top: 56px;
             width: 100%;
             .img-text-num{
                 font-size: 40px;
-                font-weight: bold;
+                font-weight:700;
+                font-family: Arial, Helvetica, sans-serif;
             }
             .img-text-location{
                 font-size: 16px;

@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div>
+        <div @click="jumpPage">
             <img class="img_cl" src="../assets/img/image/button_pressed.png" alt="">
         </div>
     </div>
@@ -33,6 +33,9 @@
         //     bus.$off('collapse', this.handleBus);
         // },
         methods: {
+            jumpPage(){
+                window.open('http://61.161.147.38:18090/mudan/?sceneid=000001&sceneFunc=%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%A7%88')
+            }
             // changeDate() {
             //     const now = new Date().getTime();
             //     this.data.forEach((item, index) => {

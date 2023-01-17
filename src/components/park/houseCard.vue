@@ -11,11 +11,11 @@
         <div class="text-box">
             <div class="text-content">
                 <p class="title">{{ detailData.parkName }}</p>
-                <p>{{ `${detailData.cityName} ${detailData.districtName}  ${detailData.streetName}` }} </p>
+                <p style="color:#ccc">{{ `${detailData.cityName} ${detailData.districtName}  ${detailData.streetName}` }} </p>
             </div>
             <div>
-                <p>{{detailData.address}}</p>
-                <p><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> {{ detailData.longitude |location}} N,{{ detailData. latitude|location}} W</p>
+                <p style="color:#ccc">{{detailData.address}}</p>
+                <p class="" style="font-family: Arial, Helvetica, sans-serif;"><img src="@/assets/img/icon/Ic_trail2x.png" alt=""> {{ detailData.longitude |location}} N,{{ detailData. latitude|location}} W</p>
             </div>
         </div>
 
@@ -39,10 +39,12 @@ export default {
 <style scoped lang='scss'>
 .houseCard-box {
     display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
 
     .house-img {
-        width: 400px;
-        height: 246px;
+        width: 380px;
+        height: 220px;
         border-radius: 20px;
     }
 
@@ -50,7 +52,7 @@ export default {
         margin-left: 30px;
         width: 250px;
         font-size: 16px;
-        margin-top: 76px;
+        margin-top: 66px;
         color: #FFFFFF;
         display: flex;
         justify-content: space-between;
@@ -62,6 +64,7 @@ export default {
         .title {
             font-size: 24px;
             color: #FFFFFF;
+            
         }
 
         img {

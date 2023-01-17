@@ -78,36 +78,37 @@ export default {
 
 .policeCard-box {
     width: 400px;
-    height: 240px;
+    height: 220px;
     border-radius: 20px;
     overflow: hidden;
+    font-weight:600;
 
     .title {
-        height: 60px;
-        line-height: 60px;
+        height: 52px;
+        line-height: 52px;
         text-align: center;
         font-size: 20px;
         color: #FFFFFF;
         background: #004BAD;
 
         img {
-            width: 32px;
-            height: 35px;
+            width: 28px;
+            height: 30px;
             vertical-align: middle;
         }
     }
 
     .policeCard-content-box {
         width: 400px;
-        height: 148px;
+        height: 140px;
         background: #FFFFFF;
         padding: 15px 0 15px 34px;
         display: flex;
 
 
         img {
-            width: 118px;
-            height: 118px;
+            width: 100px;
+            height: 114px;
         }
 
         ul {

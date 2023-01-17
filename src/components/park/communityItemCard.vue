@@ -11,10 +11,10 @@
         <div class="community-item-content">
             <div>
                 <p class="community-item-title">{{parkData.parkName}}</p>
-                <p class="community-item-location">{{parkData.cityName}} {{parkData.districtName}} {{parkData.streetName}}</p>
+                <p  style="color:#AAA" class="community-item-location">{{parkData.cityName}} {{parkData.districtName}} {{parkData.streetName}}</p>
             </div>
             <div>
-                <p>{{parkData.address}}</p>
+                <p style="color:#AAA">{{parkData.address}}</p>
                 <p><img src="@/assets/img/icon/Ic_trail2x.png" class="icon" alt=""> {{ parkData.longitude|location}} N，{{parkData.latitude|location}} W</p>
             </div>
             <div class="house" >
@@ -56,11 +56,14 @@ export default {
     }
 
     .community-item-content {
+        font-weight:700;
         padding-top: 26px;
         margin-left: 18px;
+        font-family: Arial, Helvetica, sans-serif;
         color: #fff;
         display: flex;
         flex-wrap: wrap;
+     
         font-size: 14px;
         align-content: space-between;
         position: relative;
@@ -73,9 +76,11 @@ export default {
 
         .community-item-title {
             font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .house {
+            font-weight:700;
             width: 40px;
             height: 40px;
             border-radius: 8px;
