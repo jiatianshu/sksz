@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-17 20:02:20
+ * @LastEditTime: 2023-01-17 20:09:29
  * @Description: 智慧园区
 -->
 <template>
@@ -220,15 +220,18 @@ export default {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    width: 690px;
+    width: 740px;
     // margin: 16px 0 0 0;
 
     li {
         width: 228px;
         height: 40px;
         color: #fff;
-
+        margin-bottom: 24px;
+        display: flex;
         .occupation-img-box {
+            display: flex;
+            justify-content: center;
             img {
                 vertical-align: sub;
             }
@@ -253,7 +256,7 @@ export default {
             height: 24px;
             widows: 20px;
             vertical-align: middle;
-            margin-left: 8px;
+            // margin-left: 8px;
             margin-top: 6px;
         }
     }
