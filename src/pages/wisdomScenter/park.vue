@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-16 22:29:23
+ * @LastEditTime: 2023-01-17 20:02:20
  * @Description: 智慧园区
 -->
 <template>
@@ -36,7 +36,7 @@
                             </div>
                             <span style="font-size:16px;margin-left:12px">{{ item.name }}</span>
                             <span>{{ detailData[item.key]}}</span>
-                            <!-- <span>12%</span> -->
+                            <span>{{ percent(detailData[item.key],chartData.pieTitle) }}</span>
                         </li>
                     </ul>
                     <div class="echart-box">
@@ -153,6 +153,16 @@ export default {
 
     },
     methods: {
+        percent(num1,num2){
+            try{
+                  let x =Number(num1);
+            let y =Number(num2);
+            return (Math.round(x / y * 10000) / 100).toFixed() + "%";  
+            }catch(e){
+                return '';
+            }
+        
+        },
         getParkList() {
             getParkList({ ...this.formData, parkName: this.parkName }).then(res => {
                 this.parkList = res.data.result;
