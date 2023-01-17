@@ -224,7 +224,7 @@ export default {
     // margin: 16px 0 0 0;
 
     li {
-        width: 228px;
+        width: 240px;
         height: 40px;
         color: #fff;
         margin-bottom: 24px;
