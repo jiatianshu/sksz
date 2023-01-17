@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-17 20:09:29
+ * @LastEditTime: 2023-01-17 20:55:07
  * @Description: 智慧园区
 -->
 <template>
@@ -15,7 +15,7 @@
             <div class="content">
                 <h4 class="title-h4">行政区划</h4>
                 <div class="content-div-box">
-                    <pictureBox :imgList="imgList" />
+                    <pictureBox :imgList="imgList" ref="pictureBoxRef"/>
                     <currentPosition
                         :numList="[detailData.parkNum, detailData.policeStationsNum, detailData.districtData.policeNum]"
                         :locationTitle="`${formData.cityName}${'-' + formData.districtName}${'-' + formData.streetName}`" />
@@ -174,7 +174,7 @@ export default {
         getData() {
             getParkData(this.formData).then(res => {
                 this.detailData = res.data;
-                this.imgList.length = 0;
+                this.imgList = [];
                 //图片map转list
                 for (let key in this.detailData.imgMap) {
 
@@ -188,7 +188,8 @@ export default {
                     this.chartData.pieTitle += parseInt(item.value);
                     return item;
                 })
-
+           
+              
             });
             this.getParkList();
 

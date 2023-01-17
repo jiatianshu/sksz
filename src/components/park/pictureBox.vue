@@ -2,15 +2,15 @@
  * @Author: gq
  * @Date: 2023-01-03 19:33:18
  * @LastEditors: gq
- * @LastEditTime: 2023-01-11 19:33:27
+ * @LastEditTime: 2023-01-17 20:56:24
  * @Description: 智慧园区-图片框
 -->
 
 <template>
     <div class="picture-box">
         <div class="img-box">
-            <img :src="imgList[active].src || ''" alt="">
-            <div class="img-title">{{ imgList[active].title || '' }}</div>
+            <img :src="imgList[active]?imgList[active].src :''" alt="">
+            <div class="img-title">{{imgList[active]? imgList[active].title : '' }}</div>
         </div>
         <ul class="picture-ul">
             <li :class="[index == active ? 'active' : '']" v-for="(item, index) in imgList"
@@ -34,6 +34,7 @@ export default {
             active: 0
         }
     },
+
 }
 </script>
 <style scoped lang="scss">
