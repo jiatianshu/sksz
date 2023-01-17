@@ -29,7 +29,7 @@
                 </div>
                 <h4 class="title-h4">群防群治</h4>
                 <div class="content-div-box" style="justify-content: space-between;">
-                    <ul class="occupation-box">
+                    <ul class="occupation-box" style="height:165px">
                         <li v-for="item in professionList" :key="item.key">
                             <div class="occupation-img-box" :style="{ background: item.background }">
                                 <img :src="require('@/assets/img/image/' + item.src)" alt="">
@@ -138,7 +138,7 @@ export default {
                         name: '4.0分',
                     },
                 ],
-                pieTitle: '90%',
+                pieTitle: 0,
                 satisfaction: '人数总计',
             },
             detailData: null,
@@ -175,8 +175,10 @@ export default {
                 }
                 this.chartData.pieData = this.professionList.map(item => {
                     item.value = this.detailData[item.key] || 0;
+                    this.chartData.pieTitle += parseInt(item.value);
                     return item;
                 })
+
             });
             this.getParkList();
 
@@ -187,7 +189,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .community-table-box {
-    width: 500px;
+    width: 560px;
     background: #1E1F25;
     padding: 24px 20px;
     height: 800px;
@@ -209,6 +211,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     width: 690px;
+    // margin: 16px 0 0 0;
 
     li {
         width: 228px;

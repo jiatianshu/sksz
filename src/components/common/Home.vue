@@ -67,7 +67,7 @@ export default {
     font-family:"Microsoft YaHei,Tahoma";
 }
 .img-back{
-    background: url('././../../assets/img/image/bg01.jpg') no-repeat;
+    background: url('././../../assets/img/image/bkimg.jpg') no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;

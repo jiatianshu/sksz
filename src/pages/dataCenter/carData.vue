@@ -32,7 +32,7 @@
                 <div id="carPpEChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
-            <div class="center_rg_cl">
+            <div class="center_rg_cl2">
                 <div id="carColChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
             </div>
@@ -52,10 +52,9 @@
                 </el-table-column>
                 <el-table-column prop="color" label="颜色" width="">
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="500">
+                <el-table-column prop="address" label="操作" width="400">
                     <template slot-scope="scope" class="button_cl">
-                        <sk-table-button @click="yzxx(scope.row)" title="业主信息"
-                            icon="ic_personrole2x.png"></sk-table-button>
+                       
                         <sk-table-button title="车辆信息" icon="ic_housenumber2x.png"></sk-table-button>
                         <sk-table-button title="车位信息" icon="ic_rentrole2x.png"></sk-table-button>
                         <sk-table-button title="轨迹查询" icon="ic_pic2x.png"></sk-table-button>
@@ -222,9 +221,11 @@
     }
 
     .le_num {
-        margin: 50px auto 0 auto;
+        margin: 44px auto 0 auto;
         width: 100%;
         display: flex;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
         justify-content: center;
         text-align: center;
         height: 100%
@@ -232,15 +233,21 @@
 
     .per_num {
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         text-align: center;
         font-weight: 600;
     }
 
 
     .center_rg_cl {
-        width: 520px;
+        width: 480px;
         height: 140px;
+        margin:  0 0 0 80px;
+    }
+    .center_rg_cl2 {
+        width: 480px;
+        height: 140px;
+        /* margin:  0 0 0 40px; */
     }
 
     .cen_cl {

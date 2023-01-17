@@ -7,23 +7,32 @@
 -->
 <template>
     <div>
+        <div style="margin: 0 0 6px 0;">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tab-pane label="警员管理" name="first"></el-tab-pane>
+                <el-tab-pane label="-" name="second"></el-tab-pane>
+            </el-tabs>
+        </div>
         <div>
+            <el-select v-model="posDatqa" class="select" placeholder="社区民警">
+                <el-option v-for="item in posoptions" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
             <sk-icon-input :placeholder='carplaceholder' :value.sync="name"
                 @keyup.enter.native="checkSearch"></sk-icon-input>
             <sk-icon-button style="margin-left:12px" @click="checkSearch"></sk-icon-button>
         </div>
-   
+
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column type="index" label="序号" align="center" width="">
                 </el-table-column>
                 <el-table-column prop="policeName" label="姓名">
                 </el-table-column>
-                <el-table-column prop="telephone" label="手机号">
-                </el-table-column>
+
                 <el-table-column prop="photo" label="照片" width="">
                     <template slot-scope="scope">
-                        <img :src="scope.row.photo" alt="">
+                        <img class="img_jy" :src="scope.row.telephone" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="policeNo" label="警号">
@@ -32,16 +41,15 @@
                 </el-table-column>
                 <el-table-column prop="branchName" label="分局" width="">
                 </el-table-column>
-                <el-table-column prop="roomName" label="警务室" width="">
-                </el-table-column>
+
                 <el-table-column prop="orgName" label="所属" width="">
                 </el-table-column>
-     
+
             </el-table>
             <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
-                layout="prev, pager, next" :total="total">
-            </el-pagination>
+                    layout="prev, pager, next" :total="total">
+                </el-pagination>
             </div>
         </div>
     </div>
@@ -59,6 +67,9 @@
         data() {
             return {
                 tableData: [],
+                posoptions: [
+                    { value: '01', label: '社区民警' }
+                ],
                 queryData: {
                     current: 1,
                 },
@@ -66,6 +77,7 @@
                 size: 10,
                 total: 0,
                 name: "",
+                activeName: 'first',
                 carplaceholder: "请输入警员姓名",
             };
         },
@@ -102,7 +114,26 @@
             pageChange(val) {
                 this.$set(this.queryData, "current", val);
                 this.getListData();
-            }
+            },
+            // 切换tab
+            handleClick(tab, event) {
+                console.log(tab, event);
+                // this.queryData.current = 1
+                // this.tabIndex = tab.index
+
+                // if (this.tabIndex == 0) {
+                //     //人员
+                //     this.current = 1
+                //     this.getPerData()
+
+                // } else if (this.tabIndex == 1) {
+                //     //车辆
+                //     this.current = 1
+                //     this.getCarData()
+                // }
+
+            },
+
 
         },
         mounted() {
@@ -120,6 +151,11 @@
     }
 
     .select {
-    margin-right: 16px;
-}
+        margin-right: 16px;
+    }
+
+    .img_jy {
+        width: 40px;
+        height: 40px;
+    }
 </style>

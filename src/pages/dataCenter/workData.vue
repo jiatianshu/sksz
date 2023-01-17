@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <skDistrict @change="districtChange" />
+            <skgetTreedistrict @change="districtChange" />
             <skIconButton @click="checkSearch"></skIconButton>
         </div>
         <div class="title_cl">
@@ -59,8 +59,7 @@
 
                 <el-table-column prop="address" label="操作" width="400">
                     <template slot-scope="scope" class="button_cl">
-                        <sk-table-button @click="yzxx(scope.row)" title="业主信息"
-                            icon="ic_personrole2x.png"></sk-table-button>
+                 
                         <sk-table-button title="员工数据" icon="ic_housenumber2x.png"></sk-table-button>
                         <sk-table-button title="设备数据" icon="ic_rentrole2x.png"></sk-table-button>
                     </template>
@@ -255,7 +254,7 @@
         height: 22px; */
         /* font-family: PingFangSC-Semibold; */
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         text-align: center;
         font-weight: 600;
     }

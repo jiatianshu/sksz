@@ -15,6 +15,7 @@ const user = {
     token: sessionStorage.getItem("token"),
     user:JSON.parse(sessionStorage.getItem("userInfo")) ,
     userDistrictTree:JSON.parse(sessionStorage.getItem("userDistrictTree"))||[],//用户区域树
+    userDistrictTreeAll:JSON.parse(sessionStorage.getItem("userDistrictTreeAll"))||[],//用户区域树
     roles: [],
     // 第一次加载菜单时用到
     loadMenus: false

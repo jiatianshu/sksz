@@ -9,12 +9,12 @@
 <template>
     <div class="picture-box">
         <div class="img-box">
-            <img :src="imgList[active] || ''" alt="">
-            <div class="img-title">{{ imgList[active].title|| '' }}</div>
+            <img :src="imgList[active].src || ''" alt="">
+            <div class="img-title">{{ imgList[active].title || '' }}</div>
         </div>
         <ul class="picture-ul">
-            <li :class="[index == active ? 'active' : '']" v-for="(item, index) in imgList" @click="() => active = index"
-                :key="item.src">
+            <li :class="[index == active ? 'active' : '']" v-for="(item, index) in imgList"
+                @click="() => active = index" :key="item.src">
                 <img :src="item.src" alt="">
             </li>
 
@@ -55,7 +55,7 @@ export default {
 
         .img-title {
             position: absolute;
-            bottom: 0px;
+            bottom: 8px;
             width: 360px;
             height: 40px;
             background: rgba(0, 0, 0, 0.48);
@@ -68,7 +68,10 @@ export default {
 
     .picture-ul {
         margin-left: 12px;
-        width: 80px;
+        width: 90px;
+        overflow-y: overlay;
+
+        height: 279px;
 
         li {
             width: 80px;

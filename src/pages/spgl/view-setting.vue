@@ -532,23 +532,26 @@
         letter-spacing: 0;
         font-weight: 700;
         display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     .tit_vid {
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         letter-spacing: 0;
         font-weight: 600;
         display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     .numdw_cl {
         font-size: 16px;
-        color: #FFFFFF;
+        color: #ccc;
         letter-spacing: 0;
         font-weight: 600;
         display: inline-block;
         margin: 0 0 0 10px;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     .img_vid {

@@ -113,11 +113,11 @@
                 queryData: {
                     current: 1,
                 },
+                activeName: 'first',
                 total: 0,
                 pageNum:1,
                 tabIndex: '',
                 posDatqa: '',
-                activeName: 'first',
                 posoptions: [
                     { value: '01', label: '公安' }
                 ],
@@ -244,7 +244,7 @@
             // 切换tab
             handleClick(tab, event) {
                 console.log(tab, event);
-                this.queryData.current = 1
+                this.current = 1
                 this.tabIndex = tab.index
 
                 if (this.tabIndex == 0) {

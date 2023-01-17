@@ -31,7 +31,7 @@
             <div class="center_rg_cl">
                 <div id="perAgeChart" style=" padding-top: 10px; left: 2vmin; height: 100%;">
                 </div>
-            </div>>
+            </div>
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
@@ -50,14 +50,16 @@
                 </el-table-column>
                 <el-table-column prop="telephone" label="手机号" >
                 </el-table-column>
-                <el-table-column prop="address" label="操作" width="600">
+                <el-table-column prop="address" label="操作" width="780">
                     <template slot-scope="scope" class="button_cl">
-                        <sk-table-button @click="yzxx(scope.row)" title="业主信息"
-                            icon="ic_personrole2x.png"></sk-table-button>
+                       
                         <sk-table-button title="房屋信息" icon="ic_housenumber2x.png"></sk-table-button>
-                        <sk-table-button title="租户信息" icon="ic_rentrole2x.png"></sk-table-button>
-                        <sk-table-button title="平面图" icon="ic_pic2x.png"></sk-table-button>
-                        <sk-table-button title="空间信息" icon="ic_space2x.png"></sk-table-button>
+                        <sk-table-button @click="yzxx(scope.row)" title="车辆信息"
+                            icon="ic_personrole2x.png"></sk-table-button>
+                        <sk-table-button title="单位信息" icon="ic_rentrole2x.png"></sk-table-button>
+                        <sk-table-button title="疫苗信息" icon="ic_rentrole2x.png"></sk-table-button>
+                        <sk-table-button title="户籍信息" icon="ic_pic2x.png"></sk-table-button>
+                        <sk-table-button title="轨迹信息" icon="ic_space2x.png"></sk-table-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -188,7 +190,7 @@
             perAgeChartData() {
                 let myChart = echarts.init(document.getElementById('perAgeChart'))
                 myChart.setOption(
-                    chartsoptions.currencyChart(this.chartData_2.pieData,this.agetype)
+                    chartsoptions.currencyageChart(this.chartData_2.pieData,this.agetype)
                 )
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
@@ -248,16 +250,17 @@
 
     .per_num {
         font-size: 16px;
+        color: #ccc;
     }
 
     .center_cl {
         width: 400px;
         height: 140px;
-        margin: 0 0 0 30px
+        margin:  0 0 0 80px;
     }
 
     .center_rg_cl {
-        width: 700px;
+        width: 680px;
         height: 140px;
     }
 
