@@ -50,12 +50,13 @@ export default {
     cursor: pointer;
     margin-bottom: 24px;
     .left-img {
-        width: 260px;
+        width: 240px;
         height: 160px;
         border-radius: 12px;
     }
 
     .community-item-content {
+        width: 250px;
         font-weight:700;
         padding-top: 26px;
         margin-left: 18px;

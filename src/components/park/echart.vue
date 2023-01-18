@@ -152,7 +152,7 @@
                   style: {
                     // text: this.chartData.satisfaction,
                     text: this.chartData.pieTitle,
-                    fontSize: 36,
+                    fontSize: 26,
                     fontWeight:700,
                     fill: '#fff', //文字的颜色
                     textVerticalAlign: 'middle',

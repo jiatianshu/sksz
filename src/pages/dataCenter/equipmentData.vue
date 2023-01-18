@@ -53,7 +53,7 @@
 
                 <el-table-column prop="acreage" label="经纬度" width="">
                     <template slot-scope="scope">
-                        <div>{{scope.row.latitude}},{{scope.row.longitude}}</div>
+                        <div>{{scope.row.latitude|location}},{{scope.row.longitude|location}}</div>
                     </template>
                 </el-table-column>
 

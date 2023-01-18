@@ -25,14 +25,14 @@
 
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column type="index" label="序号" align="center" width="">
+                <el-table-column type="index" label="序号" align="center" width="80">
                 </el-table-column>
                 <el-table-column prop="policeName" label="姓名">
                 </el-table-column>
 
                 <el-table-column prop="photo" label="照片" width="">
                     <template slot-scope="scope">
-                        <img class="img_jy" :src="scope.row.telephone" alt="">
+                        <img class="img_jy" :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="policeNo" label="警号">

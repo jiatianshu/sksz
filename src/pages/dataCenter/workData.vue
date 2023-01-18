@@ -32,9 +32,9 @@
         </div>
         <div class="table-box">
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column type="index" label="序号" align="center" width="50">
+                <el-table-column type="index" label="序号" align="center" width="80">
                 </el-table-column>
-                <el-table-column prop="photo" label="单位图片" width="80">
+                <el-table-column prop="photo" label="单位图片" width="">
                     <template slot-scope="scope">
                         <img :src="scope.row.companyImg" class="img_cl" alt="">
                     </template>
@@ -43,16 +43,16 @@
                 </el-table-column>
                 <el-table-column prop="serviceType" label="服务类型" width="">
                 </el-table-column>
-                <el-table-column prop="acreage" label="行政区划" width="">
+                <!-- <el-table-column prop="acreage" label="行政区划" width="">
                     <template slot-scope="scope">
                         <div>{{scope.row.cityName}},{{scope.row.districtName}},{{scope.row.streetName}}</div>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column prop="address" label="详细地址" width="">
                 </el-table-column>
                 <el-table-column prop="acreage" label="经纬度" width="">
                     <template slot-scope="scope">
-                        <div>{{scope.row.latitude}},{{scope.row.longitude}}</div>
+                        <div>{{scope.row.latitude|location}},{{scope.row.longitude|location}}</div>
                     </template>
                 </el-table-column>
 

@@ -276,7 +276,7 @@
 
 
     .left_cl {
-        width: 308px;
+        width: 318px;
         height: 136px;
         border-radius: 20px;
         /* background-image:url(../../assets/img/image/ic_card_police2x.png)no-repeat; */
@@ -344,7 +344,7 @@
     }
 
     .left_fw {
-        width: 100px;
+        width: 120px;
     }
 
     .select {

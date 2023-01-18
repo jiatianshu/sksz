@@ -39,7 +39,7 @@
                 </el-table-column>
                 <el-table-column prop="photo" label="头像" >
                     <template slot-scope="scope">
-                        <img :src="scope.row.photo" alt="">
+                        <img class="img_cl" :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="name" label="姓名" >
@@ -251,6 +251,7 @@
     .per_num {
         font-size: 16px;
         color: #ccc;
+        font-weight: 600;
     }
 
     .center_cl {
@@ -266,5 +267,9 @@
 
     .mr_20 {
         margin: 0 18px;
+    }
+    .img_cl {
+        width: 60px;
+        height: 48px;
     }
 </style>

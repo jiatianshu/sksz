@@ -221,11 +221,11 @@ export default {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    width: 740px;
+    width: 816px;
     // margin: 16px 0 0 0;
 
     li {
-        width: 240px;
+        width: 270px;
         height: 40px;
         color: #fff;
         margin-bottom: 24px;
@@ -289,8 +289,8 @@ export default {
 
 
 .echart-box {
-    width: 230px;
+    width: 180px;
     height: 230px;
-    margin-right: 60px;
+    margin-right: 50px;
 }
 </style>

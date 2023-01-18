@@ -47,7 +47,7 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl' alt=""></div>
+                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="longitude" label="经度" width="">
@@ -73,7 +73,7 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl' alt=""></div>
+                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="plateNumber" label="车牌号" width="">
@@ -295,6 +295,10 @@
 
     .img_cl {
         width: 60px;
+        height: 48px;
+    }
+    .img_cl_all {
+        width: 100px;
         height: 48px;
     }
 
