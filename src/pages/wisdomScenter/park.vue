@@ -14,6 +14,8 @@
         <div class="park-content-box" v-if="detailData">
             <div class="content">
                 <h4 class="title-h4">行政区划</h4>
+
+                
                 <div class="content-div-box">
                     <pictureBox :imgList="imgList" ref="pictureBoxRef"/>
                     <currentPosition
