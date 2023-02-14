@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-01-16 22:11:28
+ * @LastEditTime: 2023-02-14 19:10:39
  * @Description: file content
  */
 
@@ -15,6 +15,7 @@ import store from './store'
 import * as echarts from 'echarts';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
+import addCom from './config/addComponent'
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
@@ -49,6 +50,7 @@ Vue.filter("location", (val) => {
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
+Vue.use(addCom);
 Vue.use(ElementUI, {
     size: 'small'
 });
