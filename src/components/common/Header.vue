@@ -84,6 +84,7 @@ export default {
         username() {
             try {
                 console.log(this.$store.getters.user,"this.$store.getters.user")
+                console.log(this.$store.getters.userid,"this.$store.getters.user")
                 console.log(sessionStorage.getItem("username"),"usernameusernameusername")
                 // return this.$store.getters.user.userName
                 return sessionStorage.getItem("username")
@@ -114,6 +115,7 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
+                this.$fullLoginAd().hide()
                 localStorage.removeItem('ms_username');
                 this.$router.push('/login');
             }

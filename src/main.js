@@ -24,7 +24,7 @@ import './assets/css/const.scss';
 import './assets/css/form.scss';
 import 'amfe-flexible'
 
-
+import addCom from './config/addComponent'
 import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
@@ -49,6 +49,7 @@ Vue.filter("location", (val) => {
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
+Vue.use(addCom);
 Vue.use(ElementUI, {
     size: 'small'
 });

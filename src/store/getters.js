@@ -8,6 +8,7 @@ const getters = {
   roles: state => state.user.roles,
   //获取用户信息
   user: state => state.user.user,
+  userid: state => state.user.userid,
   districtList: state=>state.user.userDistrictTree,
   districtListAll: state=>state.user.userDistrictTreeAll
 }

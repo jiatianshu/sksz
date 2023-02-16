@@ -21,6 +21,10 @@
         computed: {
 
         },
+        mounted() {
+        // this.$fullLoginAd().show()
+        this.$fullLoginAd().hide()
+    },
         // created() {
         //     this.handleListener();
         //     this.changeDate();
