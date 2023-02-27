@@ -152,7 +152,8 @@
 
             //
             typeChange(a) {
-                this.typecode = a.code
+                // this.typecode = a.code
+                this.current = 1
                 this.getListData()
 
             },
