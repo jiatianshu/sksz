@@ -43,7 +43,7 @@
                 </el-table-column>
                 <el-table-column prop="photo" label="车辆照片" width="">
                     <template slot-scope="scope">
-                        <img :src="scope.row.carPhoto" alt="">
+                        <img class="img_cl" :src="scope.row.carPhoto" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="plateNumber" label="车牌号">
@@ -268,6 +268,10 @@
 
     .select {
         margin-right: 16px;
+    }
+    .img_cl {
+        width: 60px;
+        height: 48px;
     }
   
 </style>

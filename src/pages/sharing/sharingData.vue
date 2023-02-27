@@ -88,15 +88,15 @@
             </el-table>
             <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
-                layout="prev, pager, next" :total="total">
-            </el-pagination>
+                    layout="prev, pager, next" :total="total">
+                </el-pagination>
             </div>
         </div>
     </div>
 </template>
 <script>
     import { getshareist, getshareCarist } from '@/api/gxzx'
-    import {  getMenuList } from '@/api/sjzx'
+    import { getMenuList } from '@/api/sjzx'
 
     export default {
         name: 'dataCenter-houseData',
@@ -115,7 +115,7 @@
                 },
                 activeName: 'first',
                 total: 0,
-                pageNum:1,
+                pageNum: 1,
                 tabIndex: '',
                 posDatqa: '',
                 posoptions: [
@@ -140,8 +140,8 @@
             };
         },
         methods: {
-               // 获取城市
-               getCityData() {
+            // 获取城市
+            getCityData() {
                 var data = {
                     parentId: this.codeData  //辽宁省code
                 }
@@ -191,13 +191,19 @@
             },
             handleCurrentChange(num) {
                 console.log(num, "mmmmmmmmmm")
+                console.log(this.activeName, "activeName")
                 this.current = num
-                this.getPerData()
+                if (this.activeName == 'second') {
+                    this.getCarData()
+                } else if (this.activeName == 'first') {
+                    this.getPerData()
+                }
+
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-
+            //人员
             getPerData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
@@ -219,7 +225,7 @@
 
                 })
             },
-      
+            //车辆
             getCarData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
@@ -249,12 +255,12 @@
 
                 if (this.tabIndex == 0) {
                     //人员
-                    this.current =1
+                    this.current = 1
                     this.getPerData()
 
                 } else if (this.tabIndex == 1) {
                     //车辆
-                    this.current =1
+                    this.current = 1
                     this.getCarData()
                 }
 
@@ -297,13 +303,14 @@
         width: 60px;
         height: 48px;
     }
+
     .img_cl_all {
         width: 100px;
         height: 48px;
     }
 
     .top_cl {
-        margin: 0 0 16px 0;
+        margin: 0 0 6px 0;
         display: flex;
     }
 

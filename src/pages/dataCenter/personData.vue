@@ -37,23 +37,24 @@
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column type="index" label="序号" align="center" width="">
                 </el-table-column>
-                <el-table-column prop="photo" label="头像" >
+                <el-table-column prop="photo" label="头像">
                     <template slot-scope="scope">
                         <img class="img_cl" :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
-                <el-table-column prop="name" label="姓名" >
+                <el-table-column prop="name" label="姓名">
                 </el-table-column>
-                <el-table-column prop="idNumber" label="身份证" >
+                <el-table-column prop="idNumber" label="身份证">
                 </el-table-column>
-                <el-table-column prop="sex" label="性别"  >
+                <el-table-column prop="sex" label="性别">
                 </el-table-column>
-                <el-table-column prop="telephone" label="手机号" >
+                <el-table-column prop="telephone" label="手机号">
                 </el-table-column>
                 <el-table-column prop="address" label="操作" width="780">
                     <template slot-scope="scope" class="button_cl">
-                       
-                        <sk-table-button title="房屋信息" icon="ic_housenumber2x.png"></sk-table-button>
+
+                        <sk-table-button @click="fwxxData(scope.row)" title="房屋信息" 
+                            icon="ic_housenumber2x.png"></sk-table-button>
                         <sk-table-button @click="yzxx(scope.row)" title="车辆信息"
                             icon="ic_personrole2x.png"></sk-table-button>
                         <sk-table-button title="单位信息" icon="ic_rentrole2x.png"></sk-table-button>
@@ -65,10 +66,21 @@
             </el-table>
             <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
-                layout="prev, pager, next" :total="total">
-            </el-pagination>
+                    layout="prev, pager, next" :total="total">
+                </el-pagination>
             </div>
         </div>
+        <el-dialog :title="title" :append-to-body="true" :visible.sync="dialogVisible" width="55%" >
+          <div>
+
+            
+          </div>
+            <!-- <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span> -->
+        </el-dialog>
+
     </div>
 </template>
 <script>
@@ -87,12 +99,14 @@
         title: "数据中心 > 人员数据",
         data() {
             return {
+                title:'',
                 personsTotal: '',
                 chartData_1: {},
                 chartData_2: {},
-                sextype:'性别',
-                agetype:'年龄',
+                sextype: '性别',
+                agetype: '年龄',
                 tableData: [],
+                dialogVisible: false,
                 queryData: {
                     current: 1,
                 },
@@ -113,6 +127,13 @@
             };
         },
         methods: {
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => { });
+            },
             handleCurrentChange(num) {
                 console.log(num, "mmmmmmmmmm")
                 this.current = num
@@ -122,6 +143,11 @@
                 console.log(this.name, "aaaaaaaaa")
                 this.current = 1
                 this.getListData()
+            },
+            fwxxData(e) {
+                console.log(e, "fafffff")
+                this.dialogVisible = true
+
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
@@ -173,14 +199,14 @@
             },
 
             pageChange(val) {
-          
+
                 this.$set(this.queryData, "current", val);
                 this.getListData();
             },
             perSexChartData() {
                 let myChart = echarts.init(document.getElementById('persexChart'))
                 myChart.setOption(
-                    chartsoptions.perSexChart(this.chartData_1.pieData,this.sextype)
+                    chartsoptions.perSexChart(this.chartData_1.pieData, this.sextype)
                 )
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
@@ -190,7 +216,7 @@
             perAgeChartData() {
                 let myChart = echarts.init(document.getElementById('perAgeChart'))
                 myChart.setOption(
-                    chartsoptions.currencyageChart(this.chartData_2.pieData,this.agetype)
+                    chartsoptions.currencyageChart(this.chartData_2.pieData, this.agetype)
                 )
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
@@ -257,7 +283,7 @@
     .center_cl {
         width: 400px;
         height: 140px;
-        margin:  0 0 0 80px;
+        margin: 0 0 0 80px;
     }
 
     .center_rg_cl {
@@ -268,6 +294,7 @@
     .mr_20 {
         margin: 0 18px;
     }
+
     .img_cl {
         width: 60px;
         height: 48px;

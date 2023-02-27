@@ -61,6 +61,12 @@ let router = new Router({
         {
             path: '*',
             redirect: '/404'
+        },
+        {
+            path: '/',
+            component: () => import(/* webpackChunkName: "login" */ '@/components/warning/warningCenter.vue'),
+            redirect: '/warningCenter',
+            hidden:true
         }
     ],
 

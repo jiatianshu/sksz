@@ -424,9 +424,11 @@ Bg .ql-container {
 }
 
 .el-dialog__wrapper .el-dialog {
-    background: #2c2b2be8  !important;
+    background: #1E1F25 !important;
     color: #fff !important;
     position: relative;
+    opacity: 0.97;
+    border-radius: 10px;
     margin: 0 auto 0.26rem;
     border-radius: 2px;
     -webkit-box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
