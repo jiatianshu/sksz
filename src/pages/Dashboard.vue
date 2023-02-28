@@ -180,5 +180,6 @@
         position: absolute;
         left: 46%;
         top: 38%;
+        
     }
 </style>

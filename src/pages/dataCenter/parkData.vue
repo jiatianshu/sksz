@@ -336,5 +336,6 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        /* object-fit: contain */
     }
 </style>

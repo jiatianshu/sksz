@@ -314,6 +314,7 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        object-fit: contain
     }
 
     .table-box {
@@ -348,6 +349,7 @@
         width: 160px;
         height: 160px;
         margin: auto 10px;
+        /* object-fit: contain */
     }
 
     .text_cl {
@@ -359,11 +361,13 @@
         width: 220px;
         height: 160px;
         margin: auto 60px 0 10px;
+        
     }
     .img_cl_dio_k{
-        width: 160px;
+        width: 140px;
         height: 160px;
         border: 1px solid red;
+        /* object-fit: contain */
 
     }
 

@@ -29,6 +29,7 @@ import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
+import skTabButton from '_c/form/sk_tab_button.vue';
 import skDistrict from '_c/form/sk-district';
 
 import skgetTreedistrict from '_c/form/sk-getTreedistrict';
@@ -61,6 +62,7 @@ Vue.component("skIconInput", skIconInput);
 Vue.component("skIconButton", skIconButton);
 Vue.component("skPage", skPage);
 Vue.component("skTableButton", skTableButton);
+Vue.component("skTabButton", skTabButton);
 Vue.component("skDistrict", skDistrict);
 Vue.component("skgetTreedistrict", skgetTreedistrict);
 

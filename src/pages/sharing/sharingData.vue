@@ -302,11 +302,13 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        object-fit: contain
     }
 
     .img_cl_all {
         width: 100px;
         height: 48px;
+        object-fit: contain
     }
 
     .top_cl {
@@ -323,4 +325,29 @@
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+    
+.el-tabs__item.is-active {
+    color: #fff !important;
+    background: #246CF9 !important;
+    border-radius: 8px!important;
+    border: none;
+}
+
+.el-tabs--card>.el-tabs__header .el-tabs__nav {
+    border: none;
+}
+
+.el-tabs__active-bar {
+    display: none !important;
+    background-color: #246CF9
+}
+
+.el-tabs__nav-scroll .el-tabs__nav .el-tabs__active-bar {
+    display: none !important;
+}
+
+.el-tabs__nav-wrap::after {
+    display: none;
+}
+
 </style>

@@ -351,6 +351,7 @@
         width: 160px;
         height: 160px;
         margin: auto 10px;
+        object-fit: contain
     }
 
     .text_cl {

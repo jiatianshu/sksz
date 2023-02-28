@@ -66,6 +66,7 @@
         title: "业务中心 > 警务服务",
         data() {
             return {
+                posDatqa:'',
                 tableData: [],
                 posoptions: [
                     { value: '01', label: '社区民警' }
