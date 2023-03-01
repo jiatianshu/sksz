@@ -6,7 +6,7 @@
  * @Description: file content
  */
 import Vue from 'vue'
-import warningCenter from '@/pages/warning/warningCenter.vue'
+import warningCenter from '@/components/warning/warningCenter.vue'
 
 // 单例模式
 let instance = null

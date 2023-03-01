@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-02-14 19:10:39
+ * @LastEditTime: 2023-01-16 22:11:28
  * @Description: file content
  */
 
@@ -15,7 +15,6 @@ import store from './store'
 import * as echarts from 'echarts';
 import VueI18n from 'vue-i18n';
 import { messages } from './components/common/i18n';
-import addCom from './config/addComponent'
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 // import './assets/css/theme-green/index.css'; // 浅绿色主题
 import './assets/css/icon.css';
@@ -25,14 +24,16 @@ import './assets/css/const.scss';
 import './assets/css/form.scss';
 import 'amfe-flexible'
 
-
+import addCom from './config/addComponent'
 import skIconInput from '_c/form/sk-icon-input.vue';
 import skIconButton from '_c/form/sk-icon-button.vue';
 import skPage from '_c/form/sk-page.vue';
 import skTableButton from '_c/form/sk-table-button.vue';
+import skTabButton from '_c/form/sk_tab_button.vue';
 import skDistrict from '_c/form/sk-district';
 
 import skgetTreedistrict from '_c/form/sk-getTreedistrict';
+
 //经纬度保留两位小数
 Vue.filter("location", (val) => {
     try {
@@ -62,6 +63,7 @@ Vue.component("skIconInput", skIconInput);
 Vue.component("skIconButton", skIconButton);
 Vue.component("skPage", skPage);
 Vue.component("skTableButton", skTableButton);
+Vue.component("skTabButton", skTabButton);
 Vue.component("skDistrict", skDistrict);
 Vue.component("skgetTreedistrict", skgetTreedistrict);
 

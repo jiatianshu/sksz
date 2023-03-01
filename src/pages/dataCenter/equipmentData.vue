@@ -25,8 +25,6 @@
                 <div class="le_num">
                     <div class="left_fw">
                         <div class="num_cl">{{equipmentTotal}}</div>
-
-                        
                         <div class="per_num">设备总数</div>
                     </div>
                     <div class="cen_cl"></div>
@@ -287,5 +285,6 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        object-fit: contain
     }
 </style>

@@ -14,6 +14,8 @@ const user = {
   state: {
     token: sessionStorage.getItem("token"),
     user:JSON.parse(sessionStorage.getItem("userInfo")) ,
+    userid:JSON.parse(sessionStorage.getItem("userid")) ,
+    rolesid:JSON.parse(sessionStorage.getItem("rolesid")) ,
     userDistrictTree:JSON.parse(sessionStorage.getItem("userDistrictTree"))||[],//用户区域树
     userDistrictTreeAll:JSON.parse(sessionStorage.getItem("userDistrictTreeAll"))||[],//用户区域树
     roles: [],
@@ -26,6 +28,17 @@ const user = {
       let newToken = `bearer ${token}`;
       state.token = newToken;
       sessionStorage.setItem("token", newToken);
+    },
+    SET_USERID: (state, userid) => {
+      sessionStorage.setItem("userid",userid)
+      state.userid = userid
+    },
+    SET_ROLESID: (state, rolesid) => {
+      // debugger
+      console.log(state,rolesid,"aaaaaaaaaaaaaaaa")
+      sessionStorage.setItem("rolesid",rolesid)
+      console.log(sessionStorage.getItem("rolesid",rolesid),"sessionStorageidddddddddddd")
+      state.rolesid = rolesid
     },
     SET_USER: (state, user) => {
       sessionStorage.setItem("userInfo",JSON.stringify(user))
@@ -56,6 +69,8 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo).then(res => {
           this.commit('SET_TOKEN', res.access_token);
+          this.commit('SET_USERID', res.user_id);
+          this.commit('SET_ROLESID', res.roles[0]);
           this.commit('SET_USER', {
             userId: res.user_id,
             clientId: res.client_id,
@@ -86,7 +101,7 @@ const user = {
         this.commit('SET_DISTRICT_TREE_ALL', res.data[0].children);
       })
     },
-  }
+  },
 }
 
 

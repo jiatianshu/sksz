@@ -32,7 +32,7 @@
 
                 <el-table-column prop="photo" label="照片" width="">
                     <template slot-scope="scope">
-                        <img class="img_jy" :src="scope.row.photo" alt="">
+                        <img @click="imgData(scope.row)" class="img_jy" :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="policeNo" label="警号">
@@ -52,6 +52,10 @@
                 </el-pagination>
             </div>
         </div>
+        <el-dialog title="照片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -66,6 +70,9 @@
         title: "业务中心 > 警务服务",
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
+                posDatqa:'',
                 tableData: [],
                 posoptions: [
                     { value: '01', label: '社区民警' }
@@ -82,6 +89,11 @@
             };
         },
         methods: {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.photo
+            },
             checkSearch() {
                 this.current = 1
                 this.getListData()
@@ -157,5 +169,16 @@
     .img_jy {
         width: 40px;
         height: 40px;
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
     }
 </style>

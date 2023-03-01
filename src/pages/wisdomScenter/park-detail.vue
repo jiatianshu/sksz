@@ -87,7 +87,7 @@
 
 
         </div>
-        <el-dialog title="视频监控" :visible.sync="dialogVisible" color="#fff" background="#726e6f42;" height="90%"
+        <el-dialog title="视频监控" :visible.sync="dialogVisible" color="#fff" background="#1E1F25;" height="90%"
             width="80%" top="80px" append-to-body :before-close="handleClose">
             <!-- 视频流开始 -->
             <div class="right_video">
@@ -467,7 +467,7 @@ export default {
 .video_div_cl {
     width: 350px;
     height: 280px;
-    background: #1E1F25;
+    background: #7d7e86;
     margin: 0 0 20px 0;
     border-radius: 10px;
     color: #fff;
@@ -477,7 +477,8 @@ export default {
 .video_box_evcl {
     width: 350px;
     height: 280px;
-    background: #1E1F25;
+    /* background: #1E1F25; */
+    background: #7d7e86;
     margin: 0 0 20px 0;
     border-radius: 10px;
     color: #fff;

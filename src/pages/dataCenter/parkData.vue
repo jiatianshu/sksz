@@ -56,7 +56,7 @@
                 </el-table-column>
                 <el-table-column prop="photo" label="园区图片" width="">
                     <template slot-scope="scope">
-                        <img :src="scope.row.parkImg" class="img_cl" alt="">
+                        <img :src="scope.row.parkImg" @click="imgData(scope.row)"  class="img_cl" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="parkName" label="园区名称" width="">
@@ -97,6 +97,10 @@
             </el-pagination>
             </div>
         </div>
+        <el-dialog title="园区图片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -115,6 +119,8 @@
         title: "数据中心 > 园区数据",
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
                 current: 1,
                 size: 10,
                 total: 0,
@@ -160,6 +166,11 @@
             };
         },
         methods: {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.parkImg
+            },
             districtChange(data) {
                 console.log(data, "aaaaaaaaaaaaaaaaaa")
                 this.formData = data
@@ -336,5 +347,17 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        /* object-fit: contain */
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
     }
 </style>

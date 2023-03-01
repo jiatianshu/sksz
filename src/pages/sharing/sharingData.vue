@@ -42,12 +42,12 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="人脸图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.img" class='img_cl' alt=""></div>
+                        <div><img @click="imgData(scope.row)" :src="scope.row.img" class='img_cl' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
+                        <div><img @click="imgAllData(scope.row)"  :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="longitude" label="经度" width="">
@@ -68,12 +68,12 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="车辆图片" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.img" class='img_cl' alt=""></div>
+                        <div><img @click="imgData(scope.row)" :src="scope.row.img" class='img_cl' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
+                        <div><img @click="imgAllData(scope.row)" :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="plateNumber" label="车牌号" width="">
@@ -88,15 +88,23 @@
             </el-table>
             <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
-                layout="prev, pager, next" :total="total">
-            </el-pagination>
+                    layout="prev, pager, next" :total="total">
+                </el-pagination>
             </div>
         </div>
+        <el-dialog title="照片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
+        <el-dialog title="全景图" :visible.sync="dialogVisibleImgAll" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_openAll" alt=""></div>
+
+        </el-dialog>
     </div>
 </template>
 <script>
     import { getshareist, getshareCarist } from '@/api/gxzx'
-    import {  getMenuList } from '@/api/sjzx'
+    import { getMenuList } from '@/api/sjzx'
 
     export default {
         name: 'dataCenter-houseData',
@@ -106,6 +114,10 @@
         title: "共享中心 > 数据共享",
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
+                dialogVisibleImgAll: false,
+                img_openAll: '',
                 chartData_1: {},
                 chartData_2: {},
                 chartData_3: {},
@@ -115,7 +127,7 @@
                 },
                 activeName: 'first',
                 total: 0,
-                pageNum:1,
+                pageNum: 1,
                 tabIndex: '',
                 posDatqa: '',
                 posoptions: [
@@ -128,6 +140,7 @@
                 current: 1,
                 size: 10,
                 total: 0,
+                
                 cityoptions: [], //沈阳市
                 districtptions: [], //行政区
                 streeoptions: [], //街道
@@ -140,8 +153,18 @@
             };
         },
         methods: {
-               // 获取城市
-               getCityData() {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.img
+            },
+            imgAllData(e) {
+                //点击头像
+                this.dialogVisibleImgAll = true
+                this.img_openAll = e.panorama
+            },
+            // 获取城市
+            getCityData() {
                 var data = {
                     parentId: this.codeData  //辽宁省code
                 }
@@ -191,13 +214,19 @@
             },
             handleCurrentChange(num) {
                 console.log(num, "mmmmmmmmmm")
+                console.log(this.activeName, "activeName")
                 this.current = num
-                this.getPerData()
+                if (this.activeName == 'second') {
+                    this.getCarData()
+                } else if (this.activeName == 'first') {
+                    this.getPerData()
+                }
+
             },
             yzxx(e) {
                 console.log(e, "aaaaaaaa00000a")
             },
-
+            //人员
             getPerData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
@@ -219,7 +248,7 @@
 
                 })
             },
-      
+            //车辆
             getCarData() {
                 console.log(this.queryData.current, "yyyyy")
                 var data = {
@@ -249,12 +278,12 @@
 
                 if (this.tabIndex == 0) {
                     //人员
-                    this.current =1
+                    this.current = 1
                     this.getPerData()
 
                 } else if (this.tabIndex == 1) {
                     //车辆
-                    this.current =1
+                    this.current = 1
                     this.getCarData()
                 }
 
@@ -296,14 +325,17 @@
     .img_cl {
         width: 60px;
         height: 48px;
+        object-fit: contain
     }
+
     .img_cl_all {
         width: 100px;
         height: 48px;
+        object-fit: contain
     }
 
     .top_cl {
-        margin: 0 0 16px 0;
+        margin: 0 0 6px 0;
         display: flex;
     }
 
@@ -315,5 +347,40 @@
     .right_bor {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
+    }
+
+    .el-tabs__item.is-active {
+        color: #fff !important;
+        background: #246CF9 !important;
+        border-radius: 8px !important;
+        border: none;
+    }
+
+    .el-tabs--card>.el-tabs__header .el-tabs__nav {
+        border: none;
+    }
+
+    .el-tabs__active-bar {
+        display: none !important;
+        background-color: #246CF9
+    }
+
+    .el-tabs__nav-scroll .el-tabs__nav .el-tabs__active-bar {
+        display: none !important;
+    }
+
+    .el-tabs__nav-wrap::after {
+        display: none;
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
     }
 </style>
