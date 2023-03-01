@@ -94,7 +94,7 @@ export default {
         });
         // this.openMenu(this.$route)
         let menu = this.filterIndex(this.$route.path);
-        console.log(menu,"menumenumenumenu")
+        console.log(menu,"menumenumenumenu0000")
         menu && this.openMenu(menu.index);
 
     },
