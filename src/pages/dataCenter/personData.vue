@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <div>
@@ -33,7 +32,7 @@
                 </el-table-column>
                 <el-table-column prop="photo" label="头像">
                     <template slot-scope="scope">
-                        <img class="img_cl" :src="scope.row.photo" alt="">
+                        <img class="img_cl" @click="imgData(scope.row)" :src="scope.row.photo" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="name" label="姓名">
@@ -178,9 +177,13 @@
           <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
         </span> -->
         </el-dialog>
-        <!-- <el_dialog :visible.sync="dialogVisibleimg" :append-to-body="true">
-            
-        </el_dialog> -->
+
+        <el-dialog title="头像" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
+
+
     </div>
 </template>
 <script>
@@ -199,6 +202,7 @@
         title: "数据中心 > 人员数据",
         data() {
             return {
+                img_open: '',
                 title: '',
                 personid: '',
                 personsTotal: '',
@@ -216,7 +220,7 @@
                 sextype: '性别',
                 agetype: '年龄',
                 tableData: [],
-                dialogVisibleimg: false,
+                dialogVisibleImg: false,
                 dialogVisible: false,
                 queryData: {
                     current: 1,
@@ -296,7 +300,12 @@
 
                 })
             },
-
+            imgData(e) {
+                //点击头像
+                console.log(e.photo, "gggggggggggg")
+                this.dialogVisibleImg = true
+                this.img_open = e.photo
+            },
             fwxxData(e) {
                 this.dialogVisible = true
                 this.textform = e
@@ -450,6 +459,10 @@
     .center_rg_cl {
         width: 680px;
         height: 140px;
+    }
+
+    .el-dialog__body {
+        height: 540px !important;
     }
 
     .mr_20 {
@@ -607,5 +620,18 @@
     .zwsj_cls {
         text-align: center;
         margin: 14%;
+    }
+
+
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
     }
 </style>

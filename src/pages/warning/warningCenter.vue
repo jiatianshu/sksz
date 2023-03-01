@@ -26,12 +26,12 @@
                 </el-table-column>
                 <el-table-column prop="img" label="局部图" width="">
                     <template slot-scope="scope">
-                        <img :src="scope.row.img" class="img_cl" alt="">
+                        <img  @click="imgData(scope.row)"  :src="scope.row.img" class="img_cl" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="panorama" label="全景图" width="">
                     <template slot-scope="scope">
-                        <img :src="scope.row.panorama" class="img_cl" alt="">
+                        <img  @click="imgAllData(scope.row)" :src="scope.row.panorama" class="img_cl" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="createTime" label="预警时间" width="">
@@ -89,16 +89,24 @@
 
                     </div>
                     <div class="img_cl_box">
-                        <div> <img class="img_cl_dio" :src="item.img" alt="">
-                            <img class="img_cl_dio_all" :src="item.panorama" alt="">
+                        <div> <img class="img_cl_dio" @click="imgData(item)" :src="item.img" alt="">
+                            <img class="img_cl_dio_all" :src="item.panorama" alt="" @click="imgDatahmd(item)">
                             
                         </div>
-                        <img class="img_cl_dio_k" v-show="item.type == '1'" :src="item.minioPic" alt="">
+                        <img class="img_cl_dio_k" @click="imgDataminio(item)" v-show="item.type == '1'" :src="item.minioPic" alt="">
                         
                     </div>
                 </div>
 
             </div>
+
+        </el-dialog>
+        <el-dialog title="局部图片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
+        <el-dialog title="全景图" :visible.sync="dialogVisibleImgAll" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_openAll" alt=""></div>
 
         </el-dialog>
     </div>
@@ -115,6 +123,10 @@
         data() {
             return {
                 dialogVisible: false,
+                dialogVisibleImg: false,
+                img_open: '',
+                dialogVisibleImgAll: false,
+                img_openAll: '',
                 typeptions: [
                     { name: '全部', code: 0 },
                     { name: '黑名单', code: 1 },
@@ -149,7 +161,26 @@
             };
         },
         methods: {
-
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.img
+            },
+            imgAllData(e) {
+                //点击头像
+                this.dialogVisibleImgAll = true
+                this.img_openAll = e.panorama
+            },
+            imgDatahmd(e) {
+                //点击头像
+                this.dialogVisibleImgAll = true
+                this.img_openAll = e.panorama
+            },
+            imgDataminio(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.minioPic
+            },
             //
             typeChange(a) {
                 // this.typecode = a.code
@@ -160,13 +191,11 @@
 
             //点击搜索
             checkSearch() {
-                console.log(this.citycode, "???????")
                 this.current = 1
                 this.getListData()
             },
             //点击详情
             yzxxDialog(e) {
-                console.log(e, "aaaaaaaa00000a")
 
                 var data = {
                     id: e.id
@@ -174,7 +203,6 @@
                 this.hmd_List = []
                 this.dialogVisible = true
                 getWarningInfo(data).then((res) => {
-                    console.log(res, 'xiangqing ggggggggg')
                     if (res.code == 0) {
                         this.hmd_List.push(res.data)
                     }
@@ -183,14 +211,12 @@
             },
             //获取列表接口
             getListData() {
-                console.log(this.current, "yyyyy")
                 var data = {
                     type: this.typecode, //类型
                     current: this.current //当前页码
 
                 }
                 getWarningList(data).then((res) => {
-                    console.log(res, 'sssss00000000')
                     if (res.code == 0) {
                         this.tableData = res.data.result
                         this.total = res.data.total
@@ -199,13 +225,11 @@
                 })
             },
             handleCurrentChange(num) {
-                console.log(num, "mmmmmmmmmm")
                 this.current = num
                 this.getListData()
             },
 
             pageChange(val) {
-                console.log(val, "val??????????")
                 this.$set(this.queryData, "current", val);
                 this.getListData();
             },
@@ -369,6 +393,17 @@
         border: 1px solid red;
         /* object-fit: contain */
 
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
     }
 
     /* ::v-deep.el-pagination {

@@ -35,5 +35,24 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+::v-deep.el-button {
+    min-width: 42px;
+    height: 36px;
+    
+    background: rgba(36, 130, 253, 0.0);
+    font-size: 14px;
+    color: #757B8C;
+    letter-spacing: 0.56px;
+    font-weight: 600;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border: none;
+   
+ 
+}
+img{
+        width: 18px;
+        height: 18px;
+        vertical-align: sub;
+    }
 </style>

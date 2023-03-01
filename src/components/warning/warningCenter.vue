@@ -22,23 +22,30 @@
                 <div class="text_cl">
                     <div class="detail_div"> <span class="text_tit">园区名称:</span> <span>{{item.parkName}}</span> </div>
 
-                    <div class="detail_div"> <span class="text_tit">预警设备:</span> <span>{{item.equipmentName}}</span> </div>
-                    <div class="detail_div"> <span class="text_tit">预警时间:</span> <span>{{item.warningTime}}</span> </div>
+                    <div class="detail_div"> <span class="text_tit">预警设备:</span> <span>{{item.equipmentName}}</span>
+                    </div>
+                    <div class="detail_div"> <span class="text_tit">预警时间:</span> <span>{{item.warningTime}}</span>
+                    </div>
                     <div class="detail_div"> <span class="text_tit">姓名:</span> <span>{{item.name}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">性别:</span> <span>{{item.gender}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">年龄段:</span> <span>{{item.ageGroup}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">生日:</span> <span>{{item.bornTime}}</span> </div>
-                    <div class="detail_div"> <span class="text_tit">证件类型:</span> <span>{{item.certificateType}}</span> </div>
-                    <div class="detail_div"> <span class="text_tit">证件号码:</span> <span>{{item.certificateNumber}}</span> </div>
+                    <div class="detail_div"> <span class="text_tit">证件类型:</span> <span>{{item.certificateType}}</span>
+                    </div>
+                    <div class="detail_div"> <span class="text_tit">证件号码:</span> <span>{{item.certificateNumber}}</span>
+                    </div>
                     <div class="detail_div"> <span class="text_tit">相似度:</span> <span>{{item.similarity}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">是否戴眼镜:</span> <span>{{item.glass}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">是否戴口罩:</span> <span>{{item.mask}}</span> </div>
 
                 </div>
                 <div class="img_cl_box">
-                    <img class="img_cl" :src="item.img" alt="">
-                    <img class="img_cl" :src="item.minioPic" alt="">
-                    <img class="img_cl" :src="item.panorama" alt="">
+                    <div class="left_img"> <img  class="img_cl" :src="item.img" alt="">
+                        <img class="img_cl_big"  :src="item.panorama" alt="">
+                       
+                    </div>
+
+                    <img class="img_cl_right"  :src="item.minioPic" alt="">
                 </div>
             </div>
         </div>
@@ -50,21 +57,30 @@
                 <div class="text_cl">
                     <div class="detail_div"> <span class="text_tit">园区名称:</span> <span>{{item.parkName}}</span> </div>
 
-                    <div class="detail_div"> <span class="text_tit">预警设备:</span> <span>{{item.equipmentName}}</span> </div>
-                    <div class="detail_div"> <span class="text_tit">预警时间:</span> <span>{{item.warningTime}}</span> </div>
-                   <div class="detail_div"> <span class="text_tit">性别:</span> <span>{{item.gender}}</span> </div>
+                    <div class="detail_div"> <span class="text_tit">预警设备:</span> <span>{{item.equipmentName}}</span>
+                    </div>
+                    <div class="detail_div"> <span class="text_tit">预警时间:</span> <span>{{item.warningTime}}</span>
+                    </div>
+                    <div class="detail_div"> <span class="text_tit">性别:</span> <span>{{item.gender}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">年龄段:</span> <span>{{item.ageGroup}}</span> </div>
-                   <div class="detail_div"> <span class="text_tit">是否戴眼镜:</span> <span>{{item.parkName}}</span> </div>
+                    <div class="detail_div"> <span class="text_tit">是否戴眼镜:</span> <span>{{item.parkName}}</span> </div>
                     <div class="detail_div"> <span class="text_tit">是否戴口罩:</span> <span>{{item.parkName}}</span> </div>
 
                 </div>
                 <div class="img_cl_box">
-                    <img class="img_cl" :src="item.img" alt="">
-                    <img class="img_cl" :src="item.panorama" alt="">
+                    <img class="img_cl"  :src="item.img" alt="">
+                    <img class="img_cl"  :src="item.panorama" alt="">
                 </div>
             </div>
         </div>
+        <el-dialog title="局部图片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
 
+        </el-dialog>
+        <el-dialog title="全景图" :visible.sync="dialogVisibleImgAll" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_openAll" alt=""></div>
+
+        </el-dialog>
     </div>
 
 </template>
@@ -76,6 +92,10 @@
 
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
+                dialogVisibleImgAll: false,
+                img_openAll: '',
                 type: false,
                 imgBg_show: false,
                 hmd_show: false,
@@ -98,6 +118,21 @@
 
         },
         methods: {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.img
+            },
+            imgDataminio(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.minioPic
+            },
+            imgDatahmd(e) {
+                //点击头像
+                this.dialogVisibleImgAll = true
+                this.img_openAll = e.panorama
+            },
             show() {
                 this.type = true;
             },
@@ -303,7 +338,7 @@
         /* background-image: url(../../assets//img/jg_dialog.png); */
         /* background-color: #1E1F25; */
         background-color: #111112;
-        opacity: 0.8;
+        opacity: 0.9;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         position: fixed;
@@ -351,7 +386,7 @@
         width: 160px;
         height: 160px;
         margin: auto 10px;
-        object-fit: contain
+        /* object-fit: contain */
     }
 
     .text_cl {
@@ -365,7 +400,36 @@
         text-align: right;
         margin: 0 16px 0 0;
     }
-    .img_cl_box{
+
+    .img_cl_box {
         margin: 20px 0;
+        display: flex;
     }
+    .left_img{
+        margin: 0 40px 0 0;
+    }
+    .img_cl_big{
+        /* width: 180px; */
+        height: 160px;
+        margin: auto 10px;
+        object-fit: contain;
+    }
+    .img_cl_right{
+        /* width: 180px; */
+        height: 160px;
+        margin: auto 10px;
+        object-fit: contain;
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
+    }
+
 </style>

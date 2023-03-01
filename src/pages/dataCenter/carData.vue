@@ -43,7 +43,7 @@
                 </el-table-column>
                 <el-table-column prop="photo" label="车辆照片" width="">
                     <template slot-scope="scope">
-                        <img class="img_cl" :src="scope.row.carPhoto" alt="">
+                        <img class="img_cl" @click="imgData(scope.row)" :src="scope.row.carPhoto" alt="">
                     </template>
                 </el-table-column>
                 <el-table-column prop="plateNumber" label="车牌号">
@@ -54,19 +54,23 @@
                 </el-table-column>
                 <el-table-column prop="address" label="操作" width="400">
                     <template slot-scope="scope" class="button_cl">
-                       
+
                         <sk-table-button title="车辆信息" icon="ic_housenumber2x.png"></sk-table-button>
                         <sk-table-button title="车位信息" icon="ic_rentrole2x.png"></sk-table-button>
                         <sk-table-button title="轨迹查询" icon="ic_pic2x.png"></sk-table-button>
                     </template>
                 </el-table-column>
             </el-table>
-            <div class="el_page_cl" >
+            <div class="el_page_cl">
                 <el-pagination background @current-change="handleCurrentChange" :current-page.sync="current"
-                layout="prev, pager, next" :total="total">
-            </el-pagination>
+                    layout="prev, pager, next" :total="total">
+                </el-pagination>
             </div>
         </div>
+        <el-dialog title="车辆图片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -86,6 +90,8 @@
         title: "数据中心 > 车辆数据",
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
                 chartData_1: {},
                 chartData_2: {},
                 chartData_3: {},
@@ -105,9 +111,13 @@
             };
         },
         methods: {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.carPhoto
+            },
             checkSearch() {
                 this.current = 1
-                console.log(this.number, "aaaaaaaaa")
                 this.getListData()
             },
             yzxx(e) {
@@ -162,7 +172,7 @@
             carPpEChartData() {
                 let myChart = echarts.init(document.getElementById('carPpEChart'))
                 myChart.setOption(
-                    chartsoptions.currencyChart(this.chartData_1.pieData,this.brandtype)
+                    chartsoptions.currencyChart(this.chartData_1.pieData, this.brandtype)
                 )
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
@@ -172,7 +182,7 @@
             carColChartData() {
                 let myChart = echarts.init(document.getElementById('carColChart'))
                 myChart.setOption(
-                    chartsoptions.currencyChart(this.chartData_2.pieData,this.colortype)
+                    chartsoptions.currencyChart(this.chartData_2.pieData, this.colortype)
                 )
                 window.addEventListener('resize', function () {
                     //浏览器大小调整echarts随之改变
@@ -242,8 +252,9 @@
     .center_rg_cl {
         width: 480px;
         height: 140px;
-        margin:  0 0 0 80px;
+        margin: 0 0 0 80px;
     }
+
     .center_rg_cl2 {
         width: 480px;
         height: 140px;
@@ -269,10 +280,22 @@
     .select {
         margin-right: 16px;
     }
+
     .img_cl {
         width: 60px;
         height: 48px;
         object-fit: contain
     }
-  
+
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
+    }
 </style>

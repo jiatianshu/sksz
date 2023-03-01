@@ -42,12 +42,12 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="人脸图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.img" class='img_cl' alt=""></div>
+                        <div><img @click="imgData(scope.row)" :src="scope.row.img" class='img_cl' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
+                        <div><img @click="imgAllData(scope.row)"  :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="longitude" label="经度" width="">
@@ -68,12 +68,12 @@
                 </el-table-column>
                 <el-table-column prop="acreage" label="车辆图片" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.img" class='img_cl' alt=""></div>
+                        <div><img @click="imgData(scope.row)" :src="scope.row.img" class='img_cl' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="acreage" label="全景图" width="">
                     <template slot-scope="scope">
-                        <div><img :src="scope.row.panorama" class='img_cl_all' alt=""></div>
+                        <div><img @click="imgAllData(scope.row)" :src="scope.row.panorama" class='img_cl_all' alt=""></div>
                     </template>
                 </el-table-column>
                 <el-table-column prop="plateNumber" label="车牌号" width="">
@@ -92,6 +92,14 @@
                 </el-pagination>
             </div>
         </div>
+        <el-dialog title="照片" :visible.sync="dialogVisibleImg" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_open" alt=""></div>
+
+        </el-dialog>
+        <el-dialog title="全景图" :visible.sync="dialogVisibleImgAll" :append-to-body="true" width="">
+            <div class="img_dialog_open"> <img class="openimg_cls" :src="img_openAll" alt=""></div>
+
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -106,6 +114,10 @@
         title: "共享中心 > 数据共享",
         data() {
             return {
+                dialogVisibleImg: false,
+                img_open: '',
+                dialogVisibleImgAll: false,
+                img_openAll: '',
                 chartData_1: {},
                 chartData_2: {},
                 chartData_3: {},
@@ -140,6 +152,16 @@
             };
         },
         methods: {
+            imgData(e) {
+                //点击头像
+                this.dialogVisibleImg = true
+                this.img_open = e.img
+            },
+            imgAllData(e) {
+                //点击头像
+                this.dialogVisibleImgAll = true
+                this.img_openAll = e.panorama
+            },
             // 获取城市
             getCityData() {
                 var data = {
@@ -325,29 +347,39 @@
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
     }
-    
-.el-tabs__item.is-active {
-    color: #fff !important;
-    background: #246CF9 !important;
-    border-radius: 8px!important;
-    border: none;
-}
 
-.el-tabs--card>.el-tabs__header .el-tabs__nav {
-    border: none;
-}
+    .el-tabs__item.is-active {
+        color: #fff !important;
+        background: #246CF9 !important;
+        border-radius: 8px !important;
+        border: none;
+    }
 
-.el-tabs__active-bar {
-    display: none !important;
-    background-color: #246CF9
-}
+    .el-tabs--card>.el-tabs__header .el-tabs__nav {
+        border: none;
+    }
 
-.el-tabs__nav-scroll .el-tabs__nav .el-tabs__active-bar {
-    display: none !important;
-}
+    .el-tabs__active-bar {
+        display: none !important;
+        background-color: #246CF9
+    }
 
-.el-tabs__nav-wrap::after {
-    display: none;
-}
+    .el-tabs__nav-scroll .el-tabs__nav .el-tabs__active-bar {
+        display: none !important;
+    }
 
+    .el-tabs__nav-wrap::after {
+        display: none;
+    }
+    .openimg_cls {
+        display: inline-block;
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+    .img_dialog_open{
+        width: 100%;
+        height: 100%;
+    }
 </style>
