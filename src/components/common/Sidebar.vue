@@ -77,6 +77,7 @@ export default {
         return {
             collapse: false,
             menus,
+            
         };
     },
     computed: {
@@ -93,6 +94,7 @@ export default {
         });
         // this.openMenu(this.$route)
         let menu = this.filterIndex(this.$route.path);
+        console.log(menu,"menumenumenumenu")
         menu && this.openMenu(menu.index);
 
     },
@@ -115,6 +117,7 @@ export default {
          * @param {*} index
          */
         openMenu(index) {
+            console.log( this.menus," this.menus this.menus this.menus")
             this.menus.forEach(item => {
                 item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
                 item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
