@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-02-14 18:38:54
  * @LastEditors: gq
- * @LastEditTime: 2023-03-02 19:34:24
+ * @LastEditTime: 2023-03-02 20:03:30
  * @Description: file content
 -->
 
@@ -135,6 +135,7 @@
             },
             show() {
                 this.type = true;
+                this.eventData()
             },
             hide() {
                 this.type = false;
@@ -295,7 +296,7 @@
 
         },
         created() {
-            this.eventData()
+           
             this.sse_userId = sessionStorage.getItem("userid")
             this.sse_roleId = sessionStorage.getItem("rolesid")
             // console.log(sessionStorage.getItem("userid"), "??????000000")
