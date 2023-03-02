@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2023-02-14 18:38:54
  * @LastEditors: gq
- * @LastEditTime: 2023-02-14 19:19:20
+ * @LastEditTime: 2023-03-02 19:34:24
  * @Description: file content
 -->
 
@@ -160,7 +160,7 @@
                 var that = this
                 eventSource.addEventListener("message", function (evt) {
                     var data = evt.data;
-
+                    debugger
                     var json = JSON.parse(data);
                     if (json[0].type == 1) {   //黑名单
                         that.$fullLoginAd().show()

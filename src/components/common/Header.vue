@@ -116,17 +116,8 @@
             handleCommand(command) {
                 if (command == 'loginout') {
                     this.$fullLoginAd().hide()
-                    localStorage.removeItem('ms_username');
                     this.$router.replace('/login');
-                    sessionStorage.removeItem('token')
-                    sessionStorage.removeItem('userid')
-                    sessionStorage.removeItem('rolesid')
-                    sessionStorage.removeItem('userInfo')
-                    sessionStorage.removeItem('username')
-                    sessionStorage.removeItem('userDistrictTreeAll')
-                    sessionStorage.removeItem('userDistrictTree')
-                    sessionStorage.removeItem('userMenulist')
-
+                    this.$store.commit("CLEAR_TOKEN");
                     // window.location.reload()
                     // sessionStorage.clear()
                     // localStorage.clear()

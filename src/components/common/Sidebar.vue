@@ -5,7 +5,7 @@
                 <el-menu class="sidebar-el-menu" ref="menusRef" :default-active="onRoutes" :collapse="collapse"
                     @close="closeMenu" @open="openMenu" background-color="transparent" text-color="#bfcbd9"
                     active-text-color="#20a0ff" unique-opened router>
-                    <template v-for="item in menus">
+                    <template v-for="item in onMenulist">
                         <template v-if="item.subs">
                             <!-- title -->
                             <el-submenu :index="item.index" :key="item.index">
