@@ -10,6 +10,7 @@ const getters = {
   user: state => state.user.user,
   userid: state => state.user.userid,
   districtList: state=>state.user.userDistrictTree,
-  districtListAll: state=>state.user.userDistrictTreeAll
+  districtListAll: state=>state.user.userDistrictTreeAll,
+  distuserMenulist: state=>state.user.userMenulist,
 }
 export default getters

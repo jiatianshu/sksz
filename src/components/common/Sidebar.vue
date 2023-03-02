@@ -11,7 +11,8 @@
                             <el-submenu :index="item.index" :key="item.index">
                                 <template slot="title">
                                     <div class="menu-item-box " :class="item.active ? 'active-munt' : ''">
-                                        <img :src="item.icon" alt="" srcset="" class="img_icon">
+                                        <img :src="require(`@/assets/img/icon/${item.icon}`)" alt="" srcset="" class="img_icon">
+                                        <!-- <img :src="item.icon" alt="" srcset="" class="img_icon"> -->
                                         <span slot="title">{{ item.title }}
                                             <img src="@/assets/img/icon/ic_extend@2x.png" alt=""
                                                 :class="[item.showType ? 'active-menu' : '']" class="img-down">
@@ -70,202 +71,211 @@
 </template>
 
 <script>
-import bus from '../common/bus';
-import menus from './menus';
-export default {
-    data() {
-        return {
-            collapse: false,
-            menus,
-            
-        };
-    },
-    computed: {
-        onRoutes() {
-            return this.$route.path;
-        }
-    },
+    import bus from '../common/bus';
+    import menus from './menus';
+    export default {
+        data() {
+            return {
+                collapse: false,
+                menus:this.$store.getters.distuserMenulist
+                
 
-    mounted() {
-        // 通过 Event Bus 进行组件间通信，来折叠侧边栏
-        bus.$on('collapse', msg => {
-            this.collapse = msg;
-            bus.$emit('collapse-content', msg);
-        });
-        // this.openMenu(this.$route)
-        let menu = this.filterIndex(this.$route.path);
-        console.log(menu,"menumenumenumenu")
-        menu && this.openMenu(menu.index);
+            };
+        },
+        computed: {
+            onRoutes() {
+                return this.$route.path;
+            },
+            onMenulist() {
 
-    },
-    methods: {
-        filterIndex(index) {
-            let forFilter = (arr) => {
-                return arr.find(item => {
-                    if (item.index == index) {
-                        // if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
-                        return item
-                    } else if (item.subs) {
-                        return forFilter(item.subs);
-                    }
-                })
+                return this.$store.getters.distuserMenulist;
             }
-            return forFilter(this.menus);
         },
-        /**
-         * @description: 打开菜单函数
-         * @param {*} index
-         */
-        openMenu(index) {
-            console.log( this.menus," this.menus this.menus this.menus")
-            this.menus.forEach(item => {
-                item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
-                item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
+
+        mounted() {
+            // 通过 Event Bus 进行组件间通信，来折叠侧边栏
+            bus.$on('collapse', msg => {
+                this.collapse = msg;
+                bus.$emit('collapse-content', msg);
             });
+            // this.openMenu(this.$route)
+            console.log(this.$route.path, "this.$route.path????????????")
+            let menu = this.filterIndex(this.$route.path);
+            console.log(menu, "menumenumenumenu")
+            menu && this.openMenu(menu.index);
+
         },
-        /**
-         * @description: 关闭菜单函数                                           
-         * @param {*} index
-         */
-        closeMenu(index) {
-            this.$set(this.filterIndex(index), "showType", false);
-            this.$set(this.filterIndex(index), "active", false);
+        methods: {
+            filterIndex(index) {
+                let forFilter = (arr) => {
+                    return arr.find(item => {
+                        if (item.index == index) {
+                            // if (item.parent) this.$set(this.filterIndex(item.parent), "activeMenu", item);
+                            return item
+                        } else if (item.subs) {
+                            return forFilter(item.subs);
+                        }
+                    })
+                }
+                return forFilter(this.menus);
+            },
+            /**
+             * @description: 打开菜单函数
+             * @param {*} index
+             */
+            openMenu(index) {
+                console.log(this.onMenulist,"onMenulistonMenulist")
+                console.log(this.menus, " this.menus this.menus this.menus")
+                this.menus.forEach(item => {
+                    item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
+                    item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
+                });
+            },
+            /**
+             * @description: 关闭菜单函数                                           
+             * @param {*} index
+             */
+            closeMenu(index) {
+                this.$set(this.filterIndex(index), "showType", false);
+                this.$set(this.filterIndex(index), "active", false);
+            },
+            // 侧边栏折叠
+            collapseChage() {
+                this.collapse = !this.collapse;
+                bus.$emit('collapse', this.collapse);
+            },
         },
-        // 侧边栏折叠
-        collapseChage() {
-            this.collapse = !this.collapse;
-            bus.$emit('collapse', this.collapse);
-        },
-    },
 
 
-};
+    };
 </script>
 
 <style scoped lang="scss">
-.active-munt {
-    height: 40px !important;
-    padding-top: 0px !important;
-}
-
-::v-deep .item-active {
-    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
-    background-position: left!important;
-    color: #FFFFFF!important;
-    background-size: 120% 100%!important;
-    font-size:16px;
-    font-weight: bold;
-    font-family:"微软雅黑";
-}
-
-.active-menu {
-    transform: rotate(180deg);
-}
-
-.child-menu-icon {
-    width: 28px;
-    height: 28px;
-    display: inline-block;
-    margin-right: 16px;
-}
-
-::v-deep .el-menu-item {
-    background: #1E1F25;
-    /* color: #757b8c; */
-    border-radius: 0px;
-    /* // border-bottom-left-radius: 20px;
-    // border-bottom-right-radius: 20px; */
-    height: 60px;
-    line-height: 60px;
-}
-.el-submenu .el-menu-item:hover {
-    background: rgb(25, 36, 49) !important;
-    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
-    background-position: left!important;
-    color: #FFFFFF!important;
-    background-size: 120% 100%!important;
-    border-radius: 1.2vh;
-}
-
-.sidebar {
-    overflow: scroll;
-}
-
-::v-deep .el-submenu__icon-arrow {
-    display: none;
-}
-
-::v-deep .el-submenu__title {
-    /* // padding-top: 10px; */
-    padding-bottom: 10px;
-    height: auto;
-    font-weight: bold;
-    color: #757b8c !important;
-}
-::v-deep .el-submenu__title:hover {
-    background: rgb(25, 36, 49) !important;
-    background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
-    background-position: left!important;
-    color: #FFFFFF!important;
-    background-size: 120% 100%!important;
-    border-radius: 1.2vh;
-    /* border-top-left-radius: 1.2vh;
-    border-top-right-radius: 1.2vh; */
-}
-
-.menu-item-box {
-    padding-top: 10px;
-
-    /* // height: 36px; */
-    .img_icon {
-        width: 36px;
-        margin-right: 24px;
-
+    .active-munt {
+        height: 40px !important;
+        padding-top: 0px !important;
     }
 
-    .img-down {
+    ::v-deep .item-active {
+        background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+        background-position: left !important;
+        color: #FFFFFF !important;
+        background-size: 120% 100% !important;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: "微软雅黑";
+    }
+
+    .active-menu {
+        transform: rotate(180deg);
+    }
+
+    .child-menu-icon {
         width: 28px;
         height: 28px;
-        float: right;
-        margin-top: 14px;
-    }
-}
-
-.el-aside {
-    /* height: 80%; */
-    /* overflow: scroll; */
-}
-
-.sidebar::-webkit-scrollbar {
-    display: none !important;
-    ;
-}
-
-.el-aside::-webkit-scrollbar {
-    display: none !important;
-    ;
-}
-
-.sidebar-el-menu:not(.el-menu--collapse) {
-    width: 250px;
-}
-
-.sidebar>ul {
-    height: 100%;
-}
-
-.collapse-btn {
-    height: 40px;
-    margin: 8px 0 0 0;
-    border-radius: 10px;
-    /* // display: inline-block; */
-    text-align: center;
-    cursor: pointer;
-
-    img {
-        width: 80px;
-        height: 80px;
+        display: inline-block;
+        margin-right: 16px;
     }
 
-}
+    ::v-deep .el-menu-item {
+        background: #1E1F25;
+        /* color: #757b8c; */
+        border-radius: 0px;
+        /* // border-bottom-left-radius: 20px;
+    // border-bottom-right-radius: 20px; */
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .el-submenu .el-menu-item:hover {
+        background: rgb(25, 36, 49) !important;
+        background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+        background-position: left !important;
+        color: #FFFFFF !important;
+        background-size: 120% 100% !important;
+        border-radius: 1.2vh;
+    }
+
+    .sidebar {
+        overflow: scroll;
+    }
+
+    ::v-deep .el-submenu__icon-arrow {
+        display: none;
+    }
+
+    ::v-deep .el-submenu__title {
+        /* // padding-top: 10px; */
+        padding-bottom: 10px;
+        height: auto;
+        font-weight: bold;
+        color: #757b8c !important;
+    }
+
+    ::v-deep .el-submenu__title:hover {
+        background: rgb(25, 36, 49) !important;
+        background-image: url("../../assets/img/image/button_bgshine@2x.png") !important;
+        background-position: left !important;
+        color: #FFFFFF !important;
+        background-size: 120% 100% !important;
+        border-radius: 1.2vh;
+        /* border-top-left-radius: 1.2vh;
+    border-top-right-radius: 1.2vh; */
+    }
+
+    .menu-item-box {
+        padding-top: 10px;
+
+        /* // height: 36px; */
+        .img_icon {
+            width: 36px;
+            margin-right: 24px;
+
+        }
+
+        .img-down {
+            width: 28px;
+            height: 28px;
+            float: right;
+            margin-top: 14px;
+        }
+    }
+
+    .el-aside {
+        /* height: 80%; */
+        /* overflow: scroll; */
+    }
+
+    .sidebar::-webkit-scrollbar {
+        display: none !important;
+        ;
+    }
+
+    .el-aside::-webkit-scrollbar {
+        display: none !important;
+        ;
+    }
+
+    .sidebar-el-menu:not(.el-menu--collapse) {
+        width: 250px;
+    }
+
+    .sidebar>ul {
+        height: 100%;
+    }
+
+    .collapse-btn {
+        height: 40px;
+        margin: 8px 0 0 0;
+        border-radius: 10px;
+        /* // display: inline-block; */
+        text-align: center;
+        cursor: pointer;
+
+        img {
+            width: 80px;
+            height: 80px;
+        }
+
+    }
 </style>

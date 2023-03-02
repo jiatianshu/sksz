@@ -19,3 +19,9 @@ export function getTreeAll(obj) { //获取用户行政区树 == 全部  不分�
         method: 'get',
     })
   }
+export function getMenu(obj) { //获取动态路由限
+    return request({
+        url: '/smartpark/sysmenu',
+        method: 'get',
+    })
+  }

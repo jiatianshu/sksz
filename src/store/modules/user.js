@@ -8,7 +8,7 @@
 
 
 import { login } from '@/api/login'
-import { getTree,getTreeAll } from '@/api/user'
+import { getTree,getTreeAll,getMenu } from '@/api/user'
 
 const user = {
   state: {
@@ -17,6 +17,7 @@ const user = {
     userid:JSON.parse(sessionStorage.getItem("userid")) ,
     rolesid:JSON.parse(sessionStorage.getItem("rolesid")) ,
     userDistrictTree:JSON.parse(sessionStorage.getItem("userDistrictTree"))||[],//用户区域树
+    userMenulist:JSON.parse(sessionStorage.getItem("userMenulist"))||[],//用户区域树
     userDistrictTreeAll:JSON.parse(sessionStorage.getItem("userDistrictTreeAll"))||[],//用户区域树
     roles: [],
     // 第一次加载菜单时用到
@@ -59,6 +60,10 @@ const user = {
     SET_DISTRICT_TREE_ALL(state, data) {
       sessionStorage.setItem("userDistrictTreeAll", JSON.stringify(data));
       state.userDistrictTreeAll = data;
+    },
+    SMENULIST(state, data) {
+      sessionStorage.setItem("userMenulist", JSON.stringify(data));
+      state.userMenulist = data;
     }
 
   },
@@ -80,6 +85,7 @@ const user = {
           });
           this.dispatch("getInfoTree");
           this.dispatch("getInfoTreeAll");
+          this.dispatch("getmenuData");
 
           resolve()
         }).catch(error => {
@@ -99,6 +105,13 @@ const user = {
       getTreeAll().then(res => {
        
         this.commit('SET_DISTRICT_TREE_ALL', res.data[0].children);
+      })
+    },
+    //获取动态路由
+    getmenuData(){
+      getMenu().then(res =>{
+        console.log(res.data,'mmmmmmmmmmmmmmmmmmmmeuuuuuuuuuuuuuuuuu')
+        this.commit('SMENULIST', res.data);
       })
     },
   },
