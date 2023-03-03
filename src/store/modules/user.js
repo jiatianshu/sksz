@@ -2,7 +2,7 @@
  * @Author: gq
  * @Date: 2022-12-30 19:29:59
  * @LastEditors: gq
- * @LastEditTime: 2023-03-02 19:31:39
+ * @LastEditTime: 2023-01-16 22:09:02
  * @Description: file content
  */
 
@@ -71,12 +71,14 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
+
+
       return new Promise((resolve, reject) => {
         login(userInfo).then(res => {
-          this.commit('SET_TOKEN', res.access_token);
-          this.commit('SET_USERID', res.user_id);
-          this.commit('SET_ROLESID', res.roles[0]);
-          this.commit('SET_USER', {
+          commit('SET_TOKEN', res.access_token);
+          commit('SET_USERID', res.user_id);
+          commit('SET_ROLESID', res.roles[0]);
+         commit('SET_USER', {
             userId: res.user_id,
             clientId: res.client_id,
             userName: res.username,

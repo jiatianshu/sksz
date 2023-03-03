@@ -40,12 +40,12 @@
 
                 </div>
                 <div class="img_cl_box">
-                    <div class="left_img"> <img  class="img_cl" :src="item.img" alt="">
-                        <img class="img_cl_big"  :src="item.panorama" alt="">
-                       
+                    <div class="left_img"> <img class="img_cl" :src="item.img" alt="">
+                        <img class="img_cl_big" :src="item.panorama" alt="">
+
                     </div>
 
-                    <img class="img_cl_right"  :src="item.minioPic" alt="">
+                    <img class="img_cl_right" :src="item.minioPic" alt="">
                 </div>
             </div>
         </div>
@@ -68,8 +68,8 @@
 
                 </div>
                 <div class="img_cl_box">
-                    <img class="img_cl"  :src="item.img" alt="">
-                    <img class="img_cl"  :src="item.panorama" alt="">
+                    <img class="img_cl" :src="item.img" alt="">
+                    <img class="img_cl" :src="item.panorama" alt="">
                 </div>
             </div>
         </div>
@@ -85,13 +85,14 @@
 
 </template>
 <script>
+    import bus from '../common/bus';
     import { mapGetters } from "vuex";
     export default {
         name: 'warningCenterdio',
         title: "预警中心 > 预警中心",
-
         data() {
             return {
+                eventSourceAll: '10000',
                 dialogVisibleImg: false,
                 img_open: '',
                 dialogVisibleImgAll: false,
@@ -154,14 +155,21 @@
             },
             eventData() {
 
+                console.log(this.eventSourceAll, 'this.eventSourceAllthis.eventSourceAll000000')
                 this.sse_userId = sessionStorage.getItem("userid")
                 this.sse_roleId = sessionStorage.getItem("rolesid")
                 var serverUrl = process.env.VUE_APP_SERVER_URL
-                var eventSource = new EventSource(serverUrl + "/sseservice/ssePush/connect/" + this.sse_userId + "/" + this.sse_roleId);
+                // var eventSource = new EventSource(serverUrl + "/sseservice/ssePush/connect/" + this.sse_userId + "/" + this.sse_roleId);
+                this.eventSourceAll = new EventSource(serverUrl + "/sseservice/ssePush/connect/" + this.sse_userId + "/" + this.sse_roleId);
+                bus.$emit('sendBybus', this.eventSourceAll);
+                // this.$nextTick(() => {
+                //     // 在此处执行你要执行的函数
+                //     bus.$emit('sendBybus'.this.eventSourceAll)
+                // });
+
                 var that = this
-                eventSource.addEventListener("message", function (evt) {
+                this.eventSourceAll.addEventListener("message", function (evt) {
                     var data = evt.data;
-                    debugger
                     var json = JSON.parse(data);
                     if (json[0].type == 1) {   //黑名单
                         that.$fullLoginAd().show()
@@ -286,21 +294,26 @@
 
                     // insertFn(timestamp)
                 });
-                eventSource.addEventListener('error', function (ev) {
+                this.eventSourceAll.addEventListener('error', function (ev) {
                     console.log('sse server disconnected')
                 })
 
             }
         },
         mounted() {
+            this.$nextTick(() => {
+                // 在此处执行你要执行的函数
+                this.eventData()
+            });
+        },
+        watch: {
 
         },
         created() {
-           
+            console.log('zoumeizou走没走啊')
+
             this.sse_userId = sessionStorage.getItem("userid")
             this.sse_roleId = sessionStorage.getItem("rolesid")
-            // console.log(sessionStorage.getItem("userid"), "??????000000")
-            // console.log(this.$store.getters.user, "??????222")
         }
     };
 </script>
@@ -406,21 +419,25 @@
         margin: 20px 0;
         display: flex;
     }
-    .left_img{
+
+    .left_img {
         margin: 0 40px 0 0;
     }
-    .img_cl_big{
+
+    .img_cl_big {
         /* width: 180px; */
         height: 160px;
         margin: auto 10px;
         object-fit: contain;
     }
-    .img_cl_right{
+
+    .img_cl_right {
         /* width: 180px; */
         height: 160px;
         margin: auto 10px;
         object-fit: contain;
     }
+
     .openimg_cls {
         display: inline-block;
         margin: auto;
@@ -428,9 +445,9 @@
         height: 100%;
         object-fit: contain
     }
-    .img_dialog_open{
+
+    .img_dialog_open {
         width: 100%;
         height: 100%;
     }
-
 </style>

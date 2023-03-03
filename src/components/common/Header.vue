@@ -61,6 +61,7 @@
     </div>
 </template>
 <script>
+    import { disconnect } from '@/api/user'
     import bus from '../common/bus';
     import Breadcrumb from '@/components/breadcrumbnew'
     export default {
@@ -69,23 +70,26 @@
         },
         data() {
             return {
+                sse_userId: '',
+                sse_roleId: '',
                 title: '',
                 tabtitle: '',
                 collapse: false,
                 fullscreen: false,
-
                 email: "xxxxxxxx@qq.com",
                 message: 2,
                 tagsList: [],
+                eventSourceAll: '',
+                sendBybus: '',
 
             };
         },
         computed: {
             username() {
                 try {
-                    console.log(this.$store.getters.user, "this.$store.getters.user")
-                    console.log(this.$store.getters.userid, "this.$store.getters.user")
-                    console.log(sessionStorage.getItem("username"), "usernameusernameusername")
+                    // console.log(this.$store.getters.user, "this.$store.getters.user")
+                    // console.log(this.$store.getters.userid, "this.$store.getters.user")
+                    // console.log(sessionStorage.getItem("username"), "usernameusernameusername")
                     // return this.$store.getters.user.userName
                     return sessionStorage.getItem("username")
                 } catch (e) {
@@ -114,14 +118,15 @@
             },
             // 用户名下拉菜单选择事件
             handleCommand(command) {
+                this.sse_userId = sessionStorage.getItem("userid")
+                this.sse_roleId = sessionStorage.getItem("rolesid")
+                var serverUrl = process.env.VUE_APP_SERVER_URL
                 if (command == 'loginout') {
+                    this.stopGet()
+
                     this.$fullLoginAd().hide()
                     this.$router.replace('/login');
                     this.$store.commit("CLEAR_TOKEN");
-                    // window.location.reload()
-                    // sessionStorage.clear()
-                    // localStorage.clear()
-                    // util.clearCookie()
                 }
             },
             // 侧边栏折叠
@@ -129,9 +134,26 @@
                 this.collapse = !this.collapse;
                 bus.$emit('collapse', this.collapse);
             },
+            stopGet() {
+                this.eventSourceAll.close()
+                var data = {
+                    userId: this.sse_userId,
+                    roleId: this.sse_roleId
+                }
+                disconnect(data).then(res => {
+
+                })
+            }
 
         },
         mounted() {
+
+            // 通过 Event Bus 进行组件间通信，来折叠侧边栏
+            bus.$on('sendBybus', msg => {
+                this.eventSourceAll = msg;
+            });
+
+
             if (document.body.clientWidth < 1500) {
                 this.collapseChage();
             }

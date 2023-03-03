@@ -25,3 +25,9 @@ export function getMenu(obj) { //获取动态路由限
         method: 'get',
     })
   }
+export function disconnect(obj) { //停止预警
+    return request({
+        url: `/sseservice/ssePush/disconnect/`+ obj.userId +'/'+ obj.roleId,
+        method: 'get',
+    })
+  }

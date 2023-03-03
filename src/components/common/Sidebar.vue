@@ -99,9 +99,7 @@
                 bus.$emit('collapse-content', msg);
             });
             // this.openMenu(this.$route)
-            console.log(this.$route.path, "this.$route.path????????????")
             let menu = this.filterIndex(this.$route.path);
-            console.log(menu, "menumenumenumenu")
             menu && this.openMenu(menu.index);
 
         },
@@ -124,8 +122,6 @@
              * @param {*} index
              */
             openMenu(index) {
-                console.log(this.onMenulist,"onMenulistonMenulist")
-                console.log(this.menus, " this.menus this.menus this.menus")
                 this.menus.forEach(item => {
                     item.index == index ? this.$set(item, "active", true) : this.$set(item, "active", false);
                     item.index == index ? this.$set(item, "showType", true) : this.$set(item, "showType", false);
